@@ -1,0 +1,25 @@
+header {
+    margin: 0 auto;
+    padding: 0 101px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav > div {
+    display: flex;
+}
+
+.header-category {
+    padding: 24px 16px;
+
+    /* Откуда марджин 16 px?
+    **/
+    margin: 0px;
+}
+
+.header-category:active {
+    border-bottom: 2px solid #5ECE7B;
+}
