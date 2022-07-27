@@ -3,12 +3,17 @@
 import React from 'react';
 
 import Header from '../../components/Header/index';
+import MainSection from '../MainSection/MainSection';
+
 
 
 export default class App extends React.Component {
     render() {
         return (
-            <Header />
+            <>
+                <Header />
+                <MainSection />
+            </>
             // <div className="App">
             //     <header className="App-header">
             //         <img src={logo} className="App-logo" alt="logo" />

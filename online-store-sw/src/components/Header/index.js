@@ -4,7 +4,7 @@ import './index.css'
 export default class Header extends React.Component {
     render () {
         return (
-            <header className='test'>
+            <header>
                 <nav>
                     <div className="header-categories">
                         <p className="header-category">WOMAN</p>
