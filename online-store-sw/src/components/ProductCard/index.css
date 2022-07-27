@@ -1,0 +1,51 @@
+.product-wrapper {
+    max-width: fit-content;
+    padding: 16px;
+    position: relative;
+}
+
+.product-wrapper:hover {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+
+    visibility: visible;
+}
+
+img {
+    width: 354px;
+    height: 330px;
+
+    margin-bottom: 24px;
+    display: block;
+}
+
+.product__name {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 160%;
+}
+
+.product__price {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+}
+
+.product-button {
+    border: none;
+    background-color: #5ECE7B;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 72px;
+    right: 30px;
+    visibility: hidden;
+}
+.product-button > svg {
+    margin-top: 11px;
+}

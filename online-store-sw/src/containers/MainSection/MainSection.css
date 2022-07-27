@@ -1,0 +1,14 @@
+section {
+    padding: 80px 101px 191px;
+}
+
+.main-section__header {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 160%;
+
+    max-width: fit-content;
+    margin-bottom: 103px;
+}
