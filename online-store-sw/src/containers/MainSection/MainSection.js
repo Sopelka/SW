@@ -13,6 +13,11 @@ export default class MainSection extends React.Component {
                 {/* map all the data */}
                 <div className="main-section__content">
                     <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
                 </div>
             </section>
         )

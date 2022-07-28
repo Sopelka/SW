@@ -12,3 +12,9 @@ section {
     max-width: fit-content;
     margin-bottom: 103px;
 }
+
+.main-section__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
