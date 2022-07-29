@@ -4,8 +4,9 @@ import './index.css'
 export default class ProductCard extends React.Component {
     render () {
         return (
-            <div className="product-wrapper">
-                <p className="wrapper__title"></p>
+            // conditional rendering for OUT OF STOCK
+            // <div className="product-wrapper">
+            //     <p className="wrapper__title">OUT OF STOCK</p>
                 <div className="product-container">
                     <img className="product__image" src="./proba.jpg" alt="product card" />
                     <p className="product__name">Apollo Running Short</p>
@@ -21,7 +22,7 @@ export default class ProductCard extends React.Component {
                         </svg>
                     </button>
                 </div>
-            </div>
+            // </div>
         )
     }
 }

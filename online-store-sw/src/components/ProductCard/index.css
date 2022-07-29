@@ -1,5 +1,5 @@
 .product-container {
-    max-width: fit-content;
+    min-width: fit-content;
     padding: 16px;
     position: relative;
 
@@ -56,4 +56,24 @@ img {
 }
 .product-button > svg {
     margin-top: 4px;
+}
+
+/* OUT OF STOCK WRAPPER*/
+.product-wrapper {
+    pointer-events: none;
+    opacity: 0.5;
+    position: relative;
+}
+
+.wrapper__title {
+    position: absolute;
+    top: 162px;
+    right: 114px;
+
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 160%;
+    color: #404353;
+    opacity: 1;
+    z-index: 1;
 }
