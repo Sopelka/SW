@@ -1,0 +1,28 @@
+.product-wrapper{
+    display: flex;
+}
+
+.product__images{
+    display: flex;
+    margin-right: 100px;
+}
+
+.product__side-images{
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+}
+
+.image__mini {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 40px;
+}
+
+.product__main-image{
+    width: 610px;
+    height: 511px;
+}
+
+
+
