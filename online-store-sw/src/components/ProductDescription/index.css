@@ -26,3 +26,25 @@
 
 
 
+.info-form__brand-name{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1D1F22;
+
+    margin-bottom: 16px;
+}
+
+.info-form__item-name{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+    
+    color: #1D1F22;
+
+    margin-bottom: 43px;
+}

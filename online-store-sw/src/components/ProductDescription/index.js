@@ -1,5 +1,6 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+import SizeInput from '../Inputs/SizeInput';
 
 export default class ProductDescription extends React.Component {
     render () {
@@ -15,12 +16,10 @@ export default class ProductDescription extends React.Component {
                 </div>
 
                 <form className="product__info-form">
-                    <p className="info-form__manufacturer-name">Apollo</p>
-                    <p className="info-form__manufacturer-name">Running Short</p>
-                    <p className="info-form__size-title">SIZE</p>
-                    <div className="info-form__size-options">
-                        {/* < RadioBTN /> */}
-                    </div>
+                    <p className="info-form__brand-name">Apollo</p>
+                    <p className="info-form__item-name">Running Short</p>
+                    {/* Мапим здесь и под каждый создаем инпут */}
+                    <SizeInput />
                     <p className="info-form__color-title">COLOR</p>
                     <div className="info-form__color-options">
                         {/* < RadioBTN /> */}
