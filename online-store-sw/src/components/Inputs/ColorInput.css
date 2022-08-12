@@ -1,0 +1,31 @@
+.color-input__wrapper{
+    margin-bottom: 24px;
+}
+
+.color-input__inner-wrapper{
+    position: relative;
+    display: inline-block;
+}
+
+.color-input{
+    width: 32px;
+    height: 32px;
+
+    /* opacity: 0; */
+    margin-right: 8px;
+
+}
+
+.color-input-label{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid transparent;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+
+    /* background-color: attr(data-color); */
+    content: attr(data-color);
+}

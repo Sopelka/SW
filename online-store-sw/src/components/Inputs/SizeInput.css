@@ -1,6 +1,17 @@
-/* .size-input__wrapper{
-    position: relative;
-} */
+.size-input__wrapper{
+    margin-bottom: 24px;
+}
+
+.input-header{
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    color: #1D1F22;
+
+    margin-bottom: 8px;
+}
 
 .size-input__inner-wrapper{
     position: relative;
@@ -11,11 +22,14 @@
     width: 63px;
     height: 45px;
 
-    /* position: relative;
-    z-index: -1; */
     opacity: 0;
     margin-right: 16px;
 
+}
+
+.size-input:checked+label{
+    color: white;
+    background-color: #1D1F22;
 }
 
 .size-input-label{
@@ -23,8 +37,11 @@
     width: 63px;
     height: 45px;
 
-    border: 1px solid black;
+    border: 1px solid #1D1F22;
     position: absolute;
     z-index: -1;
     left: 0;
+
+    text-align: center;
+    padding-top: 10px;
 }

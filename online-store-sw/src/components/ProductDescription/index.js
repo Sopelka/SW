@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import SizeInput from '../Inputs/SizeInput';
+import ColorInput from '../Inputs/ColorInput';
 
 export default class ProductDescription extends React.Component {
     render () {
@@ -20,10 +21,7 @@ export default class ProductDescription extends React.Component {
                     <p className="info-form__item-name">Running Short</p>
                     {/* Мапим здесь и под каждый создаем инпут */}
                     <SizeInput />
-                    <p className="info-form__color-title">COLOR</p>
-                    <div className="info-form__color-options">
-                        {/* < RadioBTN /> */}
-                    </div>
+                    <ColorInput />
                     <p className="info-form__price-title">PRICE</p>
                     <p className="info-form__price">$50.00</p>
                     <button className="info-form__submit-button" type="submit">ADD TO CART</button>
