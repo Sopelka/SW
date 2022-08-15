@@ -1,9 +1,9 @@
 import React from 'react';
-import './index.css';
-import TextInput from '../Inputs/TextInput';
-import SwatchInput from '../Inputs/SwatchInput';
+import './ProductDescriptionPage.css';
+import TextInput from '../../components/Inputs/TextInput';
+import SwatchInput from '../../components/Inputs/SwatchInput';
 
-export default class ProductDescription extends React.Component {
+export default class ProductDescriptionPage extends React.Component {
     state = {
         description: "<p>Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</p>",
     }

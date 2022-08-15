@@ -2,7 +2,7 @@ import React from 'react';
 import './MainSection.css'
 
 // import ProductCard from '../../components/ProductCard';
-import ProductDescription from '../../components/ProductDescription';
+// import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
 
 
 export default class MainSection extends React.Component {
@@ -21,7 +21,11 @@ export default class MainSection extends React.Component {
                     <ProductCard />
                     <ProductCard /> */}
 
-                    <ProductDescription />
+                
+                {/* by clicking on product card routing by id on productDescription */}
+                    {/* <ProductDescriptionPage /> */}
+
+                
                 </div>
             </section>
         )
