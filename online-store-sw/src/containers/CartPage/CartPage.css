@@ -1,0 +1,14 @@
+    
+.cart__main-header{   
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+
+    color: #1D1F22;
+
+    padding-bottom: 55px;
+    border-bottom: 1px solid rgba(229, 229, 229, 1);
+    width: 100%;
+}

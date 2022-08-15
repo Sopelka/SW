@@ -31,7 +31,8 @@ export default class ColorInput extends React.Component {
             }
           ],
             "type": "swatch",
-            "name": "Color"
+            "name": "Color",
+            "active": false,
     }
 
 
