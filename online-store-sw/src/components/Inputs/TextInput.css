@@ -1,4 +1,4 @@
-.size-input__wrapper{
+.text-input__wrapper{
     margin-bottom: 24px;
 }
 
@@ -13,12 +13,12 @@
     margin-bottom: 8px;
 }
 
-.size-input__inner-wrapper{
+.text-input__inner-wrapper{
     position: relative;
     display: inline-block;
 }
 
-.size-input{
+.text-input{
     width: 62px;
     height: 45px;
 
@@ -27,12 +27,12 @@
 
 }
 
-.size-input:checked+label{
+.text-input:checked+label{
     color: white;
     background-color: #1D1F22;
 }
 
-.size-input-label{
+.text-input-label{
     display: inline-block;
     width: 63px;
     height: 45px;

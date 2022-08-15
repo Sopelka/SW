@@ -1,7 +1,7 @@
 import React from 'react';
 import './SwatchInput.css';
 
-export default class ColorInput extends React.Component {
+export default class SwatchInput extends React.Component {
     state = {
         "items": [
             {
@@ -41,21 +41,21 @@ export default class ColorInput extends React.Component {
         return (
             <>
                 <h1 className="input-header">{this.state.name.toUpperCase()}:</h1>
-                <div className="color-input__wrapper">
+                <div className="swatch-input__wrapper">
                     { this.state.items.map(element => 
-                        <div className="color-input__inner-wrapper" key={element.id}>
+                        <div className="swatch-input__inner-wrapper" key={element.id}>
                             <input 
                                 onClick={()=>{console.log(element.id)}}
-                                className="color-input" 
+                                className="swatch-input" 
                                 type="radio" 
                                 id={element.id} 
                                 name="color" 
                                 value={element.displayValue} 
-                                data-color={element.value} 
+                                data-swatch={element.value} 
                             />
                             <label 
                                 style={{backgroundColor: element.value}} 
-                                className="color-input-label" 
+                                className="swatch-input-label" 
                                 htmlFor={element.id} 
                                 
                             />

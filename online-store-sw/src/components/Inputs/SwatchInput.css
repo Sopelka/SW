@@ -1,13 +1,13 @@
-.color-input__wrapper{
+.swatch-input__wrapper{
     margin-bottom: 24px;
 }
 
-.color-input__inner-wrapper{
+.swatch-input__inner-wrapper{
     position: relative;
     display: inline-block;
 }
 
-.color-input{
+.swatch-input{
     width: 32px;
     height: 32px;
 
@@ -16,7 +16,7 @@
 
 }
 
-.color-input-label{
+.swatch-input-label{
     display: inline-block;
     width: 32px;
     height: 32px;
@@ -31,6 +31,6 @@ label[for="White"]{
     border: 1px solid gray;
 }
 
-.color-input:checked+label{
+.swatch-input:checked+label{
     box-shadow: 0 0 0 2px rgba(94, 206, 123, 1);
 }

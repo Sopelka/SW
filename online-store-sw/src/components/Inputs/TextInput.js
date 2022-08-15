@@ -1,7 +1,7 @@
 import React from 'react';
 import './TextInput.css';
 
-export default class SizeInput extends React.Component {
+export default class TextInput extends React.Component {
     state = {
         items: [
             {
@@ -50,18 +50,18 @@ export default class SizeInput extends React.Component {
         return (
             <>
                 <h1 className="input-header">{this.state.name.toUpperCase()}:</h1>
-                <div className="size-input__wrapper">
+                <div className="text-input__wrapper">
                     { this.state.items.map(element => 
-                        <div className="size-input__inner-wrapper" key={element.id}>
+                        <div className="text-input__inner-wrapper" key={element.id}>
                             <input 
                                 onClick={()=>{console.log(element.id)}}
-                                className="size-input" 
+                                className="text-input" 
                                 type="radio" 
                                 id={element.id} 
                                 name="size" 
                                 value={element.displayValue} 
                             />
-                            <label className="size-input-label" htmlFor={element.id}>{element.value}</label> 
+                            <label className="text-input-label" htmlFor={element.id}>{element.value}</label> 
                         </div>  
                     )}
                 </div> 
