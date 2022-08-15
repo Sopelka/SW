@@ -1,5 +1,5 @@
 import React from 'react';
-import './SizeInput.css';
+import './TextInput.css';
 
 export default class SizeInput extends React.Component {
     state = {
@@ -21,7 +21,27 @@ export default class SizeInput extends React.Component {
                 "value": "XL",
                 "id": "Extra Large",
             }
-        ]
+        ],
+        "type": "text",
+        "name": "Size"
+
+        
+        // "items": [
+        //     {
+        //       "displayValue": "256GB",
+        //       "value": "256GB",
+        //       "id": "256GB"
+        //     },
+        //     {
+        //       "displayValue": "512GB",
+        //       "value": "512GB",
+        //       "id": "512GB"
+        //     }
+        //   ],
+        //     "type": "text",
+        //     "name": "Capacity"
+        
+        
     }
 
 
@@ -29,7 +49,7 @@ export default class SizeInput extends React.Component {
     render () {
         return (
             <>
-                <h1 className="input-header">SIZE:</h1>
+                <h1 className="input-header">{this.state.name.toUpperCase()}:</h1>
                 <div className="size-input__wrapper">
                     { this.state.items.map(element => 
                         <div className="size-input__inner-wrapper" key={element.id}>

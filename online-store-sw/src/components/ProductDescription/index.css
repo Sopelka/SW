@@ -48,3 +48,57 @@
 
     margin-bottom: 43px;
 }
+
+.info-form__price-title{
+    margin-top: 12px;
+    margin-bottom: 10px;
+
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    color: #1D1F22;
+
+    display: inline-block;
+}
+
+.info-form__price{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 18px;
+
+    color: #1D1F22;
+
+    margin-bottom: 20px;
+}
+
+.info-form__submit-button{
+    width: 292px;
+    height: 52px;
+    margin-bottom: 40px;
+
+    padding: 16px 32px;
+    background: #5ECE7B;
+    border: none;
+
+    color: white;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+.info-form__description > p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 159.96%;
+
+    color: #1D1F22;
+    max-width: 292px;
+}

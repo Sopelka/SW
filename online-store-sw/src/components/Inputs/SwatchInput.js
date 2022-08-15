@@ -1,5 +1,5 @@
 import React from 'react';
-import './ColorInput.css';
+import './SwatchInput.css';
 
 export default class ColorInput extends React.Component {
     state = {
@@ -30,6 +30,8 @@ export default class ColorInput extends React.Component {
                 "id": "White"
             }
           ],
+            "type": "swatch",
+            "name": "Color"
     }
 
 
@@ -37,7 +39,7 @@ export default class ColorInput extends React.Component {
     render () {
         return (
             <>
-                <h1 className="input-header">COLOR:</h1>
+                <h1 className="input-header">{this.state.name.toUpperCase()}:</h1>
                 <div className="color-input__wrapper">
                     { this.state.items.map(element => 
                         <div className="color-input__inner-wrapper" key={element.id}>
@@ -50,7 +52,12 @@ export default class ColorInput extends React.Component {
                                 value={element.displayValue} 
                                 data-color={element.value} 
                             />
-                            <label className="color-input-label" htmlFor={element.id}>{element.value}</label> 
+                            <label 
+                                style={{backgroundColor: element.value}} 
+                                className="color-input-label" 
+                                htmlFor={element.id} 
+                                
+                            />
                         </div>  
                     )}
                 </div> 
