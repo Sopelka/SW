@@ -12,3 +12,54 @@
     border-bottom: 1px solid rgba(229, 229, 229, 1);
     width: 100%;
 }
+
+.cart__summary-container{
+    margin-top: 32px;
+    display: flex;
+
+    color: #1D1F22;
+}
+
+.summary__property{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    /* line-height: 28px; */
+    margin-bottom: 8px;
+}
+
+.summary__total{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    /* line-height: 28px; */
+}
+
+.summary__data{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    /* line-height: 24px; */
+    margin-bottom: 8px;
+}
+
+.summary__data-wrapper{
+    margin-left: 4px;
+}
+
+.cart__order-button{
+    width: 279px;
+    height: 43px;
+    background: #5ECE7B;
+    color: #ffffff;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+
+    border: none;
+    margin-top: 16px;
+}

@@ -22,12 +22,12 @@ export default class MainSection extends React.Component {
                     <ProductCard />
                     <ProductCard /> */}
 
-                
+                </div>
                 {/* by clicking on product card routing by id on productDescription */}
                     {/* <ProductDescriptionPage /> */}
 
                 <CartPage />
-                </div>
+                
             </section>
         )
     }
