@@ -40,16 +40,16 @@ nav > div {
     margin: auto 0;
 }
 
-.header-details-currency{
+.header-details__currency{
     display: flex;
     margin-right: 22px;
 }
 
-.currency-symbol, .currency-chevron-icon, .header-details-cart {
+.currency-symbol, .currency-chevron-icon, .header-details__cart {
     margin: auto 0;
 }
 
-.header-details-cart {
+.header-details__cart {
     max-height: 20px;
 }
 

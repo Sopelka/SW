@@ -3,7 +3,7 @@ import './MainSection.css'
 
 // import ProductCard from '../../components/ProductCard';
 // import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
-import CartPage from '../CartPage/CartPage';
+// import CartPage from '../CartPage/CartPage';
 
 
 export default class MainSection extends React.Component {
@@ -26,7 +26,7 @@ export default class MainSection extends React.Component {
                 {/* by clicking on product card routing by id on productDescription */}
                     {/* <ProductDescriptionPage /> */}
 
-                <CartPage />
+                {/* <CartPage /> */}
                 
             </section>
         )

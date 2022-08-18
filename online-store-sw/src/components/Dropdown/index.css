@@ -1,0 +1,36 @@
+.dropdown__wrapper{
+    display: flex;
+    position: relative;
+}
+
+.dropdown__selected{
+    display: flex;
+    padding: 22px;
+}
+
+.selected-currency-symbol, .currency-chevron-down-icon, .currency-chevron-up-icon{
+    margin: auto 0;
+}
+
+.selected-currency-symbol{
+    font-size: 18px;
+    line-height: 160%;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.dropdown__options{
+    position: absolute;
+    bottom: -75px;
+}
+
+.dropdown__option{
+    font-family: 'Raleway';
+    font-style: Medium;
+    font-size: 18px;
+    line-height: 29px;
+    font-weight: 500;
+
+    width: 170px;
+    padding-left: 20px;
+}
