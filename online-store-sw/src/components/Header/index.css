@@ -42,7 +42,6 @@ nav > div {
 
 .header-details__currency{
     display: flex;
-    margin-right: 22px;
 }
 
 .currency-symbol, .currency-chevron-icon, .header-details__cart {

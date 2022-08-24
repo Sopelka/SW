@@ -21,7 +21,9 @@
 
 .dropdown__options{
     position: absolute;
-    bottom: -75px;
+    top: 61px;
+
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19)
 }
 
 .dropdown__option{
@@ -31,6 +33,31 @@
     line-height: 29px;
     font-weight: 500;
 
-    width: 170px;
-    padding-left: 20px;
+    width: 114px;
+    padding-left: 22px;
 }
+
+.dropdown__option{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.dropdown__option:first-child{
+    padding-top: 20px;
+    padding-bottom: 13px;
+}
+
+.dropdown__option:nth-child(even){
+    background: #EEEEEE;
+}
+
+.dropdown__option:last-child{
+    padding-top: 13px;
+    padding-bottom: 20px;
+}
+
+/* .testik{
+    border: 3px solid red;
+    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19)
+} */

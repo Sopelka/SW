@@ -2,6 +2,9 @@ import React from 'react';
 import './index.css'
 
 export default class Dropdown extends React.Component {
+
+    state = {}
+
     render(){
         return(
             <>
@@ -23,14 +26,23 @@ export default class Dropdown extends React.Component {
                             <path d="M1 3.5L4 0.5L7 3.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <div className="dropdown__options">
-                        <p className="dropdown__option">&#36; USD</p>
-                        <p className="dropdown__option">&#8364; EUR</p>
-                        <p className="dropdown__option">&#165; JPY</p>
+                        <div className="dropdown__options">
+                            <p className="dropdown__option">&#36; USD</p>
+                            <p className="dropdown__option">&#8364; EUR</p>
+                            <p className="dropdown__option">&#165; JPY</p>
+                            <p className="dropdown__option">&#36; USD</p>
+                            <p className="dropdown__option">&#8364; EUR</p>
+                        </div>
                     </div>
-
-                </div>
             </>
         )
     }
 }
+
+// изменить верстку под пять компонентов, провреить
+
+// 1. У нас есть стейт, где лежит текущая валюта, (открыт и закрыт попап)
+// 2. по клику на кнопочку каррент, открываем попап
+// 3. по клику на валюту, меняем валюту в стейте, в карренте, закрываем попап
+
+// проверка локализации
