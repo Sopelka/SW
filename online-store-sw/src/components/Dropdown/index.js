@@ -3,19 +3,50 @@ import './index.css'
 
 export default class Dropdown extends React.Component {
 
-    state = {}
+    constructor() {
+        super()
+
+        this.state = {
+            selectedCurrency: {
+                "label": "USD",
+                "symbol": "$"
+            },
+            dropdownOpen: false,
+        }
+
+
+        this.openDropdown = this.openDropdown.bind(this);
+        this.choseCurrency = this.choseCurrency(this);
+
+        this.showState = this.showState(this);
+    }
+
+    //toggleDropdown ?
+    openDropdown(){
+        console.log('+++++++++++++++++++++++')
+        console.log('this.state1', this.state)
+
+        this.setState ({dropdownOpen: !(this.state.dropdownOpen)})
+
+        console.log('this.state2', this.state)
+        
+    }
+
+    choseCurrency() {
+
+    }
+
+    showState(){
+        console.log('this.state3', this.state)
+    }
 
     render(){
         return(
             <>
-                <select >
-                    <option value="&#36;">&#36; USD</option>
-                    <option value="&#8364;">&#8364; EUR</option>
-                    <option value="&#165;">&#165; JPY</option>
-                </select>
+                <button onClick={ this.showState }>ZMI</button>
 
                 <div className="dropdown__wrapper">
-                    <div className="dropdown__selected">
+                    <div onClick={ this.openDropdown } className="dropdown__selected">
                         <p className="selected-currency-symbol">$</p>
 
                         <svg className="currency-chevron-down-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,23 +54,26 @@ export default class Dropdown extends React.Component {
                         </svg>
 
                         <svg className="currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 3.5L4 0.5L7 3.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 3.5L4 0.5L7 3.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </div>
-                        <div className="dropdown__options">
-                            <p className="dropdown__option">&#36; USD</p>
-                            <p className="dropdown__option">&#8364; EUR</p>
-                            <p className="dropdown__option">&#165; JPY</p>
-                            <p className="dropdown__option">&#36; USD</p>
-                            <p className="dropdown__option">&#8364; EUR</p>
-                        </div>
+                    <div className={ `${this.state.dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
+                        <p className="dropdown__option">&#36; USD</p>
+                        <p className="dropdown__option">&#8364; EUR</p>
+                        <p className="dropdown__option">&#165; JPY</p>
+                        <p className="dropdown__option">&#36; USD</p>
+                        <p className="dropdown__option">&#8364; EUR</p>
                     </div>
+                </div>
             </>
         )
     }
 }
 
-// изменить верстку под пять компонентов, провреить
+
+// 24.08 
+// странно отображается стейт (не актуально), не работает метод на кнопке
+// менять шевроны по открытию/закрытию
 
 // 1. У нас есть стейт, где лежит текущая валюта, (открыт и закрыт попап)
 // 2. по клику на кнопочку каррент, открываем попап
