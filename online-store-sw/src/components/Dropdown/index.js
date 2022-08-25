@@ -4,65 +4,104 @@ import './index.css'
 export default class Dropdown extends React.Component {
 
     constructor() {
-        super()
+        super();
 
         this.state = {
+            currencies: [{
+                label: "USD",
+                symbol: "$"
+            },{
+                label: "GBP",
+                symbol: "£"
+            },{
+                label: "AUD",
+                symbol: "A$"
+            },{
+                label: "JPY",
+                symbol: "¥"
+            },{
+                label: "RUB",
+                symbol: "₽"
+            }],
+
             selectedCurrency: {
-                "label": "USD",
-                "symbol": "$"
+                label: "USD",
+                symbol: "$"
             },
+
             dropdownOpen: false,
         }
 
 
-        this.openDropdown = this.openDropdown.bind(this);
-        this.choseCurrency = this.choseCurrency(this);
-
-        this.showState = this.showState(this);
+        this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.choseCurrency = this.choseCurrency.bind(this);
+        this.closeDropdown = this.closeDropdown.bind(this);
     }
 
-    //toggleDropdown ?
-    openDropdown(){
-        console.log('+++++++++++++++++++++++')
-        console.log('this.state1', this.state)
 
-        this.setState ({dropdownOpen: !(this.state.dropdownOpen)})
-
-        console.log('this.state2', this.state)
-        
+    componentWillUnmount() {
+        document.removeEventListener('click', this.closeDropdown, false);
     }
 
-    choseCurrency() {
-
+    componentDidMount() {
+        document.addEventListener('click', this.closeDropdown, false);
     }
 
-    showState(){
-        console.log('this.state3', this.state)
+    closeDropdown(event) {
+        if (this.state.dropdownOpen){
+            if (event.target.className !== 'dropdown__option' && event.target.className !== 'dropdown__selected'){
+                this.setState({
+                    dropdownOpen: false
+                })
+            }
+        }
+    }
+
+    toggleDropdown() {
+        this.setState(prevValue => ({
+            dropdownOpen: !prevValue.dropdownOpen
+        }))
+    }
+
+    choseCurrency(event) {
+        if (event.target.className === 'dropdown__option') {
+            const newCurrencyArray = event.target.textContent.split(' ');
+
+            this.setState({
+                dropdownOpen: false,
+                selectedCurrency: {
+                    label: newCurrencyArray[1],
+                    symbol: newCurrencyArray[0]
+                },
+            })
+        }
     }
 
     render(){
         return(
             <>
-                <button onClick={ this.showState }>ZMI</button>
-
                 <div className="dropdown__wrapper">
-                    <div onClick={ this.openDropdown } className="dropdown__selected">
-                        <p className="selected-currency-symbol">$</p>
+                    <div onClick={ this.toggleDropdown } className="dropdown__selected">
+                        <p className="selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p>
 
-                        <svg className="currency-chevron-down-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 0.5L4 3.5L7 0.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-
-                        <svg className="currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 3.5L4 0.5L7 3.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                        { this.state.dropdownOpen ? 
+                            <svg className="currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 3.5L4 0.5L7 3.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            :
+                            <svg className="currency-chevron-down-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 0.5L4 3.5L7 0.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        }
                     </div>
+
                     <div className={ `${this.state.dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
-                        <p className="dropdown__option">&#36; USD</p>
-                        <p className="dropdown__option">&#8364; EUR</p>
-                        <p className="dropdown__option">&#165; JPY</p>
-                        <p className="dropdown__option">&#36; USD</p>
-                        <p className="dropdown__option">&#8364; EUR</p>
+                        { this.state.currencies.map((el) => {
+                            return <p 
+                                key={ el.label } 
+                                className="dropdown__option"
+                                onClick={ this.choseCurrency }>{ `${el.symbol} ${el.label}` }</p>
+                        }) }
                     </div>
                 </div>
             </>
@@ -70,13 +109,5 @@ export default class Dropdown extends React.Component {
     }
 }
 
-
-// 24.08 
-// странно отображается стейт (не актуально), не работает метод на кнопке
-// менять шевроны по открытию/закрытию
-
-// 1. У нас есть стейт, где лежит текущая валюта, (открыт и закрыт попап)
-// 2. по клику на кнопочку каррент, открываем попап
-// 3. по клику на валюту, меняем валюту в стейте, в карренте, закрываем попап
-
 // проверка локализации
+// при нажатии на потомка, событие не срабатывает
