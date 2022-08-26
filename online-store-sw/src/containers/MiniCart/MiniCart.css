@@ -1,0 +1,24 @@
+.minicart-wrapper{
+    position: relative;
+}
+
+.minicart__droplist-wrapper{
+    position: absolute;
+    top: 25px;
+
+    width: 325px;
+    height: 677px;
+    background-color: aquamarine;
+    right: -50px;
+}
+
+.minicart__open-btn{
+    width: 70px;
+    height: 78px;
+    position: absolute;
+    top: -55px;
+}
+
+.hiddenObj{
+    display: none;
+}

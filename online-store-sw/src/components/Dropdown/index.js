@@ -77,7 +77,7 @@ export default class Dropdown extends React.Component {
         }
     }
 
-    render(){
+    render() {
         return(
             <>
                 <div className="dropdown__wrapper">
