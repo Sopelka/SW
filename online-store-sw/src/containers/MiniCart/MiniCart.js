@@ -28,7 +28,6 @@ export default class MiniCart extends React.Component {
     }
 
     toggleCart() {
-        console.log('toggleCartINSIDE')
         this.setState(prevValue => ({
             cartOpen: !prevValue.cartOpen,
         }))
@@ -54,14 +53,10 @@ export default class MiniCart extends React.Component {
                     <div onClick={ this.toggleCart } className="minicart__open-btn cart-element"></div>
                     <div className={ this.state.cartOpen ? "minicart__droplist-wrapper cart-element" : "hiddenObj" }>
                         <p className="minicart-title cart-element">My Bag
-                            <span className="cart-element">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
+                            <span className="minicart-title__details cart-element">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
                         </p>
                         <div className="minicart__items-wrapper cart-element">
-                            <div className="minicart__item cart-element"></div>
-                            <div className="minicart__item cart-element"></div>
-                            <div className="minicart__item cart-element"></div>
-                            <div className="minicart__item cart-element"></div>
-                            <div className="minicart__item cart-element"></div>
+
                         </div>
                         <div className="minicart__total-wrapper cart-element">
                             <p className="minicart__total-title cart-element">Total</p>
