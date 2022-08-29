@@ -49,7 +49,7 @@ export default class Dropdown extends React.Component {
 
     closeDropdown(event) {
         if (this.state.dropdownOpen){
-            if (event.target.className !== 'dropdown__option' && event.target.className !== 'dropdown__selected'){
+            if (event.target.className !== 'dropdown__option' && event.target.className !== 'dropdown-btn'){
                 this.setState({
                     dropdownOpen: false
                 })
@@ -81,7 +81,8 @@ export default class Dropdown extends React.Component {
         return(
             <>
                 <div className="dropdown__wrapper">
-                    <div onClick={ this.toggleDropdown } className="dropdown__selected">
+                    <div onClick={ this.toggleDropdown } className="dropdown-btn"></div>
+                    <div className="dropdown__selected">
                         <p className="selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p>
 
                         { this.state.dropdownOpen ? 

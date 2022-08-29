@@ -64,3 +64,10 @@
 .hiddenObj {
     display: none;
 }
+
+.dropdown-btn{
+    width: 73px;
+    height: 79px;
+
+    position: absolute;
+}
