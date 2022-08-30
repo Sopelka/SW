@@ -25,26 +25,7 @@ export default class TextInput extends React.Component {
         "type": "text",
         "name": "Size"
 
-        
-        // "items": [
-        //     {
-        //       "displayValue": "256GB",
-        //       "value": "256GB",
-        //       "id": "256GB"
-        //     },
-        //     {
-        //       "displayValue": "512GB",
-        //       "value": "512GB",
-        //       "id": "512GB"
-        //     }
-        //   ],
-        //     "type": "text",
-        //     "name": "Capacity"
-        
-        
     }
-
-
 
     render () {
         return (
@@ -68,4 +49,8 @@ export default class TextInput extends React.Component {
             </>
         )
     }
+
+    // static defaultProps = {
+    //     size: 'normal',
+    // }
 }

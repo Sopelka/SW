@@ -40,27 +40,27 @@ export default class SwatchInput extends React.Component {
     render () {
         return (
             <>
-                <h1 className="input-header">{this.state.name.toUpperCase()}:</h1>
+                <h1 className="input-header">{ this.state.name.toUpperCase() }:</h1>
                 <div className="swatch-input__wrapper">
                     { this.state.items.map(element => 
-                        <div className="swatch-input__inner-wrapper" key={element.id}>
+                        <div className="swatch-input__inner-wrapper" key={ element.id }>
                             <input 
-                                onClick={()=>{console.log(element.id)}}
+                                onClick={()=>{ console.log(element.id)} }
                                 className="swatch-input" 
                                 type="radio" 
-                                id={element.id} 
+                                id={ element.id } 
                                 name="color" 
-                                value={element.displayValue} 
-                                data-swatch={element.value} 
+                                value={ element.displayValue } 
+                                data-swatch={ element.value } 
                             />
                             <label 
-                                style={{backgroundColor: element.value}} 
+                                style={ {backgroundColor: element.value} } 
                                 className="swatch-input-label" 
-                                htmlFor={element.id} 
+                                htmlFor={ element.id } 
                                 
                             />
                         </div>  
-                    )}
+                    ) }
                 </div> 
             </>
         )

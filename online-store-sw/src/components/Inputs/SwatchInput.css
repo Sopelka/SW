@@ -34,3 +34,9 @@ label[for="White"]{
 .swatch-input:checked+label{
     box-shadow: 0 0 0 2px rgba(94, 206, 123, 1);
 }
+
+@-moz-document url-prefix(){
+    .swatch-input:checked+label{
+        box-shadow: 0 0 0 3px rgba(94, 206, 123, 1);
+    }
+}

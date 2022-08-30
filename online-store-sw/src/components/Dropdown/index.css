@@ -23,7 +23,8 @@
     position: absolute;
     top: 61px;
 
-    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19)
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    z-index: 1;
 }
 
 .dropdown__option{
@@ -41,6 +42,7 @@
     padding-top: 8px;
     padding-bottom: 8px;
     border: 1px solid transparent;
+    z-index: 3;
 }
 
 .dropdown__option:hover{
@@ -54,6 +56,10 @@
 
 .dropdown__option:nth-child(even){
     background: #EEEEEE;
+}
+
+.dropdown__option:nth-child(odd){
+    background: #ffffff;
 }
 
 .dropdown__option:last-child{

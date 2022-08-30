@@ -20,8 +20,6 @@ nav > div {
 .header-category {
     padding: 28px 16px 30px;
 
-    /* Откуда марджин 16px?
-    **/
     margin: 0px;
     border-bottom: 2px solid transparent;
 }

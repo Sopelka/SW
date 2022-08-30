@@ -3,13 +3,14 @@ import './MainSection.css'
 
 // import ProductCard from '../../components/ProductCard';
 // import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
-// import CartPage from '../CartPage/CartPage';
+import CartPage from '../CartPage/CartPage';
 
 
 export default class MainSection extends React.Component {
     render () {
         return (
             <section className="main-section">
+                {console.log("AAAAAAAAAAAAAAAAAAAAAAAAA")}
                 {/* conditional rendering */}
                 {/* <h2 className="main-section__header">Category name</h2> */}
 
@@ -26,7 +27,7 @@ export default class MainSection extends React.Component {
                 {/* by clicking on product card routing by id on productDescription */}
                     {/* <ProductDescriptionPage /> */}
 
-                {/* <CartPage /> */}
+                <CartPage />
                 
             </section>
         )

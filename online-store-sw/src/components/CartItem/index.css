@@ -113,11 +113,15 @@
     justify-content: center;
 }
 
-
 .right-dynamic-part__slider-btn-right{
     right: 16px;
 }
 
 .right-dynamic-part__slider-btn-left{
     right: 48px;
+}
+
+.right-dynamic-part__count-btn-increase > svg {
+    margin-top: 1px;
+
 }

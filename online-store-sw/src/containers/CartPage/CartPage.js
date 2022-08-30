@@ -3,7 +3,6 @@ import './CartPage.css';
 
 import CartItem from '../../components/CartItem';
 
-
 export default class CartPage extends React.Component {
      render () {
         return (

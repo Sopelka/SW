@@ -38,7 +38,6 @@ export default class Dropdown extends React.Component {
         this.closeDropdown = this.closeDropdown.bind(this);
     }
 
-
     componentWillUnmount() {
         document.removeEventListener('click', this.closeDropdown, false);
     }
@@ -80,6 +79,7 @@ export default class Dropdown extends React.Component {
     render() {
         return(
             <>
+                {console.log('CURRENCE')}
                 <div className="dropdown__wrapper">
                     <div onClick={ this.toggleDropdown } className="dropdown-btn"></div>
                     <div className="dropdown__selected">
@@ -109,6 +109,3 @@ export default class Dropdown extends React.Component {
         )
     }
 }
-
-// проверка локализации
-// при нажатии на потомка, событие не срабатывает

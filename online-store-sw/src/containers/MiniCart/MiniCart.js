@@ -1,6 +1,8 @@
 import React from "react";
 import './MiniCart.css'
 
+import MinicartItem from "../../components/MinicartItem";
+
 
 export default class MiniCart extends React.Component {
     constructor() {
@@ -56,7 +58,7 @@ export default class MiniCart extends React.Component {
                             <span className="minicart-title__details cart-element">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
                         </p>
                         <div className="minicart__items-wrapper cart-element">
-
+                            <MinicartItem />
                         </div>
                         <div className="minicart__total-wrapper cart-element">
                             <p className="minicart__total-title cart-element">Total</p>
