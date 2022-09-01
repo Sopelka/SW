@@ -11,6 +11,8 @@
     color: #1D1F22;
 
     margin-bottom: 8px;
+
+    text-transform: uppercase;
 }
 
 .text-input__inner-wrapper{
@@ -44,4 +46,71 @@
 
     text-align: center;
     padding-top: 10px;
+}
+
+.input__protector{
+    width: 100%;
+    height: 48px;
+    position: absolute;
+    z-index: 1;
+}
+
+/* minicart styles */
+
+.input-header__mini-cart{
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 14px;
+    color: #1D1F22;
+
+    margin-bottom: 8px;
+    max-width: fit-content;
+}
+
+.text-input__wrapper__mini-cart{
+    width: fit-content;
+    margin-bottom: 8px;
+
+    position: relative;
+}
+
+.input__protector__mini-cart{
+    width: 100%;
+    height: 26px;
+    position: absolute;
+    z-index: 5;
+
+}
+
+.text-input__inner-wrapper__mini-cart{
+    position: relative;
+    display: inline-block;
+}
+
+.text-input__mini-cart{
+    width: 24px;
+    height: 24px;
+
+    opacity: 0;
+    margin-right: 8px;
+
+}
+
+.text-input-label__mini-cart{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+
+    border: 1px solid #1D1F22;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+
+    text-align: center;
+    padding-top: 2px;
+}
+
+.text-input__mini-cart:checked+label{
+    color: white;
+    background-color: #1D1F22;
 }

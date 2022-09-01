@@ -16,11 +16,11 @@ export default class CartItem extends React.Component {
 
                     {/* foreach attribute */}
                     <div className="left-static-part__input-container">
-                        <div className="left-static-part__input-protector" />
                         <TextInput />
+                        <SwatchInput />
                     </div>
                     
-                    <SwatchInput />
+                    
                 </div>
 
                 

@@ -38,15 +38,20 @@ export default class SwatchInput extends React.Component {
 
 
     render () {
+        const mode = this.props.size === 'small' ? '__mini-cart' : '' ;
+
         return (
             <>
-                <h1 className="input-header">{ this.state.name.toUpperCase() }:</h1>
-                <div className="swatch-input__wrapper">
+                {console.log("TextInput props -", this.props)}
+
+                <h1 className={`input-header${mode}`}>{ this.state.name }:</h1>
+                <div className={`swatch-input__wrapper${mode}`}>
+                {this.props.active ? null : <div className={`input__protector${mode}`}/>}
                     { this.state.items.map(element => 
-                        <div className="swatch-input__inner-wrapper" key={ element.id }>
+                        <div className={`swatch-input__inner-wrapper${mode}`} key={ element.id }>
                             <input 
                                 onClick={()=>{ console.log(element.id)} }
-                                className="swatch-input" 
+                                className={`swatch-input${mode}`}
                                 type="radio" 
                                 id={ element.id } 
                                 name="color" 
@@ -55,7 +60,7 @@ export default class SwatchInput extends React.Component {
                             />
                             <label 
                                 style={ {backgroundColor: element.value} } 
-                                className="swatch-input-label" 
+                                className={`swatch-input-label${mode}`}
                                 htmlFor={ element.id } 
                                 
                             />
@@ -65,4 +70,9 @@ export default class SwatchInput extends React.Component {
             </>
         )
     }
+}
+
+SwatchInput.defaultProps = {
+    size: 'normal',
+    active: true,
 }

@@ -1,0 +1,18 @@
+.minicart__info__brand-name, .minicart__info__item-name{
+    font-family: 'Raleway';
+    font-weight: 300;
+    font-size: 16px;
+    color: #1D1F22;
+    line-height: 160%;
+}
+
+.minicart__info__price{
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+
+    color: #1D1F22;
+
+    margin-bottom: 8px;
+}

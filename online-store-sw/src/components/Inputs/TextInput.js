@@ -28,21 +28,26 @@ export default class TextInput extends React.Component {
     }
 
     render () {
+        const mode = this.props.size === 'small' ? '__mini-cart' : '' ;
+        
         return (
             <>
-                <h1 className="input-header">{this.state.name.toUpperCase()}:</h1>
-                <div className="text-input__wrapper">
+                {console.log("TextInput props -", this.props)}
+
+                <h1 className={`input-header${mode}`}>{this.state.name}:</h1>
+                <div className={`text-input__wrapper${mode}`}>
+                    {this.props.active ? null : <div className={`input__protector${mode}`}/>}
                     { this.state.items.map(element => 
-                        <div className="text-input__inner-wrapper" key={element.id}>
+                        <div className={`text-input__inner-wrapper${mode}`} key={element.id}>
                             <input 
                                 onClick={()=>{console.log(element.id)}}
-                                className="text-input" 
+                                className={`text-input${mode}`}
                                 type="radio" 
                                 id={element.id} 
                                 name="size" 
                                 value={element.displayValue} 
                             />
-                            <label className="text-input-label" htmlFor={element.id}>{element.value}</label> 
+                            <label className={`text-input-label${mode}`} htmlFor={element.id}>{element.value}</label> 
                         </div>  
                     )}
                 </div> 
@@ -50,7 +55,9 @@ export default class TextInput extends React.Component {
         )
     }
 
-    // static defaultProps = {
-    //     size: 'normal',
-    // }
+}
+
+TextInput.defaultProps = {
+    size: 'normal',
+    active: true,
 }

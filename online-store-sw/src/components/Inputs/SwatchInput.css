@@ -35,8 +35,38 @@ label[for="White"]{
     box-shadow: 0 0 0 2px rgba(94, 206, 123, 1);
 }
 
-@-moz-document url-prefix(){
+/* @-moz-document url-prefix(){
     .swatch-input:checked+label{
         box-shadow: 0 0 0 3px rgba(94, 206, 123, 1);
     }
+} */
+
+/* mini-cart styles */
+
+.swatch-input__wrapper__mini-cart{
+    position: relative;
+}
+
+.swatch-input__inner-wrapper__mini-cart{
+    position: relative;
+    display: inline-block;
+}
+
+.swatch-input__mini-cart{
+    width: 16px;
+    height: 16px;
+
+    opacity: 0;
+    margin-right: 8px;
+}
+
+.swatch-input-label__mini-cart{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    outline: 1px solid white;
 }
