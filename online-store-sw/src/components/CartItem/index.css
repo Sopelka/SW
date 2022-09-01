@@ -60,38 +60,6 @@
     height: 288px;
 }
 
-.right-dynamic-part__count-btn-container{
-    margin: 0 24px 24px 0;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.right-dynamic-part__count-btn{
-    background-color: white;
-    border: 1px solid #1D1F22;
-
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.right-dynamic-part__count-btn svg{
-    position: absolute;
-}
-
-.right-dynamic-part__counter{
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 160%;
-
-    color: #1D1F22;
-    text-align: center;
-}
 
 .right-dynamic-part__slider-btn{
     position: absolute;
@@ -114,7 +82,4 @@
     right: 48px;
 }
 
-.right-dynamic-part__count-btn-increase > svg {
-    margin-top: 1px;
 
-}

@@ -36,11 +36,13 @@ export default class MiniCart extends React.Component {
     }
 
     closeCart(event) {
-        if (this.state.cartOpen && !event.target.className.includes('mini-cart')){
-            this.setState({
-                cartOpen: false
-            })
-        }
+        console.log(event.target)
+        console.log(event.target.className)
+        // if (this.state.cartOpen && !event.target.className.includes('mini-cart')){
+        //     this.setState({
+        //         cartOpen: false
+        //     })
+        // }
     }
 
     render() {
@@ -58,6 +60,8 @@ export default class MiniCart extends React.Component {
                             <span className="minicart-title__details mini-cart">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
                         </p>
                         <div className="minicart__items-wrapper mini-cart">
+                            <MinicartItem />
+                            <MinicartItem />
                             <MinicartItem />
                         </div>
                         <div className="minicart__total-wrapper mini-cart">

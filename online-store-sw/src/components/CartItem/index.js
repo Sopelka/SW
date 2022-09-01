@@ -3,6 +3,7 @@ import './index.css';
 
 import TextInput from '../Inputs/TextInput';
 import SwatchInput from '../Inputs/SwatchInput';
+import CartItemCounter from '../CartItemCounter';
 
 export default class CartItem extends React.Component {
      render () {
@@ -26,7 +27,7 @@ export default class CartItem extends React.Component {
                 
                 <div className="cart-item__right-dynamic-part">
 
-                    <div className="right-dynamic-part__count-btn-container">
+                    {/* <div className="right-dynamic-part__count-btn-container">
                         <div className="right-dynamic-part__count-btn-increase right-dynamic-part__count-btn">
                             <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
@@ -41,7 +42,9 @@ export default class CartItem extends React.Component {
                                 <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                         </div>
-                    </div>
+                    </div> */}
+
+                    <CartItemCounter />
 
                     <div className="right-dynamic-part__image-slider">
                         <img className="image-slider__image" src="./proba.jpg" alt="product" />
