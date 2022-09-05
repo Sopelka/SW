@@ -10,7 +10,6 @@ export default class MainSection extends React.Component {
     render () {
         return (
             <section className="main-section">
-                <div className="main-section__screen"></div>
                 {/* conditional rendering */}
                 {/* <h2 className="main-section__header">Category name</h2> */}
 

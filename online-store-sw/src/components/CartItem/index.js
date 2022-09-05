@@ -25,24 +25,6 @@ export default class CartItem extends React.Component {
 
                 
                 <div className="cart-item__right-dynamic-part">
-
-                    {/* <div className="right-dynamic-part__count-btn-container">
-                        <div className="right-dynamic-part__count-btn-increase right-dynamic-part__count-btn">
-                            <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            <svg width="1" height="17" viewBox="0 0 1 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.5 1V16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </div>
-                        <p className="right-dynamic-part__counter">0</p>
-                        <div className="right-dynamic-part__count-btn-decrease right-dynamic-part__count-btn">
-                            <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </div>
-                    </div> */}
-
                     <CartItemCounter />
 
                     <div className="right-dynamic-part__image-slider">

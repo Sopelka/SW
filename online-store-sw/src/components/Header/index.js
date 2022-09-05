@@ -36,7 +36,7 @@ export default class Header extends React.Component {
                             <Dropdown />
                         </div>
                         <div className="header-details__cart">
-                            <MiniCart />
+                            <MiniCart appCallback={ this.props.appCallback }/>
                         </div>
                     </div>
                 </nav>

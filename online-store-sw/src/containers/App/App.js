@@ -1,27 +1,32 @@
 import React from 'react';
+import './App.css';
 
 import Header from '../../components/Header/index';
 import MainSection from '../MainSection/MainSection';
 
 export default class App extends React.Component {
-    constructor(){
+    constructor() {
         super()
 
         this.state={
-            dark: true
+            dark: false,
         }
 
         this.setDark = this.setDark.bind(this);
     }
 
-    setDark(){
-        console.log("123123")
+    setDark(childData) {
+        this.setState({
+            dark: childData,
+        })
     }
 
     render() {
         return (
             <div className='app'>
-                <Header />
+                <Header appCallback={ this.setDark } />
+                
+                <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
                 <MainSection />
             </div>
         )
