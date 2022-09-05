@@ -1,7 +1,5 @@
 .minicart-item__wrapper{
     display: flex;
-    justify-content: space-between;
-
     margin-bottom: 40px;
 }
 
@@ -22,4 +20,8 @@
     color: #1D1F22;
 
     margin-bottom: 8px;
+}
+
+.minicart-item__action-wrapper{
+    display: flex;
 }

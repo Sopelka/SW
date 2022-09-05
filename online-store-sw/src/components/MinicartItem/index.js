@@ -4,6 +4,7 @@ import './index.css';
 import TextInput from "../Inputs/TextInput";
 import SwatchInput from "../Inputs/SwatchInput";
 import CartItemCounter from "../CartItemCounter";
+import CartItemSlider from "../CartItemSlider";
 
 export default class MinicartItem extends React.Component{
 
@@ -16,10 +17,11 @@ export default class MinicartItem extends React.Component{
                     <p className="minicart__info__price">$50.00</p>
                     
                     <TextInput size="small" active={false} />
-                    <SwatchInput size="small" active={false}/>
+                    <SwatchInput size="small" active={false} />
                 </div>
                 <div className="minicart-item__action-wrapper">
-                    <CartItemCounter size="small"/>
+                    <CartItemCounter size="small" />
+                    <CartItemSlider size="small" />
                 </div>
             </div>
         )
