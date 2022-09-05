@@ -18,11 +18,3 @@ section {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
-
-/* @-moz-document url-prefix(){
-    .main-section__screen{
-        height: calc(100% + 20px);
-
-    }
-}  */

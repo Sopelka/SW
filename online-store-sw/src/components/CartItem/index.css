@@ -49,37 +49,3 @@
 .cart-item__right-dynamic-part{
     display: flex;
 }
-/* 
-.right-dynamic-part__image-slider{
-    height: 288px;
-    position: relative;
-}
-
-.image-slider__image{
-    width: 200px;
-    height: 288px;
-}
-
-
-.right-dynamic-part__slider-btn{
-    position: absolute;
-    width: 24px;
-    height: 24px;
-
-    background: rgba(0, 0, 0, 0.73);
-    bottom: 16px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.right-dynamic-part__slider-btn-right{
-    right: 16px;
-}
-
-.right-dynamic-part__slider-btn-left{
-    right: 48px;
-} */
-
-

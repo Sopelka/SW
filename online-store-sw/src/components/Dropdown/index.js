@@ -2,7 +2,6 @@ import React from 'react';
 import './index.css'
 
 export default class Dropdown extends React.Component {
-
     constructor() {
         super();
 
@@ -28,10 +27,9 @@ export default class Dropdown extends React.Component {
                 label: "USD",
                 symbol: "$"
             },
-
+            
             dropdownOpen: false,
         }
-
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.choseCurrency = this.choseCurrency.bind(this);

@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css'
 
 export default class ProductCard extends React.Component {
-    render () {
+    render() {
         return (
             // conditional rendering for OUT OF STOCK
             // <div className="product-wrapper">

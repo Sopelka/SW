@@ -1,4 +1,3 @@
-
 .image-slider{
     height: 288px;
     position: relative;
@@ -8,7 +7,6 @@
     width: 200px;
     height: 288px;
 }
-
 
 .slider-btn{
     position: absolute;
@@ -33,13 +31,12 @@
 
 /* minicart styles  */
 
-
-.image-slider__mini-cart{
+.image-slider__minicart{
     height: 190px;
     position: relative;
 }
 
-.image-slider__image__mini-cart{
+.image-slider__image__minicart{
     width: 121px;
     height: 190px;
 }

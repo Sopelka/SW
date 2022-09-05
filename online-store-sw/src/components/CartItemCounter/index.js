@@ -2,7 +2,7 @@ import React from "react";
 import './index.css'
 
 export default class CartItemCounter extends React.Component {
-    constructor(){
+    constructor() {
         super()
 
         this.state = {
@@ -13,20 +13,20 @@ export default class CartItemCounter extends React.Component {
         this.decrease = this.decrease.bind(this);
     }
 
-    increase(){
+    increase() {
         this.setState(prevValue => ({
-            value: +prevValue.value + 1
+            value: Number(prevValue.value) + 1
         }))
     }
 
-    decrease(){
+    decrease() {
         this.setState(prevValue => ({
-            value: +prevValue.value === 0 ? 0 : prevValue.value - 1
+            value: Number(prevValue.value) === 0 ? 0 : prevValue.value - 1
         }))
     }
 
-    render(){
-        const mode = this.props.size === 'small' ? '__mini-cart' : '' ;
+    render() {
+        const mode = this.props.size === 'small' ? '__minicart' : '' ;
 
         return(
             <>

@@ -22,7 +22,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        return (
+        return(
             <div className='app'>
                 <Header appCallback={ this.setDark } />
                 

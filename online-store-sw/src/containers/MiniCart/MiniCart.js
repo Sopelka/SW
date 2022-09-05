@@ -12,9 +12,7 @@ export default class MiniCart extends React.Component {
             allItems : [
                 {},{}, {}
             ],
-
             cartOpen: false,
-
         }
 
         this.toggleCart = this.toggleCart.bind(this);
@@ -38,7 +36,7 @@ export default class MiniCart extends React.Component {
     }
 
     closeCart(event) {
-        if (this.state.cartOpen && !event.target.className.includes('mini-cart')){
+        if (this.state.cartOpen && !event.target.className.includes('minicart')){
             this.setState({
                 cartOpen: false
             })
@@ -56,23 +54,23 @@ export default class MiniCart extends React.Component {
                     <path d="M15.6875 13.9814C14.4875 13.9814 13.498 14.9277 13.498 16.0752C13.498 17.2226 14.4876 18.1689 15.6875 18.1689C16.8875 18.1689 17.877 17.2226 17.877 16.0752C17.8565 14.9284 16.8875 13.9814 15.6875 13.9814ZM15.6875 16.9011C15.2031 16.9011 14.8239 16.5385 14.8239 16.0752C14.8239 15.612 15.2031 15.2493 15.6875 15.2493C16.172 15.2493 16.5512 15.612 16.5512 16.0752C16.5512 16.5188 16.1506 16.9011 15.6875 16.9011Z" fill="#43464E"/>
                 </svg>
                 <div className="minicart-wrapper">
-                    <div onClick={ this.toggleCart } className="minicart__open-btn mini-cart"></div>
-                    <div className={ this.state.cartOpen ? "minicart__droplist-wrapper mini-cart" : "hiddenObj" }>
-                        <p className="minicart-title mini-cart">My Bag
-                            <span className="minicart-title__details mini-cart">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
+                    <div onClick={ this.toggleCart } className="minicart__open-btn"></div>
+                    <div className={ this.state.cartOpen ? "minicart__droplist-wrapper" : "hiddenObj" }>
+                        <p className="minicart-title">My Bag
+                            <span className="minicart-title__details">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
                         </p>
-                        <div className="minicart__items-wrapper mini-cart">
+                        <div className="minicart__items-wrapper">
                             <MinicartItem />
                             <MinicartItem />
                             <MinicartItem />
                         </div>
-                        <div className="minicart__total-wrapper mini-cart">
-                            <p className="minicart__total-title mini-cart">Total</p>
-                            <p className="minicart__total-result mini-cart">$200</p>
+                        <div className="minicart__total-wrapper">
+                            <p className="minicart__total-title">Total</p>
+                            <p className="minicart__total-result">$200</p>
                         </div>
-                        <div className="minicart__buttons-wrapper mini-cart">
-                            <button className="minicart__button-viewbag mini-cart">VIEW BAG</button>
-                            <button className="minicart__button-checkout mini-cart">CHECK OUT</button>
+                        <div className="minicart__buttons-wrapper">
+                            <button className="minicart__button-viewbag">VIEW BAG</button>
+                            <button className="minicart__button-checkout">CHECK OUT</button>
                         </div>
                     </div>
                 </div>

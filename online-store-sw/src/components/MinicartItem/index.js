@@ -7,8 +7,7 @@ import CartItemCounter from "../CartItemCounter";
 import CartItemSlider from "../CartItemSlider";
 
 export default class MinicartItem extends React.Component{
-
-    render(){
+    render() {
         return(
             <div className="minicart-item__wrapper">
                 <div className="minicart-item__info-wrapper">

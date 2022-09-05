@@ -2,39 +2,43 @@ import React from 'react';
 import './TextInput.css';
 
 export default class TextInput extends React.Component {
-    state = {
-        items: [
-            {
-                "displayValue": "Small",
-                "value": "S",
-                "id": "Small",
-            },{
-                "displayValue": "Medium",
-                "value": "M",
-                "id": "Medium",
-            },{
-                "displayValue": "Large",
-                "value": "L",
-                "id": "Large",
-            },{
-                "displayValue": "Extra Large",
-                "value": "XL",
-                "id": "Extra Large",
-            }
-        ],
-        "type": "text",
-        "name": "Size"
+    constructor() {
+        super();
 
+        this.state = {
+            items: [
+                {
+                    "displayValue": "Small",
+                    "value": "S",
+                    "id": "Small",
+                },{
+                    "displayValue": "Medium",
+                    "value": "M",
+                    "id": "Medium",
+                },{
+                    "displayValue": "Large",
+                    "value": "L",
+                    "id": "Large",
+                },{
+                    "displayValue": "Extra Large",
+                    "value": "XL",
+                    "id": "Extra Large",
+                }
+            ],
+            type: "text",
+            name: "Size",
+
+        }
     }
 
-    render () {
-        const mode = this.props.size === 'small' ? '__mini-cart' : '' ;
+    render() {
+        const mode = this.props.size === 'small' ? '__minicart' : '' ;
         
-        return (
+        return(
             <>
                 <h1 className={`input-header${mode}`}>{this.state.name}:</h1>
                 <div className={`text-input__wrapper${mode}`}>
-                    {this.props.active ? null : <div className={`input__protector${mode}`}/>}
+                    { this.props.active ? null : <div className={`input__protector${mode}`}/> }
                     { this.state.items.map(element => 
                         <div className={`text-input__inner-wrapper${mode}`} key={element.id}>
                             <input 

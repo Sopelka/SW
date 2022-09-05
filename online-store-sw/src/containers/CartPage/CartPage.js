@@ -4,7 +4,7 @@ import './CartPage.css';
 import CartItem from '../../components/CartItem';
 
 export default class CartPage extends React.Component {
-     render () {
+    render() {
         return (
             <>
                 <h1 className="cart__main-header">CART</h1>
@@ -23,8 +23,7 @@ export default class CartPage extends React.Component {
                     </div>
                 </div>
                 <button className="cart__order-button">ORDER</button>
-                
             </>
         )
-     }
+    }
 }

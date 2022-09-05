@@ -5,8 +5,8 @@ import Dropdown from '../Dropdown';
 import MiniCart from '../../containers/MiniCart/MiniCart';
 
 export default class Header extends React.Component {
-    render () {
-        return (
+    render() {
+        return(
             <header>
                 <nav>
                     <div className="header-categories">

@@ -3,13 +3,17 @@ import './ProductDescriptionPage.css';
 import TextInput from '../../components/Inputs/TextInput';
 import SwatchInput from '../../components/Inputs/SwatchInput';
 
-export default class ProductDescriptionPage extends React.Component {
-    state = {
-        description: "<p>Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</p>",
+export default class ProductDescriptionPage extends React.Component {s
+    constructor() {
+        super();
+
+        this.state = {
+            description: "<p>Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</p>",
+        }
     }
 
-    render () {
-        return (
+    render() {
+        return(
             <div className="product-wrapper">
                 <div className="product__images">
                     <div className="product__side-images">

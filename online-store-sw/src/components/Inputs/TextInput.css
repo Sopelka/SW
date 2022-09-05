@@ -57,7 +57,7 @@
 
 /* minicart styles */
 
-.input-header__mini-cart{
+.input-header__minicart{
     font-family: 'Raleway';
     font-weight: 400;
     font-size: 14px;
@@ -67,14 +67,14 @@
     max-width: fit-content;
 }
 
-.text-input__wrapper__mini-cart{
+.text-input__wrapper__minicart{
     width: fit-content;
     margin-bottom: 8px;
 
     position: relative;
 }
 
-.input__protector__mini-cart{
+.input__protector__minicart{
     width: 100%;
     height: 26px;
     position: absolute;
@@ -82,12 +82,12 @@
 
 }
 
-.text-input__inner-wrapper__mini-cart{
+.text-input__inner-wrapper__minicart{
     position: relative;
     display: inline-block;
 }
 
-.text-input__mini-cart{
+.text-input__minicart{
     width: 24px;
     height: 24px;
 
@@ -96,7 +96,7 @@
 
 }
 
-.text-input-label__mini-cart{
+.text-input-label__minicart{
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -110,7 +110,7 @@
     padding-top: 2px;
 }
 
-.text-input__mini-cart:checked+label{
+.text-input__minicart:checked+label{
     color: white;
     background-color: #1D1F22;
 }
