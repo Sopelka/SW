@@ -74,9 +74,13 @@
     text-align: center;
 }
 
-/* .count-btn-increase__mini-cart > svg {
-    margin-top: 1px;
-    position: absolute; 
+.count-btn, .count-btn__mini-cart{
+    position: relative;
+}
 
-    
-} */
+.count-btn-protector, .count-btn-protector__mini-cart{
+    position: absolute;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+}

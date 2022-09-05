@@ -79,7 +79,6 @@ export default class Dropdown extends React.Component {
     render() {
         return(
             <>
-                {console.log('CURRENCE')}
                 <div className="dropdown__wrapper">
                     <div onClick={ this.toggleDropdown } className="dropdown-btn"></div>
                     <div className="dropdown__selected">

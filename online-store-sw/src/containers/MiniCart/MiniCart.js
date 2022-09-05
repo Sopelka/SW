@@ -36,13 +36,11 @@ export default class MiniCart extends React.Component {
     }
 
     closeCart(event) {
-        console.log(event.target)
-        console.log(event.target.className)
-        // if (this.state.cartOpen && !event.target.className.includes('mini-cart')){
-        //     this.setState({
-        //         cartOpen: false
-        //     })
-        // }
+        if (this.state.cartOpen && !event.target.className.includes('mini-cart')){
+            this.setState({
+                cartOpen: false
+            })
+        }
     }
 
     render() {

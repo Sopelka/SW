@@ -42,8 +42,6 @@ export default class SwatchInput extends React.Component {
 
         return (
             <>
-                {console.log("TextInput props -", this.props)}
-
                 <h1 className={`input-header${mode}`}>{ this.state.name }:</h1>
                 <div className={`swatch-input__wrapper${mode}`}>
                 {this.props.active ? null : <div className={`input__protector${mode}`}/>}

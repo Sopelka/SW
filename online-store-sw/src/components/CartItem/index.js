@@ -9,7 +9,6 @@ export default class CartItem extends React.Component {
      render () {
         return (
             <div className="cart-item__container">
-                {console.log("CARTITEM")}
                 <div className="cart-item__left-static-part">
                     <p className="left-static-part__brand-name">Apollo</p>
                     <p className="left-static-part__item-name">Running Short</p>
