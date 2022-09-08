@@ -10,6 +10,7 @@ export default class CartPage extends React.Component {
                 <h1 className="cart__main-header">CART</h1>
                 {/* map all the goods */}
                 <CartItem />
+                <CartItem />
                 <div className="cart__summary-container">
                     <div className="summary__property-wrapper">
                         <p className="summary__property">Tax 21%:</p>

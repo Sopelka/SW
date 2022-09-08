@@ -29,7 +29,7 @@ export default class MiniCart extends React.Component {
 
     toggleCart() {
         this.setState(prevValue => ({
-            cartOpen: !prevValue.cartOpen,
+            cartOpen: !prevValue.cartOpen
         }))
 
         this.props.appCallback(!this.state.cartOpen)

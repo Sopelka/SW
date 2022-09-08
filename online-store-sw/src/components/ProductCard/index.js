@@ -5,7 +5,7 @@ export default class ProductCard extends React.Component {
     render() {
         return (
             // conditional rendering for OUT OF STOCK
-            // <div className="product-wrapper">
+            // <div className="product-outofstock-wrapper">
             //     <p className="wrapper__title">OUT OF STOCK</p>
                 <div className="product-container">
                     <img className="product__image" src="./proba.jpg" alt="product card" />

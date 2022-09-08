@@ -7,8 +7,10 @@
 
     color: #1D1F22;
 
-    padding-bottom: 55px;
-    border-bottom: 1px solid rgba(229, 229, 229, 1);
+    padding-top: 5px;
+    border-top: 1px solid rgba(229, 229, 229, 1);
+    margin-bottom: 57px;
+
     width: 100%;
 }
 
@@ -60,5 +62,13 @@
     font-size: 14px;
 
     border: none;
-    margin-top: 16px;
+    margin-top: 8px;
+}
+
+.cart__order-button:hover{
+    cursor: pointer;
+}
+
+.cart__order-button:active{
+    background: #479e5e;
 }

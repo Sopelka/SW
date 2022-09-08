@@ -11,6 +11,7 @@ header {
 nav {
     display: flex;
     justify-content: space-between;
+    height: 80px;
 }
 
 nav > div {
@@ -36,10 +37,15 @@ nav > div {
 
 .header-logo {
     margin: auto 0;
+    margin-left: -40px;
 }
 
 .header-details__currency{
     display: flex;
+}
+
+.header-details__currency:hover{
+    cursor: pointer;
 }
 
 .currency-symbol, .currency-chevron-icon, .header-details__cart {
@@ -55,4 +61,28 @@ nav > div {
     line-height: 160%;
     font-weight: 500;
     margin-right: 10px;
+}
+
+.header-details__cart{
+    position: relative;
+}
+
+.header-details__cart__label{
+    background-color: #1D1F22;
+    position: absolute;
+    color: #FFFFFF;
+    top: -10px;
+    right: -12px;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 60px;
+
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 14px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }

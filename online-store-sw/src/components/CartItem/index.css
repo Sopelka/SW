@@ -4,6 +4,13 @@
     padding-top: 24px;
     border-bottom: 1px solid rgba(229, 229, 229, 1);
     width: 100%;
+    padding-bottom: 4px;
+}
+
+@-moz-document url-prefix() {
+    .cart-item__container{
+        padding-bottom: 10px;
+    }
 }
 
 .left-static-part__brand-name{
@@ -12,9 +19,7 @@
     font-weight: 600;
     font-size: 30px;
     line-height: 27px;
-
     color: #1D1F22;
-
     margin-bottom: 16px;
 }
 
@@ -24,9 +29,7 @@
     font-weight: 400;
     font-size: 30px;
     line-height: 27px;
-
     color: #1D1F22;
-
     margin-bottom: 20px;
 }
 
@@ -36,9 +39,7 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 24px;
-
     color: #1D1F22;
-
     margin-bottom: 20px;
 }
 

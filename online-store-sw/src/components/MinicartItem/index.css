@@ -25,3 +25,7 @@
 .minicart-item__action-wrapper{
     display: flex;
 }
+
+.minicart-item__info-wrapper{
+    margin-right: 10px;
+}

@@ -29,6 +29,10 @@
     right: 48px;
 }
 
+.slider-btn:hover{
+    cursor: pointer;
+}
+
 /* minicart styles  */
 
 .image-slider__minicart{

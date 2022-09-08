@@ -16,6 +16,7 @@ export default class App extends React.Component {
     }
 
     setDark(childData) {
+        console.log(111, childData)
         this.setState({
             dark: childData,
         })

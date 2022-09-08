@@ -15,6 +15,7 @@
 
 .product-container:hover .product-button {
     opacity: 1;
+    cursor: pointer;
 }
 
 img {
@@ -59,7 +60,7 @@ img {
 }
 
 /* OUT OF STOCK WRAPPER*/
-.product-wrapper {
+.product-outofstock-wrapper {
     pointer-events: none;
     opacity: 0.5;
     position: relative;

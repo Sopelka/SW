@@ -12,7 +12,11 @@
     height: 32px;
 
     opacity: 0;
-    margin-right: 8px;
+    margin-right: 13px;
+}
+
+.swatch-input:hover{
+    cursor: pointer;
 }
 
 .swatch-input-label{
