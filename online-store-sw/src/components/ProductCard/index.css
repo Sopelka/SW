@@ -4,6 +4,7 @@
     position: relative;
 
     margin-bottom: 101px;
+    /* max-width: max-content; */
 }
 
 .product-container:hover {
@@ -18,12 +19,13 @@
     cursor: pointer;
 }
 
-img {
+.product__image {
     width: 354px;
     height: 330px;
 
     margin-bottom: 24px;
     display: block;
+    object-fit: contain;
 }
 
 .product__name {

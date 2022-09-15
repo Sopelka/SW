@@ -2,17 +2,33 @@ import React from 'react';
 import './index.css'
 
 export default class ProductCard extends React.Component {
+    constructor() {
+        super()
+
+        this.state = {
+            currency: 'USD',
+            currencySymb: '$',
+        }
+
+    }
+
+
     render() {
-        return (
-            // conditional rendering for OUT OF STOCK
-            // <div className="product-outofstock-wrapper">
-            //     <p className="wrapper__title">OUT OF STOCK</p>
+        console.log('propsProductCard', this.props.cardData)
+        return (           
+            <div className = {this.props.cardData.inStock ? "" : "product-outofstock-wrapper"}>
+                { this.props.cardData.inStock ? null : <p className="wrapper__title">"OUT OF STOCK"</p> }
+                {/* <p className="wrapper__title">{this.props.cardData.inStock ? "" : "OUT OF STOCK"}</p> */}
                 <div className="product-container">
-                    <img className="product__image" src="./proba.jpg" alt="product card" />
-                    <p className="product__name">Apollo Running Short</p>
+                    <img className="product__image" src = {this.props.cardData.gallery[0]} alt = {this.props.cardData.name} />
+                    <p className="product__name">{ `${this.props.cardData.brand} ${this.props.cardData.name}` }</p>
                     <p className="product__price">
-                        <span className="price-currency">$</span>
-                        <span className="price-value">50.00</span>
+                        {/* <span className="price-currency">$</span> */}
+                        <span className="price-value">{
+                            this.props.cardData.prices.map((potentialPrice) => {
+                                return potentialPrice.currency.label === this.state.currency ? `${this.state.currencySymb} ${potentialPrice.amount}` : null;
+                            })
+                        }</span>
                     </p>
                     <button className="product-button">
                         <svg className="cart-icon" width="24" height="24" viewBox="0 0 23 20" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +38,7 @@ export default class ProductCard extends React.Component {
                         </svg>
                     </button>
                 </div>
-            // </div>
+            </div>
         )
     }
 }

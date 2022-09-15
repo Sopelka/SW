@@ -6,13 +6,30 @@ import MiniCart from '../../containers/MiniCart/MiniCart';
 
 export default class Header extends React.Component {
     render() {
+        console.log('AOAOAOAO', this.props.data)
         return(
             <header>
                 <nav>
                     <div className="header-categories">
-                        <p className="header-category">WOMAN</p>
+                        {console.log('propsHeaderDATA', this.props.data)}
+                        {console.log('propsHeader', this.props)}
+
+                            
+                        { this.props.data.categories?.map((category) => {
+                            return (
+                                <p 
+                                    key = {category.name} 
+                                    className="header-category"
+                                    onClick = { this.props.appShowCatCallback }>
+                                        { category.name.toUpperCase() }
+                                    </p>);
+                        })}
+
+
+                        {/* Было */}
+                        {/* <p className="header-category">WOMAN</p>
                         <p className="header-category">MEN</p>
-                        <p className="header-category">KIDS</p>
+                        <p className="header-category">KIDS</p> */}
                     </div>
                     <svg className="header-logo" width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_150_359)">
@@ -37,7 +54,7 @@ export default class Header extends React.Component {
                         </div>
                         <div className="header-details__cart">
                             <p className="header-details__cart__label minicart">3</p>
-                            <MiniCart appCallback={ this.props.appCallback }/>
+                            <MiniCart appDarkCallback = { this.props.appDarkCallback }/>
                         </div>
                     </div>
                 </nav>

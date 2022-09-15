@@ -32,7 +32,7 @@ export default class MiniCart extends React.Component {
             cartOpen: !prevValue.cartOpen
         }))
 
-        this.props.appCallback(!this.state.cartOpen)
+        this.props.appDarkCallback(!this.state.cartOpen)
     }
 
     closeCart(event) {
@@ -41,7 +41,7 @@ export default class MiniCart extends React.Component {
                 cartOpen: false
             })
 
-            this.props.appCallback(false)
+            this.props.appDarkCallback(false)
         }
     }
 
