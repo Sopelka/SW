@@ -6,15 +6,11 @@ import MiniCart from '../../containers/MiniCart/MiniCart';
 
 export default class Header extends React.Component {
     render() {
-        console.log('AOAOAOAO', this.props.data)
-        return(
+        console.log('propsHEADER', this.props)
+        return (
             <header>
                 <nav>
-                    <div className="header-categories">
-                        {console.log('propsHeaderDATA', this.props.data)}
-                        {console.log('propsHeader', this.props)}
-
-                            
+                    <div className="header-categories">                            
                         { this.props.data.categories?.map((category) => {
                             return (
                                 <p 
@@ -22,14 +18,8 @@ export default class Header extends React.Component {
                                     className="header-category"
                                     onClick = { this.props.appShowCatCallback }>
                                         { category.name.toUpperCase() }
-                                    </p>);
+                                </p>);
                         })}
-
-
-                        {/* Было */}
-                        {/* <p className="header-category">WOMAN</p>
-                        <p className="header-category">MEN</p>
-                        <p className="header-category">KIDS</p> */}
                     </div>
                     <svg className="header-logo" width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_150_359)">

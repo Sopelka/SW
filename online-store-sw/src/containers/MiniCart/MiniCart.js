@@ -3,7 +3,6 @@ import './MiniCart.css'
 
 import MinicartItem from "../../components/MinicartItem";
 
-
 export default class MiniCart extends React.Component {
     constructor() {
         super();

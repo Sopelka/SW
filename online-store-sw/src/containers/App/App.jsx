@@ -7,8 +7,7 @@ import { client } from '../..';
 import Header from '../../components/Header/index';
 import MainSection from '../MainSection/MainSection';
 
-
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
 import CartPage from '../CartPage/CartPage';
@@ -35,7 +34,6 @@ export default class App extends React.Component {
         await client.query({query: gql`${getStarted}`})
             .then((result) => this.setState({ data: result.data }))
             .catch((error) => this.setState({ error: error }))
-            //.then((result) => console.log(result))  
     }
 
     setDark(childData) {
@@ -45,11 +43,6 @@ export default class App extends React.Component {
     }
 
     changeCat(event) {
-        console.log('event')
-        console.log('event', event)
-        console.log('event.target', event.target)
-        console.log('event.target.innerText', event.target.innerText)
-
         this.setState({
             catName: event.target.innerText,
         })
@@ -62,17 +55,15 @@ export default class App extends React.Component {
     render() {
         return (
             <>
-            <div className='app'>
-                <Header 
-                    data = { this.state.data } 
-                    appDarkCallback = { this.setDark } 
-                    appShowCatCallback = { this.changeCat }
-                />
-                
-                <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
-                {/* <MainSection data = {this.state.data} /> */}
-            </div>
-
+                <div className='app'>
+                    <Header 
+                        data = { this.state.data } 
+                        appDarkCallback = { this.setDark } 
+                        appShowCatCallback = { this.changeCat }
+                    />
+                    
+                    <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
+                </div>
 
                 <Routes>
                     <Route 
@@ -96,4 +87,4 @@ export default class App extends React.Component {
 }
 
 const getStarted = 'query{categories{name,products{id,name,inStock,gallery,brand,description,prices{currency{label,symbol},amount},}},currencies {label,symbol}}'; 
-//const getStarted = 'query{categories{name,products{id,name,inStock,brand,description,prices{currency{label,symbol},amount},attributes{items{displayValue,value,id},type,name}}},currencies {label,symbol}}'; 
+
