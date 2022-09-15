@@ -2,17 +2,8 @@ import React from 'react';
 import './index.css'
 
 export default class ProductCard extends React.Component {
-    constructor() {
-        super()
-
-        this.state = {
-            currency: 'USD',
-            currencySymb: '$',
-        }
-    }
-
     render() {
-        console.log('propsPRODUCTCARD', this.props.cardData)
+        console.log('propsPRODUCTCARD', this.props)
         return (           
             <div className = { this.props.cardData.inStock ? "" : "product-outofstock-wrapper" }>
                 { this.props.cardData.inStock ? null : <p className="wrapper__title">"OUT OF STOCK"</p> }
@@ -22,7 +13,7 @@ export default class ProductCard extends React.Component {
                     <p className="product__price">
                         <span className="price-value">
                             { this.props.cardData.prices.map((potentialPrice) => {
-                                return potentialPrice.currency.label === this.state.currency ? `${this.state.currencySymb} ${potentialPrice.amount}` : null;
+                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
                             })}
                         </span>
                     </p>
@@ -37,4 +28,8 @@ export default class ProductCard extends React.Component {
             </div>
         )
     }
+}
+
+ProductCard.defaultProps = {
+    newCurrency: [ "$", "USD" ]
 }

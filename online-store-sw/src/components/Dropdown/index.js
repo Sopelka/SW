@@ -6,23 +6,6 @@ export default class Dropdown extends React.Component {
         super();
 
         this.state = {
-            currencies: [{
-                label: "USD",
-                symbol: "$"
-            },{
-                label: "GBP",
-                symbol: "£"
-            },{
-                label: "AUD",
-                symbol: "A$"
-            },{
-                label: "JPY",
-                symbol: "¥"
-            },{
-                label: "RUB",
-                symbol: "₽"
-            }],
-
             selectedCurrency: {
                 label: "USD",
                 symbol: "$"
@@ -44,6 +27,12 @@ export default class Dropdown extends React.Component {
         document.addEventListener('click', this.closeDropdown, false);
     }
 
+    // componentDidUpdate() {
+    //     this.setState({
+    //         currencies: this.props?.currencyList
+    //     })
+    // }
+
     closeDropdown(event) {
         if (this.state.dropdownOpen){
             if (event.target.className !== 'dropdown__option' && event.target.className !== 'dropdown-btn'){
@@ -64,6 +53,8 @@ export default class Dropdown extends React.Component {
         if (event.target.className === 'dropdown__option') {
             const newCurrencyArray = event.target.textContent.split(' ');
 
+            this.props.appCurrencyCallback(newCurrencyArray);
+
             this.setState({
                 dropdownOpen: false,
                 selectedCurrency: {
@@ -75,6 +66,7 @@ export default class Dropdown extends React.Component {
     }
 
     render() {
+        console.log('propsDROPDOWN', this.props)
         return(
             <>
                 <div className="dropdown__wrapper">
@@ -94,11 +86,11 @@ export default class Dropdown extends React.Component {
                     </div>
 
                     <div className={ `${this.state.dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
-                        { this.state.currencies.map((el) => {
+                        { this.props.currencyList?.map((element) => {
                             return <p 
-                                key={ el.label } 
+                                key={ element.label } 
                                 className="dropdown__option"
-                                onClick={ this.choseCurrency }>{ `${el.symbol} ${el.label}` }</p>
+                                onClick={ this.choseCurrency }>{ `${element.symbol} ${element.label}` }</p>
                         }) }
                     </div>
                 </div>

@@ -23,11 +23,14 @@ export default class App extends React.Component {
             error: '',
 
             catName: 'ALL',
+
+            currency: [ "$", "USD" ]
         }
 
         this.setDark = this.setDark.bind(this);
         this.getData = this.getData.bind(this);
-        this.changeCat = this.changeCat.bind(this);
+        this.changeCategory = this.changeCategory.bind(this);
+        this.changeCurrency = this.changeCurrency.bind(this);
     }
 
     async getData() {
@@ -42,10 +45,21 @@ export default class App extends React.Component {
         })
     }
 
-    changeCat(event) {
+    changeCategory(event) {
         this.setState({
             catName: event.target.innerText,
         })
+    }
+
+    changeCurrency(childData) {
+        console.log('changeCurrency', childData);
+        this.setState({
+            currency: childData,
+        })
+
+        //return childData;
+
+        //или положить пришедшее в стейт и из стейта прокинуть в пропсы
     }
 
     componentDidMount() {
@@ -59,7 +73,8 @@ export default class App extends React.Component {
                     <Header 
                         data = { this.state.data } 
                         appDarkCallback = { this.setDark } 
-                        appShowCatCallback = { this.changeCat }
+                        appCategoryCallback = { this.changeCategory }
+                        appCurrencyCallback = { this.changeCurrency }
                     />
                     
                     <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
@@ -72,6 +87,7 @@ export default class App extends React.Component {
                             <MainSection 
                                 data = { this.state.data } 
                                 catName = { this.state.catName } 
+                                newCurrency = { this.state.currency }
                             /> }  
                     />  
 

@@ -16,7 +16,7 @@ export default class Header extends React.Component {
                                 <p 
                                     key = {category.name} 
                                     className="header-category"
-                                    onClick = { this.props.appShowCatCallback }>
+                                    onClick = { this.props.appCategoryCallback }>
                                         { category.name.toUpperCase() }
                                 </p>);
                         })}
@@ -40,7 +40,10 @@ export default class Header extends React.Component {
                     </svg>
                     <div className="header-details">
                         <div className="header-details__currency">
-                            <Dropdown />
+                            <Dropdown 
+                                currencyList = { this.props.data.currencies }
+                                appCurrencyCallback = { this.props.appCurrencyCallback }
+                            />
                         </div>
                         <div className="header-details__cart">
                             <p className="header-details__cart__label minicart">3</p>

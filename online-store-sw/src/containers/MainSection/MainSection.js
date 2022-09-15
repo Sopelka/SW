@@ -16,7 +16,11 @@ export default class MainSection extends React.Component {
                     { this.props.data.categories?.map(category => {
                         return category.name.toUpperCase() === this.props.catName ? 
                             category.products.map((product) => {
-                                return <ProductCard cardData = { product } key = { product.id } /> 
+                                return ( <ProductCard 
+                                    cardData = { product } 
+                                    key = { product?.id } 
+                                    newCurrency = { this.props.newCurrency }
+                                    />) 
                             })
                         : null
                     })}
