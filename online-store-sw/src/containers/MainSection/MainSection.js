@@ -1,10 +1,9 @@
 import React from 'react';
-//import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
 import './MainSection.css'
 
 import ProductCard from '../../components/ProductCard';
 
-export default class MainSection extends React.Component {    
+export default class MainSection extends React.Component {      
     render () {
         console.log('propsMAIN', this.props)
         return (
@@ -19,7 +18,7 @@ export default class MainSection extends React.Component {
                                 return ( <ProductCard 
                                     cardData = { product } 
                                     key = { product?.id } 
-                                    newCurrency = { this.props.newCurrency }
+                                    newCurrency = { this.props.newCurrency }                                
                                     />) 
                             })
                         : null

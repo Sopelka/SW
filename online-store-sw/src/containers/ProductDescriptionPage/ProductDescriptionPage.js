@@ -1,5 +1,9 @@
 import React from 'react';
 import './ProductDescriptionPage.css';
+
+import { gql } from '@apollo/client'; 
+import { client } from '../..';
+
 import TextInput from '../../components/Inputs/TextInput';
 import SwatchInput from '../../components/Inputs/SwatchInput';
 
@@ -9,10 +13,28 @@ export default class ProductDescriptionPage extends React.Component {s
 
         this.state = {
             description: "<p>Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</p>",
+        
+            data: [],
+            error: '',
         }
+
+        this.getData = this.getData.bind(this);
+    }
+
+    async getData() {
+        await client.query({query: gql`${productDescriptions}`})
+            .then((result) => console.log('YYYYYYYYYYYYYYYYYYYYYYYYYYYY',result))
+            //.then((result) => this.setState({ data: result.data }))
+            .catch((error) => this.setState({ error: error }))
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     render() {
+        console.log('propsDESCRRIPTIONPAGE', this.props)
+        console.log('stateDESCRRIPTIONPAGE', this.state)
         return(
             <div className="product-wrapper">
                 <div className="product__images">
@@ -39,3 +61,9 @@ export default class ProductDescriptionPage extends React.Component {s
         )
     }
 }
+
+
+//технически это работает, но не могу менять параметр :((
+const productDescriptions = 'query($id: String! = "ps-5"){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
+const wonder = "ps-5"
+//query($id: String!){product(id: "ps-5"){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}

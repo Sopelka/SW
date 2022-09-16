@@ -1,6 +1,8 @@
 import React from 'react';
 import './index.css'
 
+import { Link } from "react-router-dom";
+
 import Dropdown from '../Dropdown';
 import MiniCart from '../../containers/MiniCart/MiniCart';
 
@@ -13,12 +15,13 @@ export default class Header extends React.Component {
                     <div className="header-categories">                            
                         { this.props.data.categories?.map((category) => {
                             return (
-                                <p 
-                                    key = {category.name} 
-                                    className="header-category"
-                                    onClick = { this.props.appCategoryCallback }>
-                                        { category.name.toUpperCase() }
-                                </p>);
+                                <Link to='/main' key = {category?.name}>
+                                    <p 
+                                        className="header-category"
+                                        onClick = { this.props.appCategoryCallback }>
+                                            { category.name.toUpperCase() }
+                                    </p>
+                                </Link>);
                         })}
                     </div>
                     <svg className="header-logo" width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">

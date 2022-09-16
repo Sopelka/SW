@@ -4,10 +4,10 @@ import './App.css';
 import { gql } from '@apollo/client'; 
 import { client } from '../..';
 
+import { Route, Routes, Navigate } from "react-router-dom";
+
 import Header from '../../components/Header/index';
 import MainSection from '../MainSection/MainSection';
-
-import { Route, Routes, Navigate } from "react-router-dom";
 
 import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
 import CartPage from '../CartPage/CartPage';
@@ -56,10 +56,6 @@ export default class App extends React.Component {
         this.setState({
             currency: childData,
         })
-
-        //return childData;
-
-        //или положить пришедшее в стейт и из стейта прокинуть в пропсы
     }
 
     componentDidMount() {
@@ -103,4 +99,4 @@ export default class App extends React.Component {
 }
 
 const getStarted = 'query{categories{name,products{id,name,inStock,gallery,brand,description,prices{currency{label,symbol},amount},}},currencies {label,symbol}}'; 
-
+//const productDescriptions = '';

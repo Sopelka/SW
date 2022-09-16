@@ -62,7 +62,7 @@
 
 /* OUT OF STOCK WRAPPER*/
 .product-outofstock-wrapper {
-    pointer-events: none;
+    /* pointer-events: none; */
     opacity: 0.5;
     position: relative;
 }

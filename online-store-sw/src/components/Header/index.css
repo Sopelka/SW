@@ -86,3 +86,9 @@ nav > div {
     align-items: flex-end;
     justify-content: center;
 }
+
+
+a{
+    text-decoration:none;
+    color: #1D1F22;
+}
