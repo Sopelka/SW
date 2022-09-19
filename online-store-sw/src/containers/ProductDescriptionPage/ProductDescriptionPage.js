@@ -12,8 +12,6 @@ export default class ProductDescriptionPage extends React.Component {s
         super();
 
         this.state = {
-            description: "<p>Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</p>",
-        
             data: [],
             error: '',
         }
@@ -22,10 +20,13 @@ export default class ProductDescriptionPage extends React.Component {s
     }
 
     async getData() {
-        await client.query({query: gql`${productDescriptions}`})
-            .then((result) => console.log('YYYYYYYYYYYYYYYYYYYYYYYYYYYY',result))
-            //.then((result) => this.setState({ data: result.data }))
-            .catch((error) => this.setState({ error: error }))
+        const imp = localStorage.getItem('PDP_ID')
+
+        await client.query({
+            query: gql`${productDescriptions}`, 
+            variables: {id: imp}})
+                .then((result) => this.setState({ data: result.data.product }))
+                .catch((error) => this.setState({ error: error }))
     }
 
     componentDidMount() {
@@ -47,15 +48,15 @@ export default class ProductDescriptionPage extends React.Component {s
                 </div>
 
                 <form className="product__info-form">
-                    <p className="info-form__brand-name">Apollo</p>
-                    <p className="info-form__item-name">Running Short</p>
+                    <p className="info-form__brand-name">{ this.state.data?.brand }</p>
+                    <p className="info-form__item-name">{ this.state.data?.name }</p>
                     {/* Мапим здесь и под каждый создаем инпут */}
                     <TextInput />
                     <SwatchInput />
                     <p className="info-form__price-title">PRICE:</p>
                     <p className="info-form__price">$50.00</p>
                     <button className="info-form__submit-button" type="submit">ADD TO CART</button>
-                    <div className="info-form__description" dangerouslySetInnerHTML={{__html: this.state.description}} />
+                    <div className="info-form__description" dangerouslySetInnerHTML={{__html: this.state.data?.description}} />
                 </form>
             </div>
         )
@@ -63,7 +64,15 @@ export default class ProductDescriptionPage extends React.Component {s
 }
 
 
+
+const productDescriptions = 'query($id: String!){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
+
+
+
+
 //технически это работает, но не могу менять параметр :((
-const productDescriptions = 'query($id: String! = "ps-5"){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
-const wonder = "ps-5"
+//const productDescriptions = 'query($id: String! = "ps-5"){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
+//const wonder = "ps-5"
+
+
 //query($id: String!){product(id: "ps-5"){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}
