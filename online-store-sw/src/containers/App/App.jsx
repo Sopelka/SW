@@ -87,7 +87,7 @@ export default class App extends React.Component {
                             /> }  
                     />  
 
-                    <Route path = '/product' element = { <ProductDescriptionPage/> }/>
+                    <Route path = '/product' element = { <ProductDescriptionPage newCurrency = { this.state.currency }/> }/>
                     <Route path = '/cart' element = { <CartPage/> }/>
 
                     <Route path = '*' element = { <Navigate to = '/main' /> } />

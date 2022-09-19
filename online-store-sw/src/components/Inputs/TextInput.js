@@ -4,50 +4,33 @@ import './TextInput.css';
 export default class TextInput extends React.Component {
     constructor() {
         super();
+        this.handleInput = this.handleInput.bind(this);
+    }
 
-        this.state = {
-            items: [
-                {
-                    "displayValue": "Small",
-                    "value": "S",
-                    "id": "Small",
-                },{
-                    "displayValue": "Medium",
-                    "value": "M",
-                    "id": "Medium",
-                },{
-                    "displayValue": "Large",
-                    "value": "L",
-                    "id": "Large",
-                },{
-                    "displayValue": "Extra Large",
-                    "value": "XL",
-                    "id": "Extra Large",
-                }
-            ],
-            type: "text",
-            name: "Size",
-
-        }
+    handleInput(event){
+        this.props.pdpCallback (event.target)
     }
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-        
+        console.log('textInputPROPS', this.props)
         return(
             <>
-                <h1 className={`input-header${mode}`}>{this.state.name}:</h1>
+                <h1 className={`input-header${mode}`}>{ this.props.dataArr?.name }:</h1>
                 <div className={`text-input__wrapper${mode}`}>
+
                     { this.props.active ? null : <div className={`input__protector${mode}`}/> }
-                    { this.state.items.map(element => 
-                        <div className={`text-input__inner-wrapper${mode}`} key={element.id}>
+
+                    { this.props.dataArr?.items?.map((element) => 
+                        <div className={`text-input__inner-wrapper${mode}`} key={element.id} >  
                             <input 
-                                onClick={()=>{console.log(element.id)}}
-                                className={`text-input${mode}`}
-                                type="radio" 
-                                id={element.id} 
-                                name="size" 
-                                value={element.displayValue} 
+                                required
+                                onClick = { this.handleInput }
+                                className = { `text-input${mode}` }
+                                type = "radio" 
+                                id = { element.id } 
+                                name = { this.props.dataArr?.name } 
+                                value = { element.displayValue } 
                             />
                             <label className={`text-input-label${mode}`} htmlFor={element.id}>{element.value}</label> 
                         </div>  

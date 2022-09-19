@@ -19,6 +19,10 @@
     margin-bottom: 40px;
 }
 
+.image__mini:hover{
+    cursor: pointer;
+}
+
 .product__main-image{
     width: 610px;
     height: 511px;
@@ -80,6 +84,29 @@
 
     padding: 16px 32px;
     background: #5ECE7B;
+    border: none;
+
+    color: white;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    margin-top: 28px
+}
+
+.info-form__submit-button:hover{
+    cursor: pointer;
+}
+
+.info-form__submit-button__disabled{
+    width: 292px;
+    height: 52px;
+    margin-bottom: 40px;
+
+    pointer-events: none;
+    padding: 16px 32px;
+    background: #8b8b8b;
     border: none;
 
     color: white;
