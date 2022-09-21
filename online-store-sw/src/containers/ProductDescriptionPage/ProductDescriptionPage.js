@@ -4,6 +4,8 @@ import './ProductDescriptionPage.css';
 import { gql } from '@apollo/client'; 
 import { client } from '../..';
 
+import { Navigate } from "react-router-dom";
+
 import TextInput from '../../components/Inputs/TextInput';
 import SwatchInput from '../../components/Inputs/SwatchInput';
 
@@ -37,6 +39,21 @@ export default class ProductDescriptionPage extends React.Component {s
             variables: {id: queryID}})
                 .then((result) => this.setState({ data: result.data.product }))
                 .catch((error) => this.setState({ error: error }))
+
+        setTimeout(() => { 
+            this.setState({
+                productDetails: {
+                    name: this.state.data.name,
+                    brand: this.state.data.brand,
+                    img: this.state.data?.gallery?.[0],
+                    product_id: this.state.data.id,
+                    prices: this.state.data.prices,
+    
+                    inputsInfo: {},
+                    orderID: '',
+                }
+            })
+        }, 1)
     }
 
     changeImage(imageSrc){
@@ -50,6 +67,7 @@ export default class ProductDescriptionPage extends React.Component {s
                 brand: this.state.data.brand,
                 img: this.state.data?.gallery?.[0],
                 product_id: this.state.data.id,
+                prices: this.state.data.prices,
 
                 inputsInfo: {...prevValue.productDetails.inputsInfo, ...{
                     [`${event.className}  ${event.name}`]: event.value,
@@ -63,18 +81,47 @@ export default class ProductDescriptionPage extends React.Component {s
     handleOrder(event){
         event.preventDefault();
 
-        this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo)
+        let requiredInputSet = new Set(
+            Array.from(document.getElementsByTagName('input')).map((el) => { 
+                return el.name
+            })
+        );
 
-        setTimeout(() => {
-            if (localStorage.getItem('currentOrder')) {
-                let data = localStorage.getItem('currentOrder')
-                data = JSON.parse(data)
-                data.push(this.state.productDetails)
-                localStorage.setItem('currentOrder', JSON.stringify(data))
-            } else {
-                localStorage.setItem('currentOrder', JSON.stringify([this.state.productDetails]))
-            }        
-        }, 0)
+        let allInputsArr = Array.from(document.getElementsByTagName('input'));
+
+        allInputsArr.map((el) => {
+            if (el.checked) {
+                requiredInputSet.delete(el.name);
+            }
+            return null;
+        });
+
+        if (requiredInputSet.size) {
+            const missingInputsArr = Array.from(requiredInputSet);
+            alert(`Choose product features before continue: ${missingInputsArr}`)
+        } else {
+            this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo)
+
+            setTimeout(() => {
+                if (localStorage.getItem('currentOrder')) {
+                    let data = localStorage.getItem('currentOrder')
+                    data = JSON.parse(data)
+                    data.push(this.state.productDetails)
+                    localStorage.setItem('currentOrder', JSON.stringify(data))
+                    this.props.appCartAmountCallback(JSON.parse(localStorage.getItem('currentOrder')).length);
+                } else {
+                    localStorage.setItem('currentOrder', JSON.stringify([this.state.productDetails]))
+                    this.props.appCartAmountCallback(JSON.parse(localStorage.getItem('currentOrder')).length);
+                }    
+                
+                this.setState({
+                    redirect: true
+                })
+
+            }, 0)
+
+            
+        }
     }
 
     getOrderId(name, attrObj) {
@@ -123,9 +170,9 @@ export default class ProductDescriptionPage extends React.Component {s
 
                     { this.state.data.attributes?.map((attribute) => {
                         return attribute.type === 'text' ?
-                            <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput }/> 
+                            <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput } /> 
                             : 
-                            <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput } />;
+                            <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput }  />;
                     }) }
 
                     <p className="info-form__price-title">PRICE:</p>
@@ -145,6 +192,7 @@ export default class ProductDescriptionPage extends React.Component {s
                     
                     <div className="info-form__description" dangerouslySetInnerHTML={{__html: this.state.data?.description}} />
                 </form>
+                { this.state.redirect && <Navigate to='/main' replace={ true }/> }
             </div>
         )
     }

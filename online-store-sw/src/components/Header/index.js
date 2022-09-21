@@ -49,7 +49,8 @@ export default class Header extends React.Component {
                             />
                         </div>
                         <div className="header-details__cart">
-                            <p className="header-details__cart__label minicart">3</p>
+                        <p className={ this.props.cartAmount > 0 ? "header-details__cart__label minicart" : "minicart disabled" }>{ this.props.cartAmount }</p>
+                            {/* <p className="header-details__cart__label minicart">{ this.props.cartAmount }</p> */}
                             <MiniCart appDarkCallback = { this.props.appDarkCallback }/>
                         </div>
                     </div>
