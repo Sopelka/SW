@@ -91,6 +91,7 @@ export default class App extends React.Component {
                         appCategoryCallback = { this.changeCategory }
                         appCurrencyCallback = { this.changeCurrency }
                         cartAmount = { this.state.cartAmount }
+                        newCurrency = { this.state.currency }
                     />
                     
                     <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>

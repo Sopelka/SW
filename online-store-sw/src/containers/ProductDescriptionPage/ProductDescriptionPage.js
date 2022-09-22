@@ -27,6 +27,8 @@ export default class ProductDescriptionPage extends React.Component {s
         this.handleInput = this.handleInput.bind(this);
         this.handleOrder = this.handleOrder.bind(this);
         this.getOrderId = this.getOrderId.bind(this);
+        this.checkDuplicates = this.checkDuplicates.bind(this);
+        this.checkInputs = this.checkInputs.bind(this);
 
         this.mainImageRef = React.createRef();
     }
@@ -48,6 +50,8 @@ export default class ProductDescriptionPage extends React.Component {s
                     img: this.state.data?.gallery?.[0],
                     product_id: this.state.data.id,
                     prices: this.state.data.prices,
+                    attributes: this.state.data.attributes,
+                    counter: 1,
     
                     inputsInfo: {},
                     orderID: '',
@@ -68,6 +72,8 @@ export default class ProductDescriptionPage extends React.Component {s
                 img: this.state.data?.gallery?.[0],
                 product_id: this.state.data.id,
                 prices: this.state.data.prices,
+                attributes: this.state.data.attributes,
+                counter: 1,
 
                 inputsInfo: {...prevValue.productDetails.inputsInfo, ...{
                     [`${event.className}  ${event.name}`]: event.value,
@@ -81,20 +87,7 @@ export default class ProductDescriptionPage extends React.Component {s
     handleOrder(event){
         event.preventDefault();
 
-        let requiredInputSet = new Set(
-            Array.from(document.getElementsByTagName('input')).map((el) => { 
-                return el.name
-            })
-        );
-
-        let allInputsArr = Array.from(document.getElementsByTagName('input'));
-
-        allInputsArr.map((el) => {
-            if (el.checked) {
-                requiredInputSet.delete(el.name);
-            }
-            return null;
-        });
+        let requiredInputSet = this.checkInputs();
 
         if (requiredInputSet.size) {
             const missingInputsArr = Array.from(requiredInputSet);
@@ -104,14 +97,18 @@ export default class ProductDescriptionPage extends React.Component {s
 
             setTimeout(() => {
                 if (localStorage.getItem('currentOrder')) {
-                    let data = localStorage.getItem('currentOrder')
-                    data = JSON.parse(data)
-                    data.push(this.state.productDetails)
-                    localStorage.setItem('currentOrder', JSON.stringify(data))
-                    this.props.appCartAmountCallback(JSON.parse(localStorage.getItem('currentOrder')).length);
+                    let data = localStorage.getItem('currentOrder');
+                    data = JSON.parse(data);
+
+                    let finalData = this.checkDuplicates(data, this.state.productDetails)
+
+                    let totalNumber = finalData.reduce((acc, obj) => { return acc + obj.counter; }, 0);
+
+                    localStorage.setItem('currentOrder', JSON.stringify(finalData))
+                    this.props.appCartAmountCallback(totalNumber);
                 } else {
                     localStorage.setItem('currentOrder', JSON.stringify([this.state.productDetails]))
-                    this.props.appCartAmountCallback(JSON.parse(localStorage.getItem('currentOrder')).length);
+                    this.props.appCartAmountCallback(1);
                 }    
                 
                 this.setState({
@@ -119,8 +116,6 @@ export default class ProductDescriptionPage extends React.Component {s
                 })
 
             }, 0)
-
-            
         }
     }
 
@@ -142,6 +137,46 @@ export default class ProductDescriptionPage extends React.Component {s
                 orderID: `${name}${JSON.stringify(orderedObj)}`
             }
         }))
+    }
+
+    checkDuplicates(arr, newEl) {
+        let check = arr;
+
+        let res = arr.map((order) => {
+            return ( order.orderID === newEl.orderID ?
+                {
+                    ...order,
+                    counter: order.counter + 1,
+                }
+            : 
+                {
+                    ...order
+                }
+            );
+        })
+
+        arr = [...arr, newEl]
+
+        return JSON.stringify(res) === JSON.stringify(check) ? arr : res
+    }
+
+    checkInputs() {
+        let requiredInputSet = new Set(
+            Array.from(document.getElementsByTagName('input')).map((el) => { 
+                return el.name
+            })
+        );
+
+        let allInputsArr = Array.from(document.getElementsByTagName('input'));
+
+        allInputsArr.map((el) => {
+            if (el.checked) {
+                requiredInputSet.delete(el.name);
+            }
+            return null;
+        });
+
+        return requiredInputSet;
     }
 
     componentDidMount() {

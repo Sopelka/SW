@@ -9,13 +9,15 @@ export default class MiniCart extends React.Component {
 
         this.state = {
             allItems : [
-                {},{}, {}
+                {},{},{}
             ],
+
             cartOpen: false,
         }
 
         this.toggleCart = this.toggleCart.bind(this);
         this.closeCart = this.closeCart.bind(this);
+        this.showOrderData = this.showOrderData.bind(this);
     }
 
     componentWillUnmount() {
@@ -24,6 +26,8 @@ export default class MiniCart extends React.Component {
 
     componentDidMount() {
         document.addEventListener('click', this.closeCart, false);
+
+        this.showOrderData();
     }
 
     toggleCart() {
@@ -31,7 +35,14 @@ export default class MiniCart extends React.Component {
             cartOpen: !prevValue.cartOpen
         }))
 
-        this.props.appDarkCallback(!this.state.cartOpen)
+        this.props.appDarkCallback(!this.state.cartOpen);
+
+        this.showOrderData(); //
+
+        //
+
+        const a = this.showOrderData(); //
+        console.log('90909099000000000000000000000000000000000', a); //
     }
 
     closeCart(event) {
@@ -44,7 +55,23 @@ export default class MiniCart extends React.Component {
         }
     }
 
+    showOrderData() { //
+        let data = localStorage.getItem('currentOrder');
+        data = JSON.parse(data);
+        console.log('minicartDATA!!!!!!!!', data)
+
+        if (data) {
+            this.setState({
+                allItems: data,
+            })     
+        }
+        
+        return data;
+    }
+
+
     render() {
+        console.log('--------------------------minicartSTATE', this.state)
         return(
             <>
                 <svg className="minicart-icon" width="20" height="19" viewBox="0 0 20 19" fill="#43464E" xmlns="http://www.w3.org/2000/svg">
@@ -59,9 +86,12 @@ export default class MiniCart extends React.Component {
                             <span className="minicart-title__details">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
                         </p>
                         <div className="minicart__items-wrapper">
-                            <MinicartItem />
-                            <MinicartItem />
-                            <MinicartItem />
+                            { 
+                                this.state?.allItems?.map((item, index) => {
+                                    return <MinicartItem key={ index } data = { item } newCurrency = { this.props.newCurrency }/>
+                                })
+                            }
+
                         </div>
                         <div className="minicart__total-wrapper">
                             <p className="minicart__total-title">Total</p>
