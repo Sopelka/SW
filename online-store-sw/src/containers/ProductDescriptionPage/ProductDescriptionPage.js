@@ -47,7 +47,7 @@ export default class ProductDescriptionPage extends React.Component {s
                 productDetails: {
                     name: this.state.data.name,
                     brand: this.state.data.brand,
-                    img: this.state.data?.gallery?.[0],
+                    img: this.state.data?.gallery,
                     product_id: this.state.data.id,
                     prices: this.state.data.prices,
                     attributes: this.state.data.attributes,
@@ -69,7 +69,7 @@ export default class ProductDescriptionPage extends React.Component {s
             productDetails: {
                 name: this.state.data.name,
                 brand: this.state.data.brand,
-                img: this.state.data?.gallery?.[0],
+                img: this.state.data?.gallery,
                 product_id: this.state.data.id,
                 prices: this.state.data.prices,
                 attributes: this.state.data.attributes,

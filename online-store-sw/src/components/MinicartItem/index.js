@@ -36,8 +36,8 @@ export default class MinicartItem extends React.Component{
                     
                 </div>
                 <div className="minicart-item__action-wrapper">
-                    <CartItemCounter size="small" />
-                    <CartItemSlider size="small" />
+                    <CartItemCounter size="small" data = { this.props.data } cartCounterCallback = { this.props.cartCounterCallback } />
+                    <CartItemSlider size="small" data = { this.props.data } />
                 </div>
             </div>
         )

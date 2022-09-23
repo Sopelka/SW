@@ -3,35 +3,27 @@ import './index.css'
 
 export default class CartItemCounter extends React.Component {
     constructor() {
-        super()
-
-        this.state = {
-            value: '0'
-        }
-
+        super();
+        
         this.increase = this.increase.bind(this);
         this.decrease = this.decrease.bind(this);
     }
 
     increase() {
-        this.setState(prevValue => ({
-            value: Number(prevValue.value) + 1
-        }))
+        this.props.cartCounterCallback(true, this.props.data.orderID);
     }
 
     decrease() {
-        this.setState(prevValue => ({
-            value: Number(prevValue.value) === 0 ? 0 : prevValue.value - 1
-        }))
+        this.props.cartCounterCallback(false, this.props.data.orderID);
     }
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-
+        console.log('COUNTERprops', this.props)
         return(
             <>
                 <div className={`count-btn-container${mode}`}>
-                    <div className={`count-btn-increase${mode} count-btn${mode}`} onClick={ this.increase }>
+                     <div className={`count-btn-increase${mode} count-btn${mode}`} onClick={ this.increase }> 
                         <div className={`count-btn-protector${mode}`}/>
                         { this.props.size === 'normal' ?
                             <>
@@ -55,9 +47,9 @@ export default class CartItemCounter extends React.Component {
                         }
                     </div>
                     
-                    <p className={`counter${mode}`}>{ this.state.value }</p>
+                    <p className={`counter${mode}`}>{ this.props.data.counter }</p>
 
-                    <div className={`count-btn-decrease${mode} count-btn${mode}`} onClick={ this.decrease }>
+                    <div className={`count-btn-decrease${mode} count-btn${mode}`} onClick={ this.decrease } > {/*onClick={ this.props.cartCounterCallback(false, this.props.data.orderID) } */}
                         <div className={`count-btn-protector${mode}`}/>
                         { this.props.size === 'normal' ? 
                             <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">

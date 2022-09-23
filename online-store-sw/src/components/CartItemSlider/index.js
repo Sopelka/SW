@@ -5,10 +5,10 @@ export default class CartItemSlider extends React.Component {
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-
+        console.log('sliderPROPS', this.props)
         return(
             <div className={`image-slider${mode}`}>
-                <img className={`image-slider__image${mode}`} src="./proba.jpg" alt="product" />
+                <img className={`image-slider__image${mode}`} src={this.props?.data?.img[0]} alt="product" />
 
                 { this.props.size === 'normal' ?
                     <>
