@@ -44,6 +44,10 @@ export default class MiniCart extends React.Component {
 
         let data = this.showOrderData();
         this.getTotalSum(data);
+
+        if(this.state.cartOpen) {
+            localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+        }
     }
 
     closeCart(event) {
@@ -53,6 +57,8 @@ export default class MiniCart extends React.Component {
             })
 
             this.props.appDarkCallback(false)
+
+            localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
         }
     }
 
@@ -103,6 +109,8 @@ export default class MiniCart extends React.Component {
         let newData = this.state.allItems.map((product, itemIndex) => {
             if (product.orderID === orderID) {
                 if (increase){
+                    this.props.appCartAmountCallback('+1');
+
                     return ({
                         ...product,
                         counter: +product.counter + 1,
@@ -110,11 +118,15 @@ export default class MiniCart extends React.Component {
                 }
                 else {
                     if ((+product.counter - 1) === 0) {
+                        this.props.appCartAmountCallback('-1');
+
                         let deleteItem = window.confirm(`Do you want to delete ${product.name} ${product.brand}?`, 'Do you want to delete this item?');
                         index = deleteItem ? itemIndex : null;
                         return { ...product, counter: 1 }
                     } 
                     else {
+                        this.props.appCartAmountCallback('-1');
+
                         return ({
                             ...product,
                             counter: +product.counter - 1,
@@ -155,8 +167,8 @@ export default class MiniCart extends React.Component {
 
 
     render() {
-        console.log('|||||||||||||||||||||||||minicartSTATE', this.state)
-        console.log('|||||||||||||||||||||||||minicartPROPS', this.props)
+        console.log('minicartSTATE', this.state)
+        console.log('minicartPROPS', this.props)
         return(
             <div className="minicart__extra-conteiner">
                 <svg className="minicart-icon" width="20" height="19" viewBox="0 0 20 19" fill="#43464E" xmlns="http://www.w3.org/2000/svg">
@@ -177,7 +189,12 @@ export default class MiniCart extends React.Component {
                             <div className="minicart__items-wrapper">
                                 { 
                                     this.state?.allItems?.map((item, index) => {
-                                        return <MinicartItem key={ index } data = { item } newCurrency = { this.props.newCurrency } cartCounterCallback = { this.changeCounter }/>
+                                        return <MinicartItem 
+                                            key={ index } 
+                                            data = { item } 
+                                            newCurrency = { this.props.newCurrency } 
+                                            cartCounterCallback = { this.changeCounter }
+                                        />
                                     })
                                 }
                             </div>

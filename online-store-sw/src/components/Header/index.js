@@ -51,7 +51,12 @@ export default class Header extends React.Component {
                         <div className="header-details__cart">
                         <p className={ this.props.cartAmount > 0 ? "header-details__cart__label minicart" : "minicart disabled" }>{ this.props.cartAmount }</p>
                             {/* <p className="header-details__cart__label minicart">{ this.props.cartAmount }</p> */}
-                            <MiniCart appDarkCallback = { this.props.appDarkCallback } newCurrency = { this.props.newCurrency }/>
+                            <MiniCart 
+                                appDarkCallback = { this.props.appDarkCallback } 
+                                appCartAmountCallback = { this.props.appCartAmountCallback }
+                                newCurrency = { this.props.newCurrency }
+                                
+                            />
                         </div>
                     </div>
                 </nav>
@@ -59,3 +64,4 @@ export default class Header extends React.Component {
         )
     }
 }
+

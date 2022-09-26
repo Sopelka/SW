@@ -8,8 +8,9 @@ export default class SwatchInput extends React.Component {
     }
 
     handleInput(event){
-        this.props.pdpCallback (event.target)
+        this.props.pdpCallback(event.target);
     }
+
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
         console.log('swatchInputProps', this.props)
@@ -20,17 +21,18 @@ export default class SwatchInput extends React.Component {
 
                 { this.props.active ? null : <div className={`input__protector${mode}`}/> }
 
-                    { this.props.dataArr?.items?.map((element) =>  
+                    { this.props.dataArr?.items?.map((element, index) =>  
                         <div className={`swatch-input__inner-wrapper${mode}`} key={ element.id }>
                             <input 
                                 required
                                 onClick = { this.handleInput }
-                                className = {`swatch-input${mode}`}
+                                className = {`swatch-input${mode} input${mode}`}
                                 type = "radio" 
                                 id = { element.id } 
                                 name = { this.props.dataArr?.name } 
                                 value = { element.displayValue } 
                                 data-swatch = { element.value } 
+                                defaultChecked = { this.props?.chosenOptions && element?.id === Object.values(this.props?.chosenOptions)[index] ? 'checked' : null }
                             />
                             <label 
                                 style = { {backgroundColor: element.value} } 

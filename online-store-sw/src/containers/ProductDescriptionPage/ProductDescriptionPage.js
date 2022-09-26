@@ -39,7 +39,9 @@ export default class ProductDescriptionPage extends React.Component {s
         await client.query({
             query: gql`${productDescriptions}`, 
             variables: {id: queryID}})
-                .then((result) => this.setState({ data: result.data.product }))
+                .then((result) => {
+                    console.log('SERVERBUG', result)
+                    this.setState({ data: result.data.product })})
                 .catch((error) => this.setState({ error: error }))
 
         setTimeout(() => { 
@@ -57,7 +59,7 @@ export default class ProductDescriptionPage extends React.Component {s
                     orderID: '',
                 }
             })
-        }, 1)
+        }, 500)
     }
 
     changeImage(imageSrc){
@@ -162,24 +164,50 @@ export default class ProductDescriptionPage extends React.Component {s
 
     checkInputs() {
         let requiredInputSet = new Set(
-            Array.from(document.getElementsByTagName('input')).map((el) => { 
+            Array.from(document.getElementsByClassName('input')).map((el) => { 
                 return el.name
             })
         );
 
+        if(!requiredInputSet){
+            this.setState({
+                productDetails: {
+                    name: this.state.data.name,
+                    brand: this.state.data.brand,
+                    img: this.state.data?.gallery,
+                    product_id: this.state.data.id,
+                    prices: this.state.data.prices,
+                    attributes: null,
+                    counter: 1,
+    
+                    inputsInfo: null,
+    
+                    orderID: '',
+                }
+            })
+        }
+
+        console.log('||||||||requiredInputSet', 1, requiredInputSet)
+
         let allInputsArr = Array.from(document.getElementsByTagName('input'));
+
+        console.log('|||||||||allInputsArr', 2, requiredInputSet)
 
         allInputsArr.map((el) => {
             if (el.checked) {
                 requiredInputSet.delete(el.name);
+                console.log('|||||ELEMENT', 3, el)
             }
             return null;
         });
+
+        console.log('||||||||requiredInputSet', 4, requiredInputSet)
 
         return requiredInputSet;
     }
 
     componentDidMount() {
+        console.log("DEBAG_____GETDATA||COMDIDMOUNT")
         this.getData();
     }
 
@@ -233,6 +261,5 @@ export default class ProductDescriptionPage extends React.Component {s
     }
 }
 
-
-
 const productDescriptions = 'query($id: String!){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
+

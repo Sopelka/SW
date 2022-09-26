@@ -61,23 +61,36 @@ export default class App extends React.Component {
         })
     }
 
-    changeCartProductAmount(length){
-        if (localStorage.getItem('currentOrder')) {
-            this.setState({
-                cartAmount: length,
-            })
-        } else {
-            this.setState({
-                cartAmount: 0,
-            })
-        }        
+    changeCartProductAmount(value){
+        if (typeof value === 'number'){
+            if (localStorage.getItem('currentOrder')) {
+                this.setState({
+                    cartAmount: value,
+                })
+            } else {
+                this.setState({
+                    cartAmount: 0,
+                })
+            }        
+        }
+        else if(typeof value === 'string'){
+            this.setState(prevValue => ({
+                cartAmount: +prevValue.cartAmount + Number(value),
+            }))
+        }       
     }
 
     componentDidMount() {
         this.getData();
 
         if (localStorage.getItem('currentOrder')) {
-            this.changeCartProductAmount(JSON.parse(localStorage.getItem('currentOrder')).length);
+            let prevCartAmount = JSON.parse(localStorage.getItem('currentOrder'));
+            
+            prevCartAmount = prevCartAmount.reduce((acc, obj)=>{
+                return acc+obj.counter
+            }, 0)
+
+            this.changeCartProductAmount(prevCartAmount);
         }
     }
 
@@ -90,6 +103,7 @@ export default class App extends React.Component {
                         appDarkCallback = { this.setDark } 
                         appCategoryCallback = { this.changeCategory }
                         appCurrencyCallback = { this.changeCurrency }
+                        appCartAmountCallback = { this.changeCartProductAmount }
                         cartAmount = { this.state.cartAmount }
                         newCurrency = { this.state.currency }
                     />

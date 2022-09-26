@@ -23,11 +23,23 @@ export default class MinicartItem extends React.Component{
                         this.props.data?.attributes?.length === 0 ?
                         null
                         :
-                        this.props.data?.attributes?.map((attr, index)=>{
-                            return( attr.type === 'text' ? 
-                                <TextInput key = { index } size="small" active={ false } chosenOptions = { this.props.data.inputsInfo } />
+                        this.props.data?.attributes?.map((element, index)=>{
+                            return( element.type === 'text' ? 
+                                <TextInput 
+                                    key = { index } 
+                                    size="small" 
+                                    active={ false } 
+                                    chosenOptions = { this.props.data.inputsInfo } 
+                                    dataArr = { element }
+                                />
                                 : 
-                                <SwatchInput key = { index } size="small" active={ false } chosenOptions = { this.props.data.inputsInfo } />
+                                <SwatchInput 
+                                    key = { index } 
+                                    size="small" 
+                                    active={ false } 
+                                    chosenOptions = { this.props.data.inputsInfo } 
+                                    dataArr = { element }
+                                />
                             )
 
                         })
