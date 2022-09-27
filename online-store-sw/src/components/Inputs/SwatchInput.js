@@ -5,10 +5,23 @@ export default class SwatchInput extends React.Component {
     constructor() {
         super();
         this.handleInput = this.handleInput.bind(this);
+        this.showChosenInputs = this.showChosenInputs.bind(this);
     }
 
     handleInput(event){
         this.props.pdpCallback(event.target);
+    }
+
+    showChosenInputs(element) {
+        let result = null;
+
+        for (let key in this.props.chosenOptions) {
+            if (key.includes(this.props.dataArr.name) && this.props.chosenOptions[key] === element.id) {
+                result = 'checked';
+            }
+        }
+
+        return result;
     }
 
     render() {
@@ -29,10 +42,10 @@ export default class SwatchInput extends React.Component {
                                 className = {`swatch-input${mode} input${mode}`}
                                 type = "radio" 
                                 id = { element.id } 
-                                name = { this.props.dataArr?.name } 
+                                name = { this.props.active ? this.props.dataArr?.name : `${JSON.stringify(this.props.chosenOptions)} ${this.props.dataArr.name}`}  
                                 value = { element.displayValue } 
                                 data-swatch = { element.value } 
-                                defaultChecked = { this.props?.chosenOptions && element?.id === Object.values(this.props?.chosenOptions)[index] ? 'checked' : null }
+                                defaultChecked = { this.showChosenInputs(element) }
                             />
                             <label 
                                 style = { {backgroundColor: element.value} } 

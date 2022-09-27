@@ -67,3 +67,7 @@ label[for="White"]{
     left: 0;
     outline: 1px solid white;
 }
+
+.swatch-input__minicart:checked+label{
+    box-shadow: 0 0 0 2px rgba(94, 206, 123, 1);
+}

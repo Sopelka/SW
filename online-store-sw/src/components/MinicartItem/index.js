@@ -8,7 +8,7 @@ import CartItemSlider from "../CartItemSlider";
 
 export default class MinicartItem extends React.Component{
     render() {
-        console.log("-------------------minicartItemPROPS", this.props)
+        console.log("minicartItemPROPS", this.props)
         return(
             <div className="minicart-item__wrapper">
                 <div className="minicart-item__info-wrapper">

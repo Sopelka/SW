@@ -8,9 +8,11 @@ export default class MiniCart extends React.Component {
         super();
 
         this.state = {
-            allItems : [
-                {},{},{}
-            ],
+            // allItems : [
+            //     {},{},{}
+            // ],
+
+            allItems : null,
 
             cartOpen: false,
             cartEmpty: true,
@@ -45,7 +47,11 @@ export default class MiniCart extends React.Component {
         let data = this.showOrderData();
         this.getTotalSum(data);
 
-        if(this.state.cartOpen) {
+        // if(this.state.cartOpen ) {
+        //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+        // }
+
+        if(this.state.cartOpen && this.state.allItems) {
             localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
         }
     }
@@ -58,7 +64,11 @@ export default class MiniCart extends React.Component {
 
             this.props.appDarkCallback(false)
 
-            localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+            //localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+
+            if(this.state.allItems) {
+                localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+            }
         }
     }
 
@@ -155,9 +165,10 @@ export default class MiniCart extends React.Component {
         }
         else {
             this.setState({
-                allItems: [
-                    {},{},{}
-                ],
+                // allItems: [
+                //     {},{},{}
+                // ],
+                allItems: null,
                 cartEmpty: true,
             })
 

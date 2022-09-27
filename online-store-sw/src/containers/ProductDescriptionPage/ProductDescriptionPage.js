@@ -39,9 +39,7 @@ export default class ProductDescriptionPage extends React.Component {s
         await client.query({
             query: gql`${productDescriptions}`, 
             variables: {id: queryID}})
-                .then((result) => {
-                    console.log('SERVERBUG', result)
-                    this.setState({ data: result.data.product })})
+                .then((result) =>  this.setState({ data: result.data.product }))
                 .catch((error) => this.setState({ error: error }))
 
         setTimeout(() => { 
@@ -187,27 +185,20 @@ export default class ProductDescriptionPage extends React.Component {s
             })
         }
 
-        console.log('||||||||requiredInputSet', 1, requiredInputSet)
 
         let allInputsArr = Array.from(document.getElementsByTagName('input'));
-
-        console.log('|||||||||allInputsArr', 2, requiredInputSet)
 
         allInputsArr.map((el) => {
             if (el.checked) {
                 requiredInputSet.delete(el.name);
-                console.log('|||||ELEMENT', 3, el)
             }
             return null;
         });
-
-        console.log('||||||||requiredInputSet', 4, requiredInputSet)
 
         return requiredInputSet;
     }
 
     componentDidMount() {
-        console.log("DEBAG_____GETDATA||COMDIDMOUNT")
         this.getData();
     }
 
