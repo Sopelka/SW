@@ -7,24 +7,55 @@ import CartItemCounter from '../CartItemCounter';
 import CartItemSlider from '../CartItemSlider';
 
 export default class CartItem extends React.Component {
+    
      render() {
+        console.log("CARTITEMprops", this.props)
         return (
             <div className="cart-item__container">
                 <div className="cart-item__left-static-part">
-                    <p className="left-static-part__brand-name">Apollo</p>
-                    <p className="left-static-part__item-name">Running Short</p>
-                    <p className="left-static-part__price">$50.00</p>
+                    <p className="left-static-part__brand-name">{ this.props.data.brand }</p>
+                    <p className="left-static-part__item-name">{ this.props.data.name }</p>
+                    <p className="left-static-part__price">
+
+                    { this.props.data?.prices?.map((potentialPrice) => {
+                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
+                        })}
+                    </p>
 
                     {/* foreach attribute */}
                     <div className="left-static-part__input-container">
-                        <TextInput />
-                        <SwatchInput />
+                    { 
+                        this.props.data?.attributes?.length === 0 ?
+                        null
+                        :
+                        this.props.data?.attributes?.map((element, index)=>{
+                            return( element.type === 'text' ? 
+                                <TextInput 
+                                    key = { index } 
+                                    active={ false } 
+                                    chosenOptions = { this.props.data.inputsInfo } 
+                                    dataArr = { element }
+                                />
+                                : 
+                                <SwatchInput 
+                                    key = { index } 
+                                    active={ false } 
+                                    chosenOptions = { this.props.data.inputsInfo } 
+                                    dataArr = { element }
+                                />
+                            )
+
+                        })
+                    }
+                    
+                        {/* <TextInput />
+                        <SwatchInput /> */}
                     </div>
                 </div>
 
                 <div className="cart-item__right-dynamic-part">
-                    <CartItemCounter />
-                    <CartItemSlider />
+                    <CartItemCounter  data = { this.props.data } cartCounterCallback = { this.props.cartCounterCallback }/>
+                    <CartItemSlider  data = { this.props.data } />
                 </div>
             </div>
         )

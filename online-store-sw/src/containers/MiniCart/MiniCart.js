@@ -1,6 +1,8 @@
 import React from "react";
 import './MiniCart.css'
 
+import { Navigate, Link } from "react-router-dom";
+
 import MinicartItem from "../../components/MinicartItem";
 
 export default class MiniCart extends React.Component {
@@ -214,9 +216,14 @@ export default class MiniCart extends React.Component {
                                 <p className="minicart__total-result">{`${this.props.newCurrency[0]}${this.state.totalSum}`}</p>
                             </div>
                             <div className="minicart__buttons-wrapper">
-                                <button className="minicart__button-viewbag">VIEW BAG</button>
+                                <Link to = '/cart'>
+                                    <button onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null } className="button-viewbag" >VIEW BAG</button> {/* className="minicart__button-viewbag" */}
+                                </Link>
+                                
                                 <button className="minicart__button-checkout">CHECK OUT</button>
                             </div>
+
+                            {/* onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null } */}
                         </>
                     }
                         

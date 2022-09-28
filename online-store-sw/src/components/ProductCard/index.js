@@ -16,9 +16,6 @@ export default class ProductCard extends React.Component {
     }
 
     showDetails(e){
-        console.log('e.target', e.target)
-        console.log('e.currentTarget', e.currentTarget)
-        console.log('this.props.cardData',this.props.cardData)
 
         localStorage.setItem('PDP_ID', this.props.cardData.id);
 

@@ -55,7 +55,6 @@ export default class App extends React.Component {
     }
 
     changeCurrency(childData) {
-        console.log('changeCurrency', childData);
         this.setState({
             currency: childData,
         })
@@ -129,7 +128,15 @@ export default class App extends React.Component {
                                 appCartAmountCallback = { this.changeCartProductAmount }
                             /> }/>
 
-                    <Route path = '/cart' element = { <CartPage/> }/>
+                    <Route 
+                        path = '/cart' 
+                        element = { 
+                            <CartPage
+                                cartAmount = { this.state.cartAmount }
+                                newCurrency = { this.state.currency }
+                                appCartAmountCallback = { this.changeCartProductAmount }
+                            /> 
+                        }/>
 
                     <Route path = '*' element = { <Navigate to = '/main' /> } />
                 </Routes>

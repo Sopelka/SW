@@ -100,7 +100,8 @@
     font-size: 16px;
 }
 
-.minicart__button-viewbag{
+/* minicart__button-viewbag */
+.button-viewbag{
     width: 140px;
     height: 43px;
     background: #FFFFFF;
@@ -135,11 +136,13 @@
     background: #479e5e;
 }
 
-.minicart__button-viewbag:hover{
+/* minicart__button-viewbag:hover */
+.button-viewbag:hover{
     cursor: pointer;
 }
 
-.minicart__button-viewbag:active{
+/* minicart__button-viewbag:active */
+.button-viewbag:active{
     background: #1D1F22;
     border: 1px solid #FFFFFF;
     color: #FFFFFF;
