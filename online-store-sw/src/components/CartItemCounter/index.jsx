@@ -1,5 +1,8 @@
+//Core
 import React from "react";
-import './index.css'
+
+//Locals
+import './index.css';
 
 export default class CartItemCounter extends React.Component {
     constructor() {
@@ -19,11 +22,10 @@ export default class CartItemCounter extends React.Component {
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-        console.log('COUNTERprops', this.props)
-        return(
+        return (
             <>
                 <div className={`count-btn-container${mode}`}>
-                     <div className={`count-btn-increase${mode} count-btn${mode}`} onClick={ this.increase }> 
+                    <div className={`count-btn-increase${mode} count-btn${mode}`} onClick={ this.increase }> 
                         <div className={`count-btn-protector${mode}`}/>
                         { this.props.size === 'normal' ?
                             <>

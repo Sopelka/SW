@@ -1,27 +1,26 @@
+//Core
 import React from 'react';
-import './index.css'
-
 import { Link } from "react-router-dom";
 
+//Locals
+import './index.css';
 import Dropdown from '../Dropdown';
 import MiniCart from '../../containers/MiniCart/MiniCart';
 
 export default class Header extends React.Component {
     render() {
-        console.log('propsHEADER', this.props)
         return (
             <header>
                 <nav>
                     <div className="header-categories">                            
                         { this.props.data.categories?.map((category) => {
                             return (
-                                <Link to='/main' key = {category?.name}>
-                                    <p 
-                                        className="header-category"
-                                        onClick = { this.props.appCategoryCallback }>
-                                            { category.name.toUpperCase() }
+                                <Link to = '/main' key = {category?.name}>
+                                    <p className="header-category" onClick = { this.props.appCategoryCallback }>
+                                        { category.name.toUpperCase() }
                                     </p>
-                                </Link>);
+                                </Link>
+                            );
                         })}
                     </div>
                     <svg className="header-logo" width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,9 +47,8 @@ export default class Header extends React.Component {
                                 appCurrencyCallback = { this.props.appCurrencyCallback }
                             />
                         </div>
-                        <div className="header-details__cart">
-                        <p className={ this.props.cartAmount > 0 ? "header-details__cart__label minicart" : "minicart disabled" }>{ this.props.cartAmount }</p>
-                            {/* <p className="header-details__cart__label minicart">{ this.props.cartAmount }</p> */}
+                        <div className = "header-details__cart">
+                        <p className = { this.props.cartAmount > 0 ? "header-details__cart__label minicart" : "minicart disabled" }>{ this.props.cartAmount }</p>
                             <MiniCart 
                                 appDarkCallback = { this.props.appDarkCallback } 
                                 appCartAmountCallback = { this.props.appCartAmountCallback }
@@ -65,4 +63,3 @@ export default class Header extends React.Component {
         )
     }
 }
-

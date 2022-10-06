@@ -1,11 +1,12 @@
+//Core
 import React from 'react';
-import './MainSection.css'
 
+//Locals
+import './MainSection.css';
 import ProductCard from '../../components/ProductCard';
 
 export default class MainSection extends React.Component {      
     render () {
-        console.log('propsMAIN', this.props)
         return (
             <section className="main-section">
                 <h2 className="main-section__header" >
@@ -15,11 +16,13 @@ export default class MainSection extends React.Component {
                     { this.props.data.categories?.map(category => {
                         return category.name.toUpperCase() === this.props.catName ? 
                             category.products.map((product) => {
-                                return ( <ProductCard 
-                                    cardData = { product } 
-                                    key = { product?.id } 
-                                    newCurrency = { this.props.newCurrency }                                
-                                    />) 
+                                return ( 
+                                    <ProductCard 
+                                        cardData = { product } 
+                                        key = { product?.id } 
+                                        newCurrency = { this.props.newCurrency }                                
+                                    />
+                                );
                             })
                         : null
                     })}

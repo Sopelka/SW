@@ -1,12 +1,13 @@
+//Core
 import React from "react";
-import './MiniCart.css'
+import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
-import { Navigate, Link } from "react-router-dom";
-import store from '../../lib/redux/store';
-import { Connect, connect } from 'react-redux';
-import { setNewProductToCart, setNewCartAmount } from '../../lib/redux/actions';
-
+//Locals
+import './MiniCart.css';
 import MinicartItem from "../../components/MinicartItem";
+import store from '../../lib/redux/store';
+import { setNewProductToCart } from '../../lib/redux/actions';
 
 class MiniCart extends React.Component {
     constructor() {
@@ -17,13 +18,11 @@ class MiniCart extends React.Component {
 
             cartOpen: false,
             cartEmpty: true,
-        }
+        };
 
         this.toggleCart = this.toggleCart.bind(this);
         this.closeCart = this.closeCart.bind(this);
-
         this.showOrderData = this.showOrderData.bind(this);
-
         this.getTotalSum = this.getTotalSum.bind(this);
         this.changeCounter = this.changeCounter.bind(this);
         this.confirmOrder = this.confirmOrder.bind(this);
@@ -34,7 +33,6 @@ class MiniCart extends React.Component {
     }
 
     componentDidMount() {
-        //console.log(111111111111111111111111111111111111111111111111)
         document.addEventListener('click', this.closeCart, false);
 
         let state = store.getState();
@@ -42,104 +40,63 @@ class MiniCart extends React.Component {
         if (state.setNewProductToCart.length <= 0 && !localStorage.getItem('currentOrder')) {
             this.setState({
                 cartEmpty: true,
-            })   
+            });
         }
         else if (state.setNewProductToCart.length <= 0 && localStorage.getItem('currentOrder')) {
-            //console.log('YUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT')
             this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))))
-            //console.log(store.getState())
         }
-
-
-
 
         this.showOrderData();
     }
 
     toggleCart() {
-        //console.log(3333333333333333333333333333333333333333333333333333333)
         this.setState(prevValue => ({
             cartOpen: !prevValue.cartOpen
-        }))
+        }));
 
         this.props.appDarkCallback(!this.state.cartOpen);
 
         let state = store.getState();
 
-        //console.log(3333333333333333333333333333333333333333333333333333333 , 'state.setNewProductToCart.length <= 0, localStorage.getItem(curentOrder)', state.setNewProductToCart.length <= 0, localStorage.getItem('curentOrder'))
-
         if (state.setNewProductToCart.length <= 0 && !localStorage.getItem('currentOrder')) {
             this.setState({
                 cartEmpty: true,
-            })   
+            });
         }
         else if (state.setNewProductToCart.length <= 0 && localStorage.getItem('currentOrder')) {
-            //console.log('YUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT')
-            this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))))
-            //console.log(store.getState())
+            this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))));
         }
 
         let data = this.showOrderData();
         this.getTotalSum(data);
-
-        // if(this.state.cartOpen ) {
-        //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
-        // }
-
-        //let state = store.getState();
-        
-        // if(this.state.cartOpen && this.state.allItems && state.setNewProductToCart.length > 0) {
-        //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
-        // }
     }
 
     closeCart(event) {
-        if (this.state.cartOpen && !event.target.className.includes('minicart')){
+        if (this.state.cartOpen && !event.target.className.includes('minicart')) {
             this.setState({
                 cartOpen: false
-            })
+            });
 
-            this.props.appDarkCallback(false)
-
-            //localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
-
-            // if(this.state.allItems) {
-            //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
-            // }
+            this.props.appDarkCallback(false);
         }
     }
 
     showOrderData() {
-        //console.log(2222222222222222222222222222222222222222222222222222222)
         let state = store.getState();
 
-        //console.log('==================================11', state)
         if (state.setNewProductToCart.length > 0) {
             this.setState({
                 allItems: state.setNewProductToCart,
                 cartEmpty: false,
-            })   
-            return state.setNewProductToCart
+            });  
+
+            return state.setNewProductToCart;
         }
+
         return null;
-
-
-        // let data = null;
-
-        // if (localStorage.getItem('currentOrder')) {
-        //     data = localStorage.getItem('currentOrder');
-        //     data = JSON.parse(data);
-
-        //     this.setState({
-        //         allItems: data,
-        //         cartEmpty: false,
-        //     })     
-        // }
-
-        // return data;
     }
 
-    getTotalSum(arr){
+    getTotalSum(arr) {
         let result = !localStorage.getItem('currentOrder') || !arr ? 
             null
             : 
@@ -152,17 +109,16 @@ class MiniCart extends React.Component {
             })
             .reduce((prev, curr) => { 
                 return prev + curr 
-            })
+            });
 
-        if(result){
+        if (result) {
             result = Math.floor(result * 100) / 100
 
             this.setState({
                 totalSum: result
-            })
+            });
         }
     }
-
 
     changeCounter(increase, orderID) {
         let index = null;
@@ -170,13 +126,13 @@ class MiniCart extends React.Component {
 
         let newData = state.setNewProductToCart.map((product, itemIndex) => {
             if (product.orderID === orderID) {
-                if (increase){
+                if (increase) {
                     this.props.appCartAmountCallback('+1');
 
                     return ({
                         ...product,
                         counter: +product.counter + 1,
-                    })
+                    });
                 }
                 else {
                     if ((+product.counter - 1) === 0) {
@@ -184,7 +140,7 @@ class MiniCart extends React.Component {
 
                         let deleteItem = window.confirm(`Do you want to delete ${product.name} ${product.brand}?`, 'Do you want to delete this item?');
                         index = deleteItem ? itemIndex : null;
-                        return { ...product, counter: 1 }
+                        return { ...product, counter: 1 };
                     } 
                     else {
                         this.props.appCartAmountCallback('-1');
@@ -192,57 +148,50 @@ class MiniCart extends React.Component {
                         return ({
                             ...product,
                             counter: +product.counter - 1,
-                        })
+                        });
                     }
                 }
             } 
             else {
                 return({
                     ...product,
-                })
+                });
             }
         })
 
         if (index || index === 0) {
-            newData.splice(index, 1)
+            newData.splice(index, 1);
             index = null;
         }
 
         if(newData.length) {
             this.setState({
                 allItems: newData
-            })
+            });
 
             this.props.dispatch(setNewProductToCart(newData));
 
-            ///===
-            //let state = store.getState()
+            this.getTotalSum(newData);
 
-            //console.log('=========================================================22', state)
-
-            this.getTotalSum(newData)
+            setTimeout(() => {
+                if (this.state.allItems) {
+                    localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+                }
+            }, 100);
         }
         else {
             this.setState({
-                // allItems: [
-                //     {},{},{}
-                // ],
                 allItems: null,
                 cartEmpty: true,
-            })
+            });
 
             this.props.dispatch(setNewProductToCart([]));
 
-            //let state = store.getState()
-
-            //console.log('=========================================================33', state)
-
-            localStorage.removeItem('currentOrder')
+            localStorage.removeItem('currentOrder');
         }
     }
 
     confirmOrder() {
-
         this.props.appSubmitOrderCallback();
         this.props.appDarkCallback(false);
 
@@ -250,15 +199,13 @@ class MiniCart extends React.Component {
             allItems : null,
             cartOpen: false,
             cartEmpty: true,
-        })
+        });
     }
 
 
     render() {
-        console.log('minicartSTATE', this.state)
-        console.log('minicartPROPS', this.props)
         let state = store.getState();
-        return(
+        return (
             <div className="minicart__extra-conteiner">
                 <svg className="minicart-icon" width="20" height="19" viewBox="0 0 20 19" fill="#43464E" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.5613 3.87359C19.1822 3.41031 18.5924 3.12873 17.9821 3.12873H5.15889L4.75914 1.63901C4.52718 0.773016 3.72769 0.168945 2.80069 0.168945H0.653099C0.295301 0.168945 0 0.450523 0 0.793474C0 1.13562 0.294459 1.418 0.653099 1.418H2.80069C3.11654 1.418 3.39045 1.61936 3.47434 1.92139L6.04306 11.7077C6.27502 12.5737 7.07451 13.1778 8.00152 13.1778H16.4028C17.3289 13.1778 18.1507 12.5737 18.3612 11.7077L19.9405 5.50575C20.0877 4.941 19.9619 4.33693 19.5613 3.87365L19.5613 3.87359ZM18.6566 5.22252L17.0773 11.4245C16.9934 11.7265 16.7195 11.9279 16.4036 11.9279H8.00154C7.68569 11.9279 7.41178 11.7265 7.32789 11.4245L5.49611 4.39756H17.983C18.1936 4.39756 18.4042 4.49824 18.5308 4.65948C18.6567 4.81994 18.7192 5.0213 18.6567 5.22266L18.6566 5.22252Z" fill="#43464E"/>
@@ -268,45 +215,43 @@ class MiniCart extends React.Component {
                 <div className="minicart-wrapper">
                     <div onClick={ this.toggleCart } className="minicart__open-btn"></div>
                     <div className={ this.state.cartOpen ? "minicart__droplist-wrapper" : "hiddenObj" }>
-                    { this.state.cartEmpty ?
-                        <p className="minicart initial-title">Your cart is empty</p>
-                        :
-                        <>
-                            <p className="minicart-title">My Bag
-                                <span className="minicart-title__details">{ `, ${state.setNewProductToCart.length} ${state.setNewProductToCart.length === 1 ? 'item' : 'items'}` }</span>
-                            </p>
-                            <div className="minicart__items-wrapper">
-                                { 
-                                    state.setNewProductToCart.map((item, index) => {
-                                        return <MinicartItem 
-                                            key={ index } 
-                                            data = { item } 
-                                            newCurrency = { this.props.newCurrency } 
-                                            cartCounterCallback = { this.changeCounter }
-                                        />
-                                    })
-                                }
-                            </div>
-                            <div className="minicart__total-wrapper">
-                                <p className="minicart__total-title">Total</p>
-                                <p className="minicart__total-result">{`${this.props.newCurrency[0]}${this.state.totalSum}`}</p>
-                            </div>
-                            <div className="minicart__buttons-wrapper">
-                                <Link to = '/cart'>
-                                    <button  className="button-viewbag" >VIEW BAG</button> {/* className="minicart__button-viewbag" ////// onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null }*/}
-                                </Link>
-                                
-                                <button onClick = { this.confirmOrder }  className="minicart__button-checkout">CHECK OUT</button>
-                            </div>
-
-                            {/* onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null } */}
-                        </>
-                    }
-                        {/* { this.state.redirect && <Navigate to='/main' replace={ true }/> } */}
+                        { this.state.cartEmpty ?
+                            <p className="minicart initial-title">Your cart is empty</p>
+                            :
+                            <>
+                                <p className="minicart-title">My Bag
+                                    <span className="minicart-title__details">{ `, ${state.setNewProductToCart.length} ${state.setNewProductToCart.length === 1 ? 'item' : 'items'}` }</span>
+                                </p>
+                                <div className="minicart__items-wrapper">
+                                    { 
+                                        state.setNewProductToCart.map((item, index) => {
+                                            return <MinicartItem 
+                                                key={ index } 
+                                                data = { item } 
+                                                newCurrency = { this.props.newCurrency } 
+                                                cartCounterCallback = { this.changeCounter }
+                                            />
+                                        })
+                                    }
+                                </div>
+                                <div className="minicart__total-wrapper">
+                                    <p className="minicart__total-title">Total</p>
+                                    <p className="minicart__total-result">{`${this.props.newCurrency[0]}${this.state.totalSum}`}</p>
+                                </div>
+                                <div className="minicart__buttons-wrapper">
+                                    <Link to = '/cart'>
+                                        <button className="button-viewbag" >VIEW BAG</button> 
+                                    </Link>
+                                    
+                                    <button onClick = { this.confirmOrder } className="minicart__button-checkout">CHECK OUT</button>
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
         )
     }
 }
-export default connect()(MiniCart)
+
+export default connect()(MiniCart);

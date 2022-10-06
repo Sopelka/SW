@@ -1,3 +1,4 @@
+//Locals
 import { types } from './actionTypes';
 
 export const setNewCartAmount = (payload) => ({

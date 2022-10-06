@@ -1,37 +1,31 @@
+//Core
 import React from 'react';
-import './App.css';
-
-import { gql } from '@apollo/client'; 
-import { client } from '../..';
-
 import { Route, Routes, Navigate } from "react-router-dom";
+import { connect } from 'react-redux';
+import { gql } from '@apollo/client'; 
 
+//Locals
+import './App.css';
 import Header from '../../components/Header/index';
 import MainSection from '../MainSection/MainSection';
-
 import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
 import CartPage from '../CartPage/CartPage';
-
-import { connect } from 'react-redux';
 import { setNewProductToCart, setNewCartAmount, setNewCurrency } from '../../lib/redux/actions';
 import  store from '../../lib/redux/store';
+import { client } from '../..';
 
 class App extends React.Component {
     constructor() {
-        super()
+        super();
 
         this.state = {
             dark: false,
-
             data: [],
             error: '',
-
             catName: 'ALL',
-
             currency: [ "$", "USD" ],
-
             cartAmount: 0,
-        }
+        };
 
         this.setDark = this.setDark.bind(this);
         this.getData = this.getData.bind(this);
@@ -50,23 +44,23 @@ class App extends React.Component {
     setDark(childData) {
         this.setState({
             dark: childData,
-        })
+        });
     }
 
     changeCategory(event) {
         this.setState({
             catName: event.target.innerText,
-        })
+        });
     }
 
     changeCurrency(childData) {
         this.setState({
             currency: childData,
-        })
+        });
 
         this.props.dispatch(setNewCartAmount(childData));
 
-        localStorage.setItem('currentCurrency', JSON.stringify(childData))
+        localStorage.setItem('currentCurrency', JSON.stringify(childData));
     }
 
     changeCartProductAmount(value) {
@@ -76,43 +70,32 @@ class App extends React.Component {
             if (state.setNewProductToCart.length > 0 || localStorage.getItem('currentOrder')) {
                 this.setState({
                     cartAmount: value,
-                })
+                });
 
                 this.props.dispatch(setNewCartAmount(value));
-            } else {
+            } 
+            else {
                 this.setState({
                     cartAmount: 0,
-                })
+                });
 
                 this.props.dispatch(setNewCartAmount(0));
             }        
         }
-        else if(typeof value === 'string'){
+        else if (typeof value === 'string') {
             this.props.dispatch(setNewCartAmount(this.state.cartAmount + Number(value)));
 
             this.setState(prevValue => ({
                 cartAmount: +prevValue.cartAmount + Number(value),
-            }))
-
-            
+            }));
         }       
     }
 
     submitOrder() {
-        let state = store.getState();
-
-        console.log('_________________________________________ state.setNewProductToCart', state.setNewProductToCart)
-        console.log('_________________________________________ JSON.stringify(localStorage.getItem(currentOrder)) === JSON.stringify(state.setNewProductToCart)', JSON.stringify(localStorage.getItem('currentOrder')) === JSON.stringify(state.setNewProductToCart))
-        console.log('_________________________________________ JSON.stringify(localStorage.getItem(currentOrder)), JSON.stringify(state.setNewProductToCart)', JSON.stringify(localStorage.getItem('currentOrder')),'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', JSON.stringify(state.setNewProductToCart))
-
-        //if (JSON.stringify(localStorage.getItem('currentOrder')) === JSON.stringify(state.setNewProductToCart)) {
-            
-                window.alert('Your order was successfully formed. We will contact you in a few minutes')
-                localStorage.removeItem('currentOrder')
-                this.changeCartProductAmount(0)
-                this.props.dispatch(setNewProductToCart([]));
-            
-        //}
+        window.alert('Your order was successfully formed. We will contact you in a few minutes');
+        localStorage.removeItem('currentOrder');
+        this.changeCartProductAmount(0);
+        this.props.dispatch(setNewProductToCart([]));
     }
 
     componentDidMount() {
@@ -121,20 +104,22 @@ class App extends React.Component {
         if (localStorage.getItem('currentOrder')) {
             let prevCartAmount = JSON.parse(localStorage.getItem('currentOrder'));
             
-            prevCartAmount = prevCartAmount.reduce((acc, obj)=>{
-                return acc+obj.counter
-            }, 0)
+            prevCartAmount = prevCartAmount.reduce((acc, obj) => {
+                return acc + obj.counter
+            }, 0);
 
             this.changeCartProductAmount(prevCartAmount);
         }
 
         if (localStorage.getItem('currentCurrency')) {
             let currency = JSON.parse(localStorage.getItem('currentCurrency'));
-            this.changeCurrency(currency)
+            this.changeCurrency(currency);
+
             this.setState({
                 currency: currency,
-            })
-            this.props.dispatch(setNewCurrency(currency))
+            });
+
+            this.props.dispatch(setNewCurrency(currency));
         }
     }
 
@@ -164,7 +149,8 @@ class App extends React.Component {
                                 data = { this.state.data } 
                                 catName = { this.state.catName } 
                                 newCurrency = { this.state.currency }
-                            /> }  
+                            />
+                        }  
                     />  
 
                     <Route path = '/product' 
@@ -172,7 +158,9 @@ class App extends React.Component {
                             <ProductDescriptionPage 
                                 newCurrency = { this.state.currency } 
                                 appCartAmountCallback = { this.changeCartProductAmount }
-                            /> }/>
+                            /> 
+                        }
+                    />
 
                     <Route 
                         path = '/cart' 
@@ -183,16 +171,16 @@ class App extends React.Component {
                                 appCartAmountCallback = { this.changeCartProductAmount }
                                 appSubmitOrderCallback = { this.submitOrder }
                             /> 
-                        }/>
+                        }
+                    />
 
                     <Route path = '*' element = { <Navigate to = '/main' /> } />
                 </Routes>
-
             </>
         )
     }
 }
 
 const getStarted = 'query{categories{name,products{id,name,inStock,gallery,brand,description,prices{currency{label,symbol},amount},}},currencies {label,symbol}}'; 
-//const productDescriptions = '';
-export default connect()(App)
+
+export default connect()(App);

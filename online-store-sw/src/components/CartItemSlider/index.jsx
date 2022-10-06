@@ -7,21 +7,18 @@ export default class CartItemSlider extends React.Component {
 
         this.state = {
             currentImgIndex: 0,
-        }
+        };
 
         this.changeImage = this.changeImage.bind(this);
-
         this.mainImageRef = React.createRef();
     }
 
-
-    changeImage(increase){
+    changeImage(increase) {
         if (increase) {
             if (this.props.data.img[this.state.currentImgIndex + 1]) {
-                console.log('INCREASE', this.state.currentImgIndex)
                 this.setState((prevValue) => ({
-                    currentImgIndex: prevValue.currentImgIndex+1
-                }))
+                    currentImgIndex: prevValue.currentImgIndex + 1,
+                }));
             }
             else {
                 this.setState({
@@ -30,27 +27,22 @@ export default class CartItemSlider extends React.Component {
             }
         }
         else if (!increase) {
-            console.log('DECREASE0', this.state.currentImgIndex)
-            console.log('this.props.data.img[this.state.currentImgIndex - 1]', this.props.data.img[this.state.currentImgIndex - 1])
-            console.log('this.props.data.img[this.state.currentImgIndex - 1]>=0', this.props.data.img[this.state.currentImgIndex - 1]>=0)
             if (this.props.data.img[this.state.currentImgIndex - 1]) {
-                console.log('DECREASE', this.state.currentImgIndex)
                 this.setState((prevValue) => ({
-                    currentImgIndex: prevValue.currentImgIndex-1
-                }))
+                    currentImgIndex: prevValue.currentImgIndex - 1,
+                }));
             }
             else {
                 this.setState({
-                    currentImgIndex: this.props.data.img.length-1
-                })
+                    currentImgIndex: this.props.data.img.length - 1,
+                });
             }
         }
     }
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-        console.log('sliderPROPS', this.props)
-        return(
+        return (
             <div className={`image-slider${mode}`}>
                 <img className={`image-slider__image${mode}`} src={this.props?.data?.img[this.state.currentImgIndex]} alt="product" />
 
@@ -67,7 +59,8 @@ export default class CartItemSlider extends React.Component {
                             </svg>
                         </div>
                     </>
-                    : null 
+                    : 
+                    null 
                 }   
             </div>
         )
@@ -76,4 +69,4 @@ export default class CartItemSlider extends React.Component {
 
 CartItemSlider.defaultProps = {
     size: 'normal',
-}
+};

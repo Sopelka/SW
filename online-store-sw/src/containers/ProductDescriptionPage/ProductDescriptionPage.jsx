@@ -1,21 +1,17 @@
+//Core
 import React from 'react';
-import './ProductDescriptionPage.css';
-
-import { gql } from '@apollo/client'; 
-import { client } from '../..';
-
-
 import { Navigate } from "react-router-dom";
-
-//
 import { connect } from 'react-redux';
-import { setNewProductToCart, setNewCartAmount } from '../../lib/redux/actions';
-import  store from '../../lib/redux/store';
+import { gql } from '@apollo/client'; 
 
+//Locals
+import './ProductDescriptionPage.css';
 import TextInput from '../../components/Inputs/TextInput';
 import SwatchInput from '../../components/Inputs/SwatchInput';
+import { client } from '../..';
+import { setNewProductToCart } from '../../lib/redux/actions';
+import  store from '../../lib/redux/store';
 
-//export default class ProductDescriptionPage extends React.Component {s
 class ProductDescriptionPage extends React.Component {
     constructor() {
         super();
@@ -25,9 +21,9 @@ class ProductDescriptionPage extends React.Component {
             error: '',
 
             productDetails: {
-                inputsInfo: {}
+                inputsInfo: {},
             },
-        }
+        };
 
         this.getData = this.getData.bind(this);
         this.changeImage = this.changeImage.bind(this);
@@ -44,10 +40,10 @@ class ProductDescriptionPage extends React.Component {
         let queryID = null;
         if (localStorage.getItem('PDP_ID')) {
             queryID = localStorage.getItem('PDP_ID');
-        } else {
-            queryID = this.state.data.id
+        } 
+        else {
+            queryID = this.state.data.id;
         }
-
 
         await client.query({
             query: gql`${productDescriptions}`, 
@@ -69,15 +65,15 @@ class ProductDescriptionPage extends React.Component {
                     inputsInfo: {},
                     orderID: '',
                 }
-            })
+            });
         }, 500)
     }
 
-    changeImage(imageSrc){
+    changeImage(imageSrc) {
         this.mainImageRef.current.src = imageSrc;
     }
 
-    handleInput(event){
+    handleInput(event) {
         this.setState(prevValue => ({
             productDetails: {
                 name: this.state.data.name,
@@ -94,57 +90,35 @@ class ProductDescriptionPage extends React.Component {
 
                 orderID: '',
             }
-        }))
+        }));
     }
 
-    handleOrder(event){
+    handleOrder(event) {
         event.preventDefault();
-
         let requiredInputSet = this.checkInputs();
 
         if (requiredInputSet.size) {
             const missingInputsArr = Array.from(requiredInputSet);
             alert(`Choose product features before continue: ${missingInputsArr}`)
-        } else {
-            this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo)
+        } 
+        else {
+            this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo);
 
             setTimeout(() => {
-                //03.10
-
-                let state = store.getState()
-
-                console.log('==========================================PDP store.getState()', state.setNewProductToCart)
-
-                let finalData = this.checkDuplicates(state.setNewProductToCart, this.state.productDetails)
-
+                let state = store.getState();
+                let finalData = this.checkDuplicates(state.setNewProductToCart, this.state.productDetails);
                 let totalNumber = finalData.reduce((acc, obj) => { return acc + obj.counter; }, 0);
                 this.props.appCartAmountCallback(totalNumber);
-
                 this.props.dispatch(setNewProductToCart(finalData));
-                //this.props.dispatch(setNewCartAmount(totalNumber));
 
-                //console.log('==========================================1', store.getState())
-
-                //03.10
-
-                if (localStorage.getItem('currentOrder')) {
-                    let data = localStorage.getItem('currentOrder');
-                    data = JSON.parse(data);
-
-                    let finalData = this.checkDuplicates(data, this.state.productDetails)
-
-                    let totalNumber = finalData.reduce((acc, obj) => { return acc + obj.counter; }, 0);
-
-                    localStorage.setItem('currentOrder', JSON.stringify(finalData))
-                    this.props.appCartAmountCallback(totalNumber);
-                } else {
-                    localStorage.setItem('currentOrder', JSON.stringify([this.state.productDetails]))
+                if (!localStorage.getItem('currentOrder')) {
+                    localStorage.setItem('currentOrder', JSON.stringify([this.state.productDetails]));
                     this.props.appCartAmountCallback(1);
-                }    
+                }
                 
                 this.setState({
-                    redirect: true
-                })
+                    redirect: true,
+                });
 
             }, 0)
         }
@@ -159,7 +133,7 @@ class ProductDescriptionPage extends React.Component {
                 orderedObj = obj;
                 return obj;
             }, {}
-        )
+        );
 
         this.setState(prevValue => ({
             ...prevValue,
@@ -167,7 +141,7 @@ class ProductDescriptionPage extends React.Component {
                 ...prevValue.productDetails,
                 orderID: `${name}${JSON.stringify(orderedObj)}`
             }
-        }))
+        }));
     }
 
     checkDuplicates(arr, newEl) {
@@ -186,19 +160,19 @@ class ProductDescriptionPage extends React.Component {
             );
         })
 
-        arr = [...arr, newEl]
+        arr = [...arr, newEl];
 
-        return JSON.stringify(res) === JSON.stringify(check) ? arr : res
+        return JSON.stringify(res) === JSON.stringify(check) ? arr : res;
     }
 
     checkInputs() {
         let requiredInputSet = new Set(
             Array.from(document.getElementsByClassName('input')).map((el) => { 
-                return el.name
+                return el.name;
             })
         );
 
-        if(!requiredInputSet){
+        if (!requiredInputSet) {
             this.setState({
                 productDetails: {
                     name: this.state.data.name,
@@ -213,9 +187,8 @@ class ProductDescriptionPage extends React.Component {
     
                     orderID: '',
                 }
-            })
+            });
         }
-
 
         let allInputsArr = Array.from(document.getElementsByTagName('input'));
 
@@ -234,9 +207,7 @@ class ProductDescriptionPage extends React.Component {
     }
 
     render() {
-        console.log('propsDESCRRIPTIONPAGE', this.props)
-        console.log('stateDESCRRIPTIONPAGE', this.state)
-        return(
+        return (
             <div className="product-wrapper">
                 <div className="product__images">
                     <div className="product__side-images">
@@ -258,7 +229,8 @@ class ProductDescriptionPage extends React.Component {
                             <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput } /> 
                             : 
                             <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput }  />;
-                    }) }
+                        }) 
+                    }
 
                     <p className="info-form__price-title">PRICE:</p>
                     <p className="info-form__price">
@@ -284,4 +256,4 @@ class ProductDescriptionPage extends React.Component {
 }
 
 const productDescriptions = 'query($id: String!){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
-export default connect()(ProductDescriptionPage)
+export default connect()(ProductDescriptionPage);

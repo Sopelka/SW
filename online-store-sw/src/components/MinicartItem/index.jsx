@@ -1,6 +1,8 @@
+//Core
 import React from "react";
-import './index.css';
 
+//Locals
+import './index.css';
 import TextInput from "../Inputs/TextInput";
 import SwatchInput from "../Inputs/SwatchInput";
 import CartItemCounter from "../CartItemCounter";
@@ -8,8 +10,7 @@ import CartItemSlider from "../CartItemSlider";
 
 export default class MinicartItem extends React.Component{
     render() {
-        console.log("minicartItemPROPS", this.props)
-        return(
+        return (
             <div className="minicart-item__wrapper">
                 <div className="minicart-item__info-wrapper">
                     <p className="minicart__info__brand-name">{ this.props.data.brand }</p>
@@ -19,8 +20,7 @@ export default class MinicartItem extends React.Component{
                             return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
                         })}
                     </p>
-                    { 
-                        this.props.data?.attributes?.length === 0 ?
+                    { this.props.data?.attributes?.length === 0 ?
                         null
                         :
                         this.props.data?.attributes?.map((element, index)=>{
@@ -44,8 +44,6 @@ export default class MinicartItem extends React.Component{
 
                         })
                     }
-                    
-                    
                 </div>
                 <div className="minicart-item__action-wrapper">
                     <CartItemCounter size="small" data = { this.props.data } cartCounterCallback = { this.props.cartCounterCallback } />

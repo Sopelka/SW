@@ -1,22 +1,22 @@
+//Core
 import React from 'react';
-import './index.css';
-
 import { Navigate } from "react-router-dom";
 
-export default class ProductCard extends React.Component {
+//Locals
+import './index.css';
 
+export default class ProductCard extends React.Component {
     constructor(){
         super();
 
         this.state = {
             redirect:false
-        }
+        };
 
         this.showDetails = this.showDetails.bind(this);
     }
 
-    showDetails(e){
-
+    showDetails(){
         localStorage.setItem('PDP_ID', this.props.cardData.id);
 
         this.setState({
@@ -26,14 +26,11 @@ export default class ProductCard extends React.Component {
 
 
     render() {
-        console.log('propsPRODUCTCARD', this.props)
         return (           
             <div 
                 className = { this.props.cardData.inStock ? "product-wrapper" : "product-outofstock-wrapper" }
-                onClick={(e) => {
-                    this.showDetails(e) 
-                }}
-                >
+                onClick={ this.showDetails }
+            >
                 { this.props.cardData.inStock ? null : <p className="wrapper__title">"OUT OF STOCK"</p> }
                 <div className="product-container">
                     <img className="product__image" src = { this.props.cardData.gallery[0] } alt = { this.props.cardData.name } />
@@ -54,8 +51,8 @@ export default class ProductCard extends React.Component {
                             </svg>
                         </button>                                        
                     : 
-                    null }
-                    
+                    null 
+                    }
                 </div>
                 { this.state.redirect && <Navigate to='/product' replace={ true }/> }
             </div>
@@ -66,4 +63,3 @@ export default class ProductCard extends React.Component {
 ProductCard.defaultProps = {
     newCurrency: [ "$", "USD" ]
 }
-

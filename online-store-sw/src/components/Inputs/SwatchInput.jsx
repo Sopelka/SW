@@ -1,4 +1,7 @@
+//Core
 import React from 'react';
+
+//Locals
 import './SwatchInput.css';
 
 export default class SwatchInput extends React.Component {
@@ -8,7 +11,7 @@ export default class SwatchInput extends React.Component {
         this.showChosenInputs = this.showChosenInputs.bind(this);
     }
 
-    handleInput(event){
+    handleInput(event) {
         this.props.pdpCallback(event.target);
     }
 
@@ -26,7 +29,6 @@ export default class SwatchInput extends React.Component {
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-        console.log('swatchInputProps', this.props)
         return (
             <>
                 <h1 className={`input-header${mode}`}>{ this.props.dataArr?.name }:</h1>
@@ -34,7 +36,7 @@ export default class SwatchInput extends React.Component {
 
                 { this.props.active ? null : <div className={`input__protector${mode}`}/> }
 
-                    { this.props.dataArr?.items?.map((element, index) =>  
+                    { this.props.dataArr?.items?.map((element) =>  
                         <div className={`swatch-input__inner-wrapper${mode}`} key={ element.id }>
                             <input 
                                 required

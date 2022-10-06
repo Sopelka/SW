@@ -1,4 +1,7 @@
+//Core
 import React from 'react';
+
+//Locals
 import './TextInput.css';
 
 export default class TextInput extends React.Component {
@@ -27,8 +30,7 @@ export default class TextInput extends React.Component {
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
-        console.log('textInputPROPS', this.props)
-        return(
+        return (
             <>
                 <h1 className={`input-header${mode}`}>{ this.props.dataArr?.name }:</h1>
                 <div className={`text-input__wrapper${mode}`}>
@@ -58,7 +60,6 @@ export default class TextInput extends React.Component {
             </>
         )
     }
-
 }
 
 TextInput.defaultProps = {
