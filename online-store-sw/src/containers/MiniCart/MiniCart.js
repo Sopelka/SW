@@ -2,18 +2,17 @@ import React from "react";
 import './MiniCart.css'
 
 import { Navigate, Link } from "react-router-dom";
+import store from '../../lib/redux/store';
+import { Connect, connect } from 'react-redux';
+import { setNewProductToCart, setNewCartAmount } from '../../lib/redux/actions';
 
 import MinicartItem from "../../components/MinicartItem";
 
-export default class MiniCart extends React.Component {
+class MiniCart extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            // allItems : [
-            //     {},{},{}
-            // ],
-
             allItems : null,
 
             cartOpen: false,
@@ -27,6 +26,7 @@ export default class MiniCart extends React.Component {
 
         this.getTotalSum = this.getTotalSum.bind(this);
         this.changeCounter = this.changeCounter.bind(this);
+        this.confirmOrder = this.confirmOrder.bind(this);
     }
 
     componentWillUnmount() {
@@ -34,17 +34,50 @@ export default class MiniCart extends React.Component {
     }
 
     componentDidMount() {
+        //console.log(111111111111111111111111111111111111111111111111)
         document.addEventListener('click', this.closeCart, false);
+
+        let state = store.getState();
+
+        if (state.setNewProductToCart.length <= 0 && !localStorage.getItem('currentOrder')) {
+            this.setState({
+                cartEmpty: true,
+            })   
+        }
+        else if (state.setNewProductToCart.length <= 0 && localStorage.getItem('currentOrder')) {
+            //console.log('YUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT')
+            this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))))
+            //console.log(store.getState())
+        }
+
+
+
 
         this.showOrderData();
     }
 
     toggleCart() {
+        //console.log(3333333333333333333333333333333333333333333333333333333)
         this.setState(prevValue => ({
             cartOpen: !prevValue.cartOpen
         }))
 
         this.props.appDarkCallback(!this.state.cartOpen);
+
+        let state = store.getState();
+
+        //console.log(3333333333333333333333333333333333333333333333333333333 , 'state.setNewProductToCart.length <= 0, localStorage.getItem(curentOrder)', state.setNewProductToCart.length <= 0, localStorage.getItem('curentOrder'))
+
+        if (state.setNewProductToCart.length <= 0 && !localStorage.getItem('currentOrder')) {
+            this.setState({
+                cartEmpty: true,
+            })   
+        }
+        else if (state.setNewProductToCart.length <= 0 && localStorage.getItem('currentOrder')) {
+            //console.log('YUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT')
+            this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))))
+            //console.log(store.getState())
+        }
 
         let data = this.showOrderData();
         this.getTotalSum(data);
@@ -53,9 +86,11 @@ export default class MiniCart extends React.Component {
         //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
         // }
 
-        if(this.state.cartOpen && this.state.allItems) {
-            localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
-        }
+        //let state = store.getState();
+        
+        // if(this.state.cartOpen && this.state.allItems && state.setNewProductToCart.length > 0) {
+        //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+        // }
     }
 
     closeCart(event) {
@@ -68,30 +103,44 @@ export default class MiniCart extends React.Component {
 
             //localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
 
-            if(this.state.allItems) {
-                localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
-            }
+            // if(this.state.allItems) {
+            //     localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+            // }
         }
     }
 
     showOrderData() {
-        let data = null;
+        //console.log(2222222222222222222222222222222222222222222222222222222)
+        let state = store.getState();
 
-        if (localStorage.getItem('currentOrder')) {
-            data = localStorage.getItem('currentOrder');
-            data = JSON.parse(data);
-
+        //console.log('==================================11', state)
+        if (state.setNewProductToCart.length > 0) {
             this.setState({
-                allItems: data,
+                allItems: state.setNewProductToCart,
                 cartEmpty: false,
-            })     
+            })   
+            return state.setNewProductToCart
         }
+        return null;
 
-        return data;
+
+        // let data = null;
+
+        // if (localStorage.getItem('currentOrder')) {
+        //     data = localStorage.getItem('currentOrder');
+        //     data = JSON.parse(data);
+
+        //     this.setState({
+        //         allItems: data,
+        //         cartEmpty: false,
+        //     })     
+        // }
+
+        // return data;
     }
 
     getTotalSum(arr){
-        let result = !localStorage.getItem('currentOrder') && !arr ? 
+        let result = !localStorage.getItem('currentOrder') || !arr ? 
             null
             : 
             arr.map((el) => {
@@ -117,8 +166,9 @@ export default class MiniCart extends React.Component {
 
     changeCounter(increase, orderID) {
         let index = null;
+        let state = store.getState();
 
-        let newData = this.state.allItems.map((product, itemIndex) => {
+        let newData = state.setNewProductToCart.map((product, itemIndex) => {
             if (product.orderID === orderID) {
                 if (increase){
                     this.props.appCartAmountCallback('+1');
@@ -163,6 +213,13 @@ export default class MiniCart extends React.Component {
                 allItems: newData
             })
 
+            this.props.dispatch(setNewProductToCart(newData));
+
+            ///===
+            //let state = store.getState()
+
+            //console.log('=========================================================22', state)
+
             this.getTotalSum(newData)
         }
         else {
@@ -174,14 +231,33 @@ export default class MiniCart extends React.Component {
                 cartEmpty: true,
             })
 
+            this.props.dispatch(setNewProductToCart([]));
+
+            //let state = store.getState()
+
+            //console.log('=========================================================33', state)
+
             localStorage.removeItem('currentOrder')
         }
+    }
+
+    confirmOrder() {
+
+        this.props.appSubmitOrderCallback();
+        this.props.appDarkCallback(false);
+
+        this.setState({
+            allItems : null,
+            cartOpen: false,
+            cartEmpty: true,
+        })
     }
 
 
     render() {
         console.log('minicartSTATE', this.state)
         console.log('minicartPROPS', this.props)
+        let state = store.getState();
         return(
             <div className="minicart__extra-conteiner">
                 <svg className="minicart-icon" width="20" height="19" viewBox="0 0 20 19" fill="#43464E" xmlns="http://www.w3.org/2000/svg">
@@ -197,11 +273,11 @@ export default class MiniCart extends React.Component {
                         :
                         <>
                             <p className="minicart-title">My Bag
-                                <span className="minicart-title__details">{ `, ${this.state.allItems.length} ${this.state.allItems.length === 1 ? 'item' : 'items'}` }</span>
+                                <span className="minicart-title__details">{ `, ${state.setNewProductToCart.length} ${state.setNewProductToCart.length === 1 ? 'item' : 'items'}` }</span>
                             </p>
                             <div className="minicart__items-wrapper">
                                 { 
-                                    this.state?.allItems?.map((item, index) => {
+                                    state.setNewProductToCart.map((item, index) => {
                                         return <MinicartItem 
                                             key={ index } 
                                             data = { item } 
@@ -217,19 +293,20 @@ export default class MiniCart extends React.Component {
                             </div>
                             <div className="minicart__buttons-wrapper">
                                 <Link to = '/cart'>
-                                    <button onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null } className="button-viewbag" >VIEW BAG</button> {/* className="minicart__button-viewbag" */}
+                                    <button  className="button-viewbag" >VIEW BAG</button> {/* className="minicart__button-viewbag" ////// onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null }*/}
                                 </Link>
                                 
-                                <button className="minicart__button-checkout">CHECK OUT</button>
+                                <button onClick = { this.confirmOrder }  className="minicart__button-checkout">CHECK OUT</button>
                             </div>
 
                             {/* onClick={ this.state.allItems ? localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems)) : null } */}
                         </>
                     }
-                        
+                        {/* { this.state.redirect && <Navigate to='/main' replace={ true }/> } */}
                     </div>
                 </div>
             </div>
         )
     }
 }
+export default connect()(MiniCart)

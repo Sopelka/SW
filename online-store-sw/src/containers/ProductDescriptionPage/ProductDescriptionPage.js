@@ -4,12 +4,19 @@ import './ProductDescriptionPage.css';
 import { gql } from '@apollo/client'; 
 import { client } from '../..';
 
+
 import { Navigate } from "react-router-dom";
+
+//
+import { connect } from 'react-redux';
+import { setNewProductToCart, setNewCartAmount } from '../../lib/redux/actions';
+import  store from '../../lib/redux/store';
 
 import TextInput from '../../components/Inputs/TextInput';
 import SwatchInput from '../../components/Inputs/SwatchInput';
 
-export default class ProductDescriptionPage extends React.Component {s
+//export default class ProductDescriptionPage extends React.Component {s
+class ProductDescriptionPage extends React.Component {
     constructor() {
         super();
 
@@ -34,7 +41,13 @@ export default class ProductDescriptionPage extends React.Component {s
     }
 
     async getData() {
-        const queryID = localStorage.getItem('PDP_ID')
+        let queryID = null;
+        if (localStorage.getItem('PDP_ID')) {
+            queryID = localStorage.getItem('PDP_ID');
+        } else {
+            queryID = this.state.data.id
+        }
+
 
         await client.query({
             query: gql`${productDescriptions}`, 
@@ -96,6 +109,24 @@ export default class ProductDescriptionPage extends React.Component {s
             this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo)
 
             setTimeout(() => {
+                //03.10
+
+                let state = store.getState()
+
+                console.log('==========================================PDP store.getState()', state.setNewProductToCart)
+
+                let finalData = this.checkDuplicates(state.setNewProductToCart, this.state.productDetails)
+
+                let totalNumber = finalData.reduce((acc, obj) => { return acc + obj.counter; }, 0);
+                this.props.appCartAmountCallback(totalNumber);
+
+                this.props.dispatch(setNewProductToCart(finalData));
+                //this.props.dispatch(setNewCartAmount(totalNumber));
+
+                //console.log('==========================================1', store.getState())
+
+                //03.10
+
                 if (localStorage.getItem('currentOrder')) {
                     let data = localStorage.getItem('currentOrder');
                     data = JSON.parse(data);
@@ -253,4 +284,4 @@ export default class ProductDescriptionPage extends React.Component {s
 }
 
 const productDescriptions = 'query($id: String!){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
-
+export default connect()(ProductDescriptionPage)

@@ -12,7 +12,11 @@ import MainSection from '../MainSection/MainSection';
 import ProductDescriptionPage from './../ProductDescriptionPage/ProductDescriptionPage';
 import CartPage from '../CartPage/CartPage';
 
-export default class App extends React.Component {
+import { connect } from 'react-redux';
+import { setNewProductToCart, setNewCartAmount, setNewCurrency } from '../../lib/redux/actions';
+import  store from '../../lib/redux/store';
+
+class App extends React.Component {
     constructor() {
         super()
 
@@ -34,6 +38,7 @@ export default class App extends React.Component {
         this.changeCategory = this.changeCategory.bind(this);
         this.changeCurrency = this.changeCurrency.bind(this);
         this.changeCartProductAmount = this.changeCartProductAmount.bind(this);
+        this.submitOrder = this.submitOrder.bind(this);
     }
 
     async getData() {
@@ -58,25 +63,56 @@ export default class App extends React.Component {
         this.setState({
             currency: childData,
         })
+
+        this.props.dispatch(setNewCartAmount(childData));
+
+        localStorage.setItem('currentCurrency', JSON.stringify(childData))
     }
 
-    changeCartProductAmount(value){
+    changeCartProductAmount(value) {
+        let state = store.getState();
+
         if (typeof value === 'number'){
-            if (localStorage.getItem('currentOrder')) {
+            if (state.setNewProductToCart.length > 0 || localStorage.getItem('currentOrder')) {
                 this.setState({
                     cartAmount: value,
                 })
+
+                this.props.dispatch(setNewCartAmount(value));
             } else {
                 this.setState({
                     cartAmount: 0,
                 })
+
+                this.props.dispatch(setNewCartAmount(0));
             }        
         }
         else if(typeof value === 'string'){
+            this.props.dispatch(setNewCartAmount(this.state.cartAmount + Number(value)));
+
             this.setState(prevValue => ({
                 cartAmount: +prevValue.cartAmount + Number(value),
             }))
+
+            
         }       
+    }
+
+    submitOrder() {
+        let state = store.getState();
+
+        console.log('_________________________________________ state.setNewProductToCart', state.setNewProductToCart)
+        console.log('_________________________________________ JSON.stringify(localStorage.getItem(currentOrder)) === JSON.stringify(state.setNewProductToCart)', JSON.stringify(localStorage.getItem('currentOrder')) === JSON.stringify(state.setNewProductToCart))
+        console.log('_________________________________________ JSON.stringify(localStorage.getItem(currentOrder)), JSON.stringify(state.setNewProductToCart)', JSON.stringify(localStorage.getItem('currentOrder')),'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', JSON.stringify(state.setNewProductToCart))
+
+        //if (JSON.stringify(localStorage.getItem('currentOrder')) === JSON.stringify(state.setNewProductToCart)) {
+            
+                window.alert('Your order was successfully formed. We will contact you in a few minutes')
+                localStorage.removeItem('currentOrder')
+                this.changeCartProductAmount(0)
+                this.props.dispatch(setNewProductToCart([]));
+            
+        //}
     }
 
     componentDidMount() {
@@ -90,6 +126,15 @@ export default class App extends React.Component {
             }, 0)
 
             this.changeCartProductAmount(prevCartAmount);
+        }
+
+        if (localStorage.getItem('currentCurrency')) {
+            let currency = JSON.parse(localStorage.getItem('currentCurrency'));
+            this.changeCurrency(currency)
+            this.setState({
+                currency: currency,
+            })
+            this.props.dispatch(setNewCurrency(currency))
         }
     }
 
@@ -105,6 +150,7 @@ export default class App extends React.Component {
                         appCartAmountCallback = { this.changeCartProductAmount }
                         cartAmount = { this.state.cartAmount }
                         newCurrency = { this.state.currency }
+                        appSubmitOrderCallback = { this.submitOrder }
                     />
                     
                     <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
@@ -135,6 +181,7 @@ export default class App extends React.Component {
                                 cartAmount = { this.state.cartAmount }
                                 newCurrency = { this.state.currency }
                                 appCartAmountCallback = { this.changeCartProductAmount }
+                                appSubmitOrderCallback = { this.submitOrder }
                             /> 
                         }/>
 
@@ -148,3 +195,4 @@ export default class App extends React.Component {
 
 const getStarted = 'query{categories{name,products{id,name,inStock,gallery,brand,description,prices{currency{label,symbol},amount},}},currencies {label,symbol}}'; 
 //const productDescriptions = '';
+export default connect()(App)

@@ -45,7 +45,7 @@ export default class TextInput extends React.Component {
                                         className = { `text-input${mode} input${mode}` }
                                         type = "radio" 
                                         id = { element.id } 
-                                        name = { this.props.active ? this.props.dataArr?.name : `${JSON.stringify(this.props.chosenOptions)} ${this.props.dataArr.name}`} 
+                                        name = { this.props.active ? this.props.dataArr?.name : `${mode} ${JSON.stringify(this.props.chosenOptions)} ${this.props.dataArr.name}`} 
                                         value = { element.displayValue } 
                                         defaultChecked = { this.showChosenInputs(element) }
                                     />

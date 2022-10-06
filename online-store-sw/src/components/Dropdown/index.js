@@ -1,5 +1,7 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+
+import  store from '../../lib/redux/store';
 
 export default class Dropdown extends React.Component {
     constructor() {
@@ -25,6 +27,20 @@ export default class Dropdown extends React.Component {
 
     componentDidMount() {
         document.addEventListener('click', this.closeDropdown, false);
+
+        if (localStorage.getItem('currentCurrency')) {
+            // если есть карренси, засеть ее в местный стейт
+            let prevCurrency = JSON.parse(localStorage.getItem('currentCurrency'));
+
+            this.setState({
+                selectedCurrency: {
+                    label: prevCurrency[1],
+                    symbol: prevCurrency[0]
+                },
+            })
+        }
+
+        
     }
 
     // componentDidUpdate() {
@@ -66,13 +82,17 @@ export default class Dropdown extends React.Component {
     }
 
     render() {
+        let state = store.getState();
+        console.log('state.setNewCurrency', state.setNewCurrency)
         console.log('propsDROPDOWN', this.props)
         return(
             <>
                 <div className="dropdown__wrapper">
                     <div onClick={ this.toggleDropdown } className="dropdown-btn"></div>
                     <div className="dropdown__selected">
-                        <p className="selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p>
+                        {/* { this.state.selectedCurrency.symbol } */}
+                        <p className="selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p> 
+                        {/* <p className="selected-currency-symbol">{ state.setNewCurrency[0]  }</p> */}
 
                         { this.state.dropdownOpen ? 
                             <svg className="currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -55,6 +55,7 @@ export default class Header extends React.Component {
                                 appDarkCallback = { this.props.appDarkCallback } 
                                 appCartAmountCallback = { this.props.appCartAmountCallback }
                                 newCurrency = { this.props.newCurrency }
+                                appSubmitOrderCallback = { this.props.appSubmitOrderCallback }
                                 
                             />
                         </div>

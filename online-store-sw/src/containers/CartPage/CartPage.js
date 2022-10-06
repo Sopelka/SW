@@ -3,7 +3,13 @@ import './CartPage.css';
 
 import CartItem from '../../components/CartItem';
 
-export default class CartPage extends React.Component {
+import { Navigate } from "react-router-dom";
+
+import { connect } from 'react-redux';
+import { setNewProductToCart, setNewCartAmount } from '../../lib/redux/actions';
+import  store from '../../lib/redux/store';
+
+class CartPage extends React.Component {
     constructor() {
         super();
 
@@ -18,12 +24,14 @@ export default class CartPage extends React.Component {
         this.getTotal = this.getTotal.bind(this);
 
         this.changeCounter = this.changeCounter.bind(this);
+        this.confirmOrder = this.confirmOrder.bind(this);
     }
 
     changeCounter(increase, orderID) {
         let index = null;
+        let state = store.getState()
 
-        let newData = this.state.allItems.map((product, itemIndex) => {
+        let newData = state.setNewProductToCart.map((product, itemIndex) => {
             if (product.orderID === orderID) {
                 if (increase){
                     this.props.appCartAmountCallback('+1');
@@ -68,6 +76,8 @@ export default class CartPage extends React.Component {
                 allItems: newData
             })
 
+            this.props.dispatch(setNewProductToCart(newData));
+
             this.getTotal()
             this.getTotal(true)
 
@@ -81,50 +91,97 @@ export default class CartPage extends React.Component {
         }
         else {
             this.setState({
-                // allItems: [
-                //     {},{},{}
-                // ],
                 allItems: null,
                 cartEmpty: true,
             })
 
+            this.props.dispatch(setNewProductToCart([]));
+
             localStorage.removeItem('currentOrder')
+
+            this.setState({
+                redirect: true
+            })
+
         }
     }
 
 
 
     showOrderData() {
-        let data = null;
+        let state = store.getState();
 
-        if (localStorage.getItem('currentOrder')) {
-            //setTimeout(()=>{data = localStorage.getItem('currentOrder');},0)
-            data = localStorage.getItem('currentOrder');
-            data = JSON.parse(data);
+        console.log('==================================CP store', state)
 
+
+        if (state.setNewProductToCart.length > 0) {
             this.setState({
-                allItems: data,
+                allItems: state.setNewProductToCart,
                 cartEmpty: false,
-            })     
+            })   
+            return state.setNewProductToCart
         }
+        return null;
 
-        return data;
+        // let data = null;
+
+        // if (localStorage.getItem('currentOrder')) {
+        //     //setTimeout(()=>{data = localStorage.getItem('currentOrder');},0)
+        //     data = localStorage.getItem('currentOrder');
+        //     data = JSON.parse(data);
+
+        //     this.setState({
+        //         allItems: data,
+        //         cartEmpty: false,
+        //     })     
+        // }
+
+        // return data;
     }
 
 
     getTotal(tax) {
-        let result = this.state.allItems.map((product) => {
-            let currPrice = product.prices.map((probablePrice) => {
-                return probablePrice.currency.label === this.props.newCurrency[1] ? probablePrice.amount : 0 ;
+        let state = store.getState()
+        let result = null;
+        if (state.setNewProductToCart.length > 0) {
+            result = state.setNewProductToCart.map((product) => {
+                let currPrice = product.prices.map((probablePrice) => {
+                    return probablePrice.currency.label === this.props.newCurrency[1] ? probablePrice.amount : 0 ;
+                })
+                currPrice = currPrice.filter(el => el > 0 );
+                return (currPrice * product.counter);
             })
-            currPrice = currPrice.filter(el => el > 0 );
-            return (currPrice * product.counter);
-        })
-        .reduce((prev, curr) => { 
-            return prev + curr 
-        })
+            .reduce((prev, curr) => { 
+                return prev + curr 
+            })
+        }
 
-        return tax ? `${this.props.newCurrency[0]} ${Math.floor(result * 0.21 * 100) / 100}`: `${this.props.newCurrency[0]} ${Math.floor(result * 100) / 100}`;
+        if (result) {
+            return tax ? `${this.props.newCurrency[0]} ${Math.floor(result * 0.21 * 100) / 100}`: `${this.props.newCurrency[0]} ${Math.floor(result * 100) / 100}`;
+        }
+        else {
+            return null;
+        }
+        
+        
+
+        
+
+
+
+        // let state = store.getState()
+        // let result = state.setNewProductToCart.map((product) => {
+        //     let currPrice = product.prices.map((probablePrice) => {
+        //         return probablePrice.currency.label === this.props.newCurrency[1] ? probablePrice.amount : 0 ;
+        //     })
+        //     currPrice = currPrice.filter(el => el > 0 );
+        //     return (currPrice * product.counter);
+        // })
+        // .reduce((prev, curr) => { 
+        //     return prev + curr 
+        // })
+
+        // return tax ? `${this.props.newCurrency[0]} ${Math.floor(result * 0.21 * 100) / 100}`: `${this.props.newCurrency[0]} ${Math.floor(result * 100) / 100}`;
     }
 
 
@@ -144,20 +201,28 @@ export default class CartPage extends React.Component {
         
     }
 
-    componentWillUnmount() {
+    confirmOrder() {
 
+        this.props.appSubmitOrderCallback();
+
+        this.setState({
+            redirect: true,
+            allItems : null,
+        })
     }
 
     
     render() {
         console.log("CARTPAGEstate", this.state)
         console.log("CARTPAGEprops", this.props)
+        let state = store.getState();
         return (
             <>
                 <h1 className="cart__main-header">CART</h1>
 
-                { this.state.allItems ?
-                    this.state.allItems.map((element, index) => {
+                {/* { this.state.allItems ? */}
+                { state.setNewProductToCart.length > 0 ?
+                    state.setNewProductToCart.map((element, index) => {
                         return <CartItem 
                             key={ index } 
                             data = { element } 
@@ -181,11 +246,14 @@ export default class CartPage extends React.Component {
                         <p className="summary__data-total summary__data">{this.state.allItems ? this.getTotal(false) : null }</p> {/* {`${this.props.newCurrency[0]}${this.state.totalSum}`} */}
                     </div>
                 </div>
-                <button className="cart__order-button">ORDER</button>
+                <button onClick = { this.confirmOrder } className="cart__order-button">ORDER</button>
+                { this.state.redirect && <Navigate to='/main' replace={ true }/> }
             </>
         )
     }
 }
+
+export default connect()(CartPage)
 
 
 
