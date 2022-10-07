@@ -168,7 +168,7 @@ class CartPage extends React.Component {
                 { state.setNewProductToCart.length > 0 ?
                     state.setNewProductToCart.map((element, index) => {
                         return <CartItem 
-                            key={ index } 
+                            key = { index } 
                             data = { element } 
                             newCurrency = { this.props.newCurrency } 
                             cartCounterCallback = { this.changeCounter }
@@ -197,4 +197,4 @@ class CartPage extends React.Component {
     }
 }
 
-export default connect()(CartPage)
+export default connect()(CartPage);

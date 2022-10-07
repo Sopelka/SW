@@ -116,6 +116,8 @@ class ProductDescriptionPage extends React.Component {
                     this.props.appCartAmountCallback(1);
                 }
                 
+                localStorage.setItem('currentOrder', JSON.stringify(finalData));
+
                 this.setState({
                     redirect: true,
                 });
@@ -256,4 +258,5 @@ class ProductDescriptionPage extends React.Component {
 }
 
 const productDescriptions = 'query($id: String!){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
+
 export default connect()(ProductDescriptionPage);

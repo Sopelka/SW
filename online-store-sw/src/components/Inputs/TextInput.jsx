@@ -1,8 +1,10 @@
 //Core
 import React from 'react';
+//import { connect } from 'react-redux';
 
 //Locals
 import './TextInput.css';
+//import store from '../../lib/redux/store';
 
 export default class TextInput extends React.Component {
     constructor() {
@@ -22,6 +24,7 @@ export default class TextInput extends React.Component {
         for (let key in this.props.chosenOptions) {
             if (key.includes(this.props.dataArr.name) && this.props.chosenOptions[key] === element.id) {
                 result = 'checked';
+                break;
             }
         }
 
@@ -40,7 +43,7 @@ export default class TextInput extends React.Component {
                     { 
                         this.props.dataArr?.items?.map((element) => {
                             return (
-                                <div className={ `text-input__inner-wrapper${mode}`} key={element.id} >  
+                                <div className={ `text-input__inner-wrapper${mode}`} key={ element.id } >  
                                     <input 
                                         required
                                         onClick = { this.handleInput }
@@ -51,7 +54,7 @@ export default class TextInput extends React.Component {
                                         value = { element.displayValue } 
                                         defaultChecked = { this.showChosenInputs(element) }
                                     />
-                                    <label className={`text-input-label${mode}`} htmlFor={element.id}>{element.value}</label> 
+                                    <label className = { `text-input-label${mode}` } htmlFor = {element.id}>{ element.value }</label> 
                                 </div>  
                             )            
                         })
@@ -66,3 +69,4 @@ TextInput.defaultProps = {
     size: 'normal',
     active: true,
 }
+

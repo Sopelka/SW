@@ -136,10 +136,13 @@ class MiniCart extends React.Component {
                 }
                 else {
                     if ((+product.counter - 1) === 0) {
-                        this.props.appCartAmountCallback('-1');
-
                         let deleteItem = window.confirm(`Do you want to delete ${product.name} ${product.brand}?`, 'Do you want to delete this item?');
-                        index = deleteItem ? itemIndex : null;
+
+                        if (deleteItem) {
+                            index = itemIndex;
+                            this.props.appCartAmountCallback('-1');
+                        }
+                        
                         return { ...product, counter: 1 };
                     } 
                     else {
@@ -164,7 +167,7 @@ class MiniCart extends React.Component {
             index = null;
         }
 
-        if(newData.length) {
+        if (newData.length) {
             this.setState({
                 allItems: newData
             });
@@ -223,16 +226,14 @@ class MiniCart extends React.Component {
                                     <span className="minicart-title__details">{ `, ${state.setNewProductToCart.length} ${state.setNewProductToCart.length === 1 ? 'item' : 'items'}` }</span>
                                 </p>
                                 <div className="minicart__items-wrapper">
-                                    { 
-                                        state.setNewProductToCart.map((item, index) => {
-                                            return <MinicartItem 
-                                                key={ index } 
-                                                data = { item } 
-                                                newCurrency = { this.props.newCurrency } 
-                                                cartCounterCallback = { this.changeCounter }
-                                            />
-                                        })
-                                    }
+                                    { state.setNewProductToCart.map((item, index) => {
+                                        return <MinicartItem 
+                                            key = { `${index} ${item.orderID}`} 
+                                            data = { item } 
+                                            newCurrency = { this.props.newCurrency } 
+                                            cartCounterCallback = { this.changeCounter }
+                                        />
+                                    })}
                                 </div>
                                 <div className="minicart__total-wrapper">
                                     <p className="minicart__total-title">Total</p>

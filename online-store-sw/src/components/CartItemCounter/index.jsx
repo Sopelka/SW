@@ -51,7 +51,7 @@ export default class CartItemCounter extends React.Component {
                     
                     <p className={`counter${mode}`}>{ this.props.data.counter }</p>
 
-                    <div className={`count-btn-decrease${mode} count-btn${mode}`} onClick={ this.decrease } > {/*onClick={ this.props.cartCounterCallback(false, this.props.data.orderID) } */}
+                    <div className={`count-btn-decrease${mode} count-btn${mode}`} onClick={ this.decrease } > 
                         <div className={`count-btn-protector${mode}`}/>
                         { this.props.size === 'normal' ? 
                             <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
