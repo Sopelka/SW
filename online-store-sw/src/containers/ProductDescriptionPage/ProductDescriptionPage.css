@@ -1,34 +1,46 @@
-.product-wrapper{
+.product-wrapper {
     display: flex;
 }
 
-.product__images{
+.product__images {
     display: flex;
     margin-right: 100px;
 }
 
-.product__side-images{
+.product__side-images {
     display: flex;
     flex-direction: column;
     margin-right: 40px;
 }
 
+.product__side-images__many {
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+    overflow-x: hidden;
+    max-height: 610px;
+
+    scrollbar-width: thin;
+    width: 100px;
+}
 .image__mini {
     width: 80px;
     height: 80px;
     margin-bottom: 40px;
+    object-fit: cover;
 }
 
-.image__mini:hover{
+.image__mini:hover {
     cursor: pointer;
 }
 
-.product__main-image{
+.product__main-image {
     width: 610px;
     height: 511px;
+    object-fit: contain;
 }
 
-.info-form__brand-name{
+.info-form__brand-name {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 600;
@@ -39,7 +51,7 @@
     margin-bottom: 16px;
 }
 
-.info-form__item-name{
+.info-form__item-name {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 400;
@@ -51,7 +63,7 @@
     margin-bottom: 43px;
 }
 
-.info-form__price-title{
+.info-form__price-title {
     margin-top: 12px;
     margin-bottom: 10px;
 
@@ -65,7 +77,7 @@
     display: inline-block;
 }
 
-.info-form__price{
+.info-form__price {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 700;
@@ -77,7 +89,7 @@
     margin-bottom: 20px;
 }
 
-.info-form__submit-button{
+.info-form__submit-button {
     width: 292px;
     height: 52px;
     margin-bottom: 40px;
@@ -95,11 +107,11 @@
     margin-top: 28px
 }
 
-.info-form__submit-button:hover{
+.info-form__submit-button:hover {
     cursor: pointer;
 }
 
-.info-form__submit-button__disabled{
+.info-form__submit-button__disabled {
     width: 292px;
     height: 52px;
     margin-bottom: 40px;
@@ -127,4 +139,31 @@
 
     color: #1D1F22;
     max-width: 292px;
+}
+
+.product-wrapper, .product-outofstock-wrapper {
+    margin-right: 40px;
+}
+
+.main-section__content > div:nth-of-type(3n) {
+    margin-right: 0px;
+}
+
+.product__individual-wrapper {
+    width: 1240px;
+    margin: 80px auto;
+}
+
+.product__root {
+    position: relative;
+}
+
+.product__sticky-footer {
+    position: static;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    height: 10vh;
 }

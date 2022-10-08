@@ -75,16 +75,16 @@ export default class Dropdown extends React.Component {
         return (
             <>
                 <div className="dropdown__wrapper">
-                    <div onClick={ this.toggleDropdown } className="dropdown-btn"></div>
-                    <div className="dropdown__selected">
-                        <p className="selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p> 
+                    <div onClick = { this.toggleDropdown } className = "dropdown-btn"></div>
+                    <div className = "dropdown__selected">
+                        <p className = "selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p> 
 
                         { this.state.dropdownOpen ? 
-                            <svg className="currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className = "currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 3.5L4 0.5L7 3.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                             :
-                            <svg className="currency-chevron-down-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className = "currency-chevron-down-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 0.5L4 3.5L7 0.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                         }

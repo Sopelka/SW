@@ -16,28 +16,30 @@ export default class CartItem extends React.Component {
                     <p className="left-static-part__brand-name">{ this.props.data.brand }</p>
                     <p className="left-static-part__item-name">{ this.props.data.name }</p>
                     <p className="left-static-part__price">
+
                         { this.props.data?.prices?.map((potentialPrice) => {
                                 return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
                             })
                         }
+
                     </p>
                     <div className="left-static-part__input-container">
-                        { 
-                            this.props.data?.attributes?.length === 0 ?
+
+                        { this.props.data?.attributes?.length === 0 ?
                             null
                             :
-                            this.props.data?.attributes?.map((element, index)=>{
+                            this.props.data?.attributes?.map((element, index) => {
                                 return( element.type === 'text' ? 
                                     <TextInput 
                                         key = { index } 
-                                        active={ false } 
+                                        active = { false } 
                                         chosenOptions = { this.props.data.inputsInfo } 
                                         dataArr = { element }
                                     />
                                     : 
                                     <SwatchInput 
                                         key = { index } 
-                                        active={ false } 
+                                        active = { false } 
                                         chosenOptions = { this.props.data.inputsInfo } 
                                         dataArr = { element }
                                     />

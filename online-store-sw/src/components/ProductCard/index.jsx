@@ -21,7 +21,7 @@ export default class ProductCard extends React.Component {
 
         this.setState({
             redirect: true
-        })
+        });
     }
 
 
@@ -29,19 +29,23 @@ export default class ProductCard extends React.Component {
         return (           
             <div 
                 className = { this.props.cardData.inStock ? "product-wrapper" : "product-outofstock-wrapper" }
-                onClick={ this.showDetails }
+                onClick = { this.showDetails }
             >
                 { this.props.cardData.inStock ? null : <p className="wrapper__title">"OUT OF STOCK"</p> }
+                
                 <div className="product-container">
                     <img className="product__image" src = { this.props.cardData.gallery[0] } alt = { this.props.cardData.name } />
                     <p className="product__name">{ `${this.props.cardData.brand} ${this.props.cardData.name}` }</p>
                     <p className="product__price">
                         <span className="price-value">
+
                             { this.props.cardData.prices.map((potentialPrice) => {
                                 return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
                             })}
+
                         </span>
                     </p>
+
                     { this.props.cardData.inStock ? 
                         <button className="product-button">
                             <svg className="cart-icon" width="24" height="24" viewBox="0 0 23 20" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +57,9 @@ export default class ProductCard extends React.Component {
                     : 
                     null 
                     }
+
                 </div>
+
                 { this.state.redirect && <Navigate to='/product' replace={ true }/> }
             </div>
         )

@@ -216,8 +216,8 @@ class MiniCart extends React.Component {
                     <path d="M15.6875 13.9814C14.4875 13.9814 13.498 14.9277 13.498 16.0752C13.498 17.2226 14.4876 18.1689 15.6875 18.1689C16.8875 18.1689 17.877 17.2226 17.877 16.0752C17.8565 14.9284 16.8875 13.9814 15.6875 13.9814ZM15.6875 16.9011C15.2031 16.9011 14.8239 16.5385 14.8239 16.0752C14.8239 15.612 15.2031 15.2493 15.6875 15.2493C16.172 15.2493 16.5512 15.612 16.5512 16.0752C16.5512 16.5188 16.1506 16.9011 15.6875 16.9011Z" fill="#43464E"/>
                 </svg>
                 <div className="minicart-wrapper">
-                    <div onClick={ this.toggleCart } className="minicart__open-btn"></div>
-                    <div className={ this.state.cartOpen ? "minicart__droplist-wrapper" : "hiddenObj" }>
+                    <div onClick = { this.toggleCart } className="minicart__open-btn"></div>
+                    <div className = { this.state.cartOpen ? "minicart__droplist-wrapper" : "hiddenObj" }>
                         { this.state.cartEmpty ?
                             <p className="minicart initial-title">Your cart is empty</p>
                             :
@@ -241,7 +241,7 @@ class MiniCart extends React.Component {
                                 </div>
                                 <div className="minicart__buttons-wrapper">
                                     <Link to = '/cart'>
-                                        <button className="button-viewbag" >VIEW BAG</button> 
+                                        <button className="button-viewbag">VIEW BAG</button> 
                                     </Link>
                                     
                                     <button onClick = { this.confirmOrder } className="minicart__button-checkout">CHECK OUT</button>

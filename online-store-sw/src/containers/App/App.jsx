@@ -36,7 +36,7 @@ class App extends React.Component {
     }
 
     async getData() {
-        await client.query({query: gql`${getStarted}`})
+        await client.query({query: gql`${ getStarted }`})
             .then((result) => this.setState({ data: result.data }))
             .catch((error) => this.setState({ error: error }))
     }
@@ -66,7 +66,7 @@ class App extends React.Component {
     changeCartProductAmount(value) {
         let state = store.getState();
 
-        if (typeof value === 'number'){
+        if (typeof value === 'number') {
             if (state.setNewProductToCart.length > 0 || localStorage.getItem('currentOrder')) {
                 this.setState({
                     cartAmount: value,
@@ -126,56 +126,57 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <div className='app'>
-                    <Header 
-                        data = { this.state.data } 
-                        appDarkCallback = { this.setDark } 
-                        appCategoryCallback = { this.changeCategory }
-                        appCurrencyCallback = { this.changeCurrency }
-                        appCartAmountCallback = { this.changeCartProductAmount }
-                        cartAmount = { this.state.cartAmount }
-                        newCurrency = { this.state.currency }
-                        appSubmitOrderCallback = { this.submitOrder }
-                    />
-                    
-                    <div className={ this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
+                <div className = { this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
+                <div className = "inner-root">    
+                    <div className = 'main-header-wrapper'>
+                        <Header 
+                            data = { this.state.data } 
+                            appDarkCallback = { this.setDark } 
+                            appCategoryCallback = { this.changeCategory }
+                            appCurrencyCallback = { this.changeCurrency }
+                            appCartAmountCallback = { this.changeCartProductAmount }
+                            cartAmount = { this.state.cartAmount }
+                            newCurrency = { this.state.currency }
+                            appSubmitOrderCallback = { this.submitOrder }
+                        />
+                    </div>
+
+                    <Routes>
+                        <Route 
+                            path = '/main' 
+                            element = { 
+                                <MainSection 
+                                    data = { this.state.data } 
+                                    catName = { this.state.catName } 
+                                    newCurrency = { this.state.currency }
+                                />
+                            }  
+                        />  
+
+                        <Route path = '/product' 
+                            element = { 
+                                <ProductDescriptionPage 
+                                    newCurrency = { this.state.currency } 
+                                    appCartAmountCallback = { this.changeCartProductAmount }
+                                /> 
+                            }
+                        />
+
+                        <Route 
+                            path = '/cart' 
+                            element = { 
+                                <CartPage
+                                    cartAmount = { this.state.cartAmount }
+                                    newCurrency = { this.state.currency }
+                                    appCartAmountCallback = { this.changeCartProductAmount }
+                                    appSubmitOrderCallback = { this.submitOrder }
+                                /> 
+                            }
+                        />
+
+                        <Route path = '*' element = { <Navigate to = '/main' /> } />
+                    </Routes>
                 </div>
-
-                <Routes>
-                    <Route 
-                        path = '/main' 
-                        element = { 
-                            <MainSection 
-                                data = { this.state.data } 
-                                catName = { this.state.catName } 
-                                newCurrency = { this.state.currency }
-                            />
-                        }  
-                    />  
-
-                    <Route path = '/product' 
-                        element = { 
-                            <ProductDescriptionPage 
-                                newCurrency = { this.state.currency } 
-                                appCartAmountCallback = { this.changeCartProductAmount }
-                            /> 
-                        }
-                    />
-
-                    <Route 
-                        path = '/cart' 
-                        element = { 
-                            <CartPage
-                                cartAmount = { this.state.cartAmount }
-                                newCurrency = { this.state.currency }
-                                appCartAmountCallback = { this.changeCartProductAmount }
-                                appSubmitOrderCallback = { this.submitOrder }
-                            /> 
-                        }
-                    />
-
-                    <Route path = '*' element = { <Navigate to = '/main' /> } />
-                </Routes>
             </>
         )
     }

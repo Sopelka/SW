@@ -19,7 +19,7 @@ nav > div {
 }
 
 .header-category {
-    padding: 28px 16px 30px;
+    padding: 28px 16px 31px;
 
     margin: 0px;
     border-bottom: 2px solid transparent;
@@ -40,11 +40,11 @@ nav > div {
     margin-left: -40px;
 }
 
-.header-details__currency{
+.header-details__currency {
     display: flex;
 }
 
-.header-details__currency:hover{
+.header-details__currency:hover {
     cursor: pointer;
 }
 
@@ -63,11 +63,11 @@ nav > div {
     margin-right: 10px;
 }
 
-.header-details__cart{
+.header-details__cart {
     position: relative;
 }
 
-.header-details__cart__label{
+.header-details__cart__label {
     background-color: #1D1F22;
     position: absolute;
     color: #FFFFFF;
@@ -88,7 +88,7 @@ nav > div {
 }
 
 
-a{
+a {
     text-decoration:none;
     color: #1D1F22;
 }

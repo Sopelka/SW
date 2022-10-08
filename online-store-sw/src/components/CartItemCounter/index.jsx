@@ -24,9 +24,10 @@ export default class CartItemCounter extends React.Component {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
         return (
             <>
-                <div className={`count-btn-container${mode}`}>
-                    <div className={`count-btn-increase${mode} count-btn${mode}`} onClick={ this.increase }> 
-                        <div className={`count-btn-protector${mode}`}/>
+                <div className = { `count-btn-container${mode}` }>
+                    <div className = { `count-btn-increase${mode} count-btn${mode}` } onClick = { this.increase }> 
+                        <div className = { `count-btn-protector${mode}` }/>
+
                         { this.props.size === 'normal' ?
                             <>
                                 <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,12 +48,14 @@ export default class CartItemCounter extends React.Component {
 
                             </>
                         }
+                        
                     </div>
                     
-                    <p className={`counter${mode}`}>{ this.props.data.counter }</p>
+                    <p className = { `counter${mode}` }>{ this.props.data.counter }</p>
 
-                    <div className={`count-btn-decrease${mode} count-btn${mode}`} onClick={ this.decrease } > 
-                        <div className={`count-btn-protector${mode}`}/>
+                    <div className = { `count-btn-decrease${mode} count-btn${mode}` } onClick = { this.decrease } > 
+                        <div className = { `count-btn-protector${mode}` }/>
+
                         { this.props.size === 'normal' ? 
                             <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
@@ -61,8 +64,8 @@ export default class CartItemCounter extends React.Component {
                             <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 1H9" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
-                    
                         }
+
                     </div>
                 </div>
             </>

@@ -26,7 +26,7 @@ class CartPage extends React.Component {
 
     changeCounter(increase, orderID) {
         let index = null;
-        let state = store.getState()
+        let state = store.getState();
 
         let newData = state.setNewProductToCart.map((product, itemIndex) => {
             if (product.orderID === orderID) {
@@ -81,7 +81,7 @@ class CartPage extends React.Component {
             
             setTimeout(() => {
                 if (this.state.allItems) {
-                    localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+                    localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems));
                 }
             }, 100);
         }
@@ -112,12 +112,14 @@ class CartPage extends React.Component {
 
             return state.setNewProductToCart;
         }
+
         return null;
     }
 
     getTotal(tax) {
         let state = store.getState();
         let result = null;
+
         if (state.setNewProductToCart.length > 0) {
             result = state.setNewProductToCart.map((product) => {
                 let currPrice = product.prices.map((probablePrice) => {
@@ -168,16 +170,16 @@ class CartPage extends React.Component {
                 { state.setNewProductToCart.length > 0 ?
                     state.setNewProductToCart.map((element, index) => {
                         return <CartItem 
-                            key = { index } 
+                            key = { element.orderID } 
                             data = { element } 
                             newCurrency = { this.props.newCurrency } 
                             cartCounterCallback = { this.changeCounter }
                         />
                     })
-                
-                : 
-                null
+                    : 
+                    null
                 }
+                
                 <div className="cart__summary-container">
                     <div className="summary__property-wrapper">
                         <p className="summary__property">Tax 21%:</p>

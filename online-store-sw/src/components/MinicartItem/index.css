@@ -1,6 +1,7 @@
 .minicart-item__wrapper{
     display: flex;
     margin-bottom: 40px;
+    justify-content: space-between;
 }
 
 .minicart__info__brand-name, .minicart__info__item-name{

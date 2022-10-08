@@ -8,7 +8,7 @@ import SwatchInput from "../Inputs/SwatchInput";
 import CartItemCounter from "../CartItemCounter";
 import CartItemSlider from "../CartItemSlider";
 
-export default class MinicartItem extends React.Component{
+export default class MinicartItem extends React.Component {
     render() {
         return (
             <div className="minicart-item__wrapper">
@@ -16,27 +16,30 @@ export default class MinicartItem extends React.Component{
                     <p className="minicart__info__brand-name">{ this.props.data.brand }</p>
                     <p className="minicart__info__item-name">{ this.props.data.name }</p>
                     <p className="minicart__info__price">
+
                         { this.props.data?.prices?.map((potentialPrice) => {
-                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
+                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${ this.props.newCurrency[0] } ${ potentialPrice.amount }` : null;
                         })}
+
                     </p>
+
                     { this.props.data?.attributes?.length === 0 ?
                         null
                         :
-                        this.props.data?.attributes?.map((element, index)=>{
+                        this.props.data?.attributes?.map((element, index) => {
                             return( element.type === 'text' ? 
                                 <TextInput 
                                     key = { index } 
-                                    size="small" 
-                                    active={ false } 
+                                    size = "small" 
+                                    active = { false } 
                                     chosenOptions = { this.props.data.inputsInfo } 
                                     dataArr = { element }
                                 />
                                 : 
                                 <SwatchInput 
                                     key = { index } 
-                                    size="small" 
-                                    active={ false } 
+                                    size = "small" 
+                                    active = { false } 
                                     chosenOptions = { this.props.data.inputsInfo } 
                                     dataArr = { element }
                                 />

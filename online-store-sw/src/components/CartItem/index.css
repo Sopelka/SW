@@ -1,19 +1,15 @@
-.cart-item__container{
+.cart-item__container {
     display: flex;
     justify-content: space-between;
     padding-top: 24px;
     border-bottom: 1px solid rgba(229, 229, 229, 1);
     width: 100%;
-    padding-bottom: 4px;
+    padding-bottom: 24px;
+    margin-left: 101px;
+    width: 1240px;
 }
 
-@-moz-document url-prefix() {
-    .cart-item__container{
-        padding-bottom: 10px;
-    }
-}
-
-.left-static-part__brand-name{
+.left-static-part__brand-name {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 600;
@@ -23,7 +19,7 @@
     margin-bottom: 16px;
 }
 
-.left-static-part__item-name{
+.left-static-part__item-name {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 400;
@@ -33,7 +29,7 @@
     margin-bottom: 20px;
 }
 
-.left-static-part__price{
+.left-static-part__price {
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 700;

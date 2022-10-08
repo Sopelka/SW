@@ -46,8 +46,8 @@ class ProductDescriptionPage extends React.Component {
         }
 
         await client.query({
-            query: gql`${productDescriptions}`, 
-            variables: {id: queryID}})
+            query: gql`${ productDescriptions }`, 
+            variables: { id: queryID }})
                 .then((result) =>  this.setState({ data: result.data.product }))
                 .catch((error) => this.setState({ error: error }))
 
@@ -61,12 +61,13 @@ class ProductDescriptionPage extends React.Component {
                     prices: this.state.data.prices,
                     attributes: this.state.data.attributes,
                     counter: 1,
-    
+
                     inputsInfo: {},
                     orderID: '',
                 }
             });
-        }, 500)
+        }, 500);
+
     }
 
     changeImage(imageSrc) {
@@ -99,11 +100,10 @@ class ProductDescriptionPage extends React.Component {
 
         if (requiredInputSet.size) {
             const missingInputsArr = Array.from(requiredInputSet);
-            alert(`Choose product features before continue: ${missingInputsArr}`)
+            alert(`Choose product features before continue: ${ missingInputsArr }`)
         } 
         else {
             this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo);
-
             setTimeout(() => {
                 let state = store.getState();
                 let finalData = this.checkDuplicates(state.setNewProductToCart, this.state.productDetails);
@@ -121,8 +121,7 @@ class ProductDescriptionPage extends React.Component {
                 this.setState({
                     redirect: true,
                 });
-
-            }, 0)
+            }, 0);
         }
     }
 
@@ -210,48 +209,52 @@ class ProductDescriptionPage extends React.Component {
 
     render() {
         return (
-            <div className="product-wrapper">
-                <div className="product__images">
-                    <div className="product__side-images">
+            <div className="product__root">
+                <div className="product-wrapper product__individual-wrapper">
+                    <div className="product__images">
+                        <div className = { this.state.data.gallery?.length > 4 ? "product__side-images__many" : "product__side-images" }>
 
-                        { this.state.data.gallery?.map((picture) => {
-                            return <img className="image__mini" key={ picture } src={ picture } alt="product description" onClick={()=>{ this.changeImage(picture) }}/>
-                        }) }
+                            { this.state.data.gallery?.map((picture) => {
+                                return <img className="image__mini" key={ picture } src={ picture } alt="product description" onClick={ ()=>{ this.changeImage(picture) } }/>
+                            }) }
 
+                        </div>
+                        <img ref={ this.mainImageRef } className="product__main-image" src={ this.state.data?.gallery?.[0] } alt="product main description" />
                     </div>
-                    <img ref={ this.mainImageRef } className="product__main-image" src={ this.state.data?.gallery?.[0] } alt="product main description" />
-                </div>
 
-                <form onSubmit = {this.handleOrder} className="product__info-form">
-                    <p className="info-form__brand-name">{ this.state.data?.brand }</p>
-                    <p className="info-form__item-name">{ this.state.data?.name }</p>
+                    <form onSubmit = { this.handleOrder } className="product__info-form">
+                        <p className="info-form__brand-name">{ this.state.data?.brand }</p>
+                        <p className="info-form__item-name">{ this.state.data?.name }</p>
 
-                    { this.state.data.attributes?.map((attribute) => {
-                        return attribute.type === 'text' ?
-                            <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput } /> 
-                            : 
-                            <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput }  />;
-                        }) 
-                    }
+                        { this.state.data.attributes?.map((attribute) => {
+                            return attribute.type === 'text' ?
+                                <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput } /> 
+                                : 
+                                <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput }  />;
+                            }) 
+                        }
 
-                    <p className="info-form__price-title">PRICE:</p>
-                    <p className="info-form__price">
+                        <p className="info-form__price-title">PRICE:</p>
+                        <p className="info-form__price">
 
-                        { this.state.data?.prices?.map((potentialPrice) => {
-                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
-                        })}
+                            { this.state.data?.prices?.map((potentialPrice) => {
+                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
+                            })}
 
-                    </p>
+                        </p>
 
-                    { this.state.data.inStock ? 
-                        <button className="info-form__submit-button" type="submit" onClick={ this.handleOrder } >ADD TO CART</button>
-                        :
-                        <button className="info-form__submit-button__disabled">OUT OF STOCK</button>
-                    }
+                        { this.state.data.inStock ? 
+                            <button className="info-form__submit-button" type="submit" onClick={ this.handleOrder } >ADD TO CART</button>
+                            :
+                            <button className="info-form__submit-button__disabled">OUT OF STOCK</button>
+                        }
+                        
+                        <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.state.data?.description} } />
+                    </form>
+                    { this.state.redirect && <Navigate to='/main' replace={ true }/> }
                     
-                    <div className="info-form__description" dangerouslySetInnerHTML={{__html: this.state.data?.description}} />
-                </form>
-                { this.state.redirect && <Navigate to='/main' replace={ true }/> }
+                </div>
+                <div className='product__sticky-footer' />
             </div>
         )
     }

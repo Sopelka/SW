@@ -6,6 +6,7 @@
 .image-slider__image{
     width: 200px;
     height: 288px;
+    object-fit: contain;
 }
 
 .slider-btn{
@@ -43,4 +44,5 @@
 .image-slider__image__minicart{
     width: 121px;
     height: 190px;
+    object-fit: contain;
 }

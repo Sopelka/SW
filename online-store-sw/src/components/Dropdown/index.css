@@ -5,11 +5,13 @@
 
 .dropdown__selected{
     display: flex;
-    padding: 22px;
+    padding: 21px;
 }
 
 .selected-currency-symbol, .currency-chevron-down-icon, .currency-chevron-up-icon{
     margin: auto 0;
+    min-height: 5px;
+    min-width: 9px;
 }
 
 .selected-currency-symbol{
