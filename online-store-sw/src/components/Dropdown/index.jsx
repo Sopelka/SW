@@ -19,6 +19,7 @@ export default class Dropdown extends React.Component {
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.choseCurrency = this.choseCurrency.bind(this);
         this.closeDropdown = this.closeDropdown.bind(this);
+        this.showChosenCurrency = this.showChosenCurrency.bind(this);
     }
 
     componentWillUnmount() {
@@ -71,6 +72,17 @@ export default class Dropdown extends React.Component {
         }
     }
 
+    showChosenCurrency(element) {
+        let result = null;
+
+        if (element.label === this.state.selectedCurrency.label) {
+            result = { background: '#EEEEEE' };
+        }
+
+        return result;
+    }
+
+
     render() {
         return (
             <>
@@ -93,9 +105,11 @@ export default class Dropdown extends React.Component {
                     <div className={ `${this.state.dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
 
                         { this.props.currencyList?.map((element) => {
+                            console.log(element)
                             return <p 
                                 key = { element.label } 
                                 className = "dropdown__option"
+                                style = { this.showChosenCurrency(element) }
                                 onClick = { this.choseCurrency }>{ `${element.symbol} ${element.label}` }</p>
                             })
                         }

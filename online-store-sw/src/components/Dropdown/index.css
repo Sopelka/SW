@@ -1,27 +1,27 @@
-.dropdown__wrapper{
+.dropdown__wrapper {
     display: flex;
     position: relative;
 }
 
-.dropdown__selected{
+.dropdown__selected {
     display: flex;
     padding: 21px;
 }
 
-.selected-currency-symbol, .currency-chevron-down-icon, .currency-chevron-up-icon{
+.selected-currency-symbol, .currency-chevron-down-icon, .currency-chevron-up-icon {
     margin: auto 0;
     min-height: 5px;
     min-width: 9px;
 }
 
-.selected-currency-symbol{
+.selected-currency-symbol {
     font-size: 18px;
     line-height: 160%;
     font-weight: 500;
     margin-right: 10px;
 }
 
-.dropdown__options{
+.dropdown__options {
     position: absolute;
     top: 61px;
 
@@ -29,7 +29,7 @@
     z-index: 1;
 }
 
-.dropdown__option{
+.dropdown__option {
     font-family: 'Raleway';
     font-style: Medium;
     font-size: 18px;
@@ -45,24 +45,20 @@
     z-index: 3;
 }
 
-.dropdown__option:hover{
-    border: 1px solid #5ECE7B;
+.dropdown__option:hover {
+    background: #EEEEEE;
 }
 
-.dropdown__option:first-child{
+.dropdown__option:first-child {
     padding-top: 20px;
     padding-bottom: 13px;
 }
 
-.dropdown__option:nth-child(even){
-    background: #EEEEEE;
-}
-
-.dropdown__option:nth-child(odd){
+.dropdown__option {
     background: #ffffff;
 }
 
-.dropdown__option:last-child{
+.dropdown__option:last-child {
     padding-top: 13px;
     padding-bottom: 20px;
 }
@@ -71,7 +67,7 @@
     display: none;
 }
 
-.dropdown-btn{
+.dropdown-btn {
     width: 73px;
     height: 79px;
 
