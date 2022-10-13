@@ -219,7 +219,10 @@ class ProductDescriptionPage extends React.Component {
                             }) }
 
                         </div>
-                        <img ref={ this.mainImageRef } className="product__main-image" src={ this.state.data?.gallery?.[0] } alt="product main description" />
+                        <div className = { this.state.data.inStock ? null : "product-image__outofstock-wrapper"}>
+                            { this.state.data.inStock ? null : <p className="product-image__outofstock-title">OUT OF STOCK</p> }
+                            <img ref={ this.mainImageRef } className="product__main-image" src={ this.state.data?.gallery?.[0] } alt="product main description" />
+                        </div>
                     </div>
 
                     <form onSubmit = { this.handleOrder } className="product__info-form">

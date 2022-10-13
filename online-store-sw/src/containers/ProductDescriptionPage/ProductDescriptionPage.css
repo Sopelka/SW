@@ -167,3 +167,21 @@
     background-color: #FFFFFF;
     height: 10vh;
 }
+
+.product-image__outofstock-wrapper {
+    opacity: 0.5;
+    position: relative;
+}
+
+.product-image__outofstock-title {
+    position: absolute;
+    top: 238px;
+    right: 200px;
+
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 160%;
+    color: #404353;
+    opacity: 1;
+    z-index: 1;
+}

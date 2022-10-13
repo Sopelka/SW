@@ -105,7 +105,6 @@ export default class Dropdown extends React.Component {
                     <div className={ `${this.state.dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
 
                         { this.props.currencyList?.map((element) => {
-                            console.log(element)
                             return <p 
                                 key = { element.label } 
                                 className = "dropdown__option"

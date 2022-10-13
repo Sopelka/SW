@@ -31,7 +31,7 @@ export default class ProductCard extends React.Component {
                 className = { this.props.cardData.inStock ? "product-wrapper" : "product-outofstock-wrapper" }
                 onClick = { this.showDetails }
             >
-                { this.props.cardData.inStock ? null : <p className="wrapper__title">"OUT OF STOCK"</p> }
+                { this.props.cardData.inStock ? null : <p className="wrapper__title">OUT OF STOCK</p> }
                 
                 <div className="product-container">
                     <img className="product__image" src = { this.props.cardData.gallery[0] } alt = { this.props.cardData.name } />
