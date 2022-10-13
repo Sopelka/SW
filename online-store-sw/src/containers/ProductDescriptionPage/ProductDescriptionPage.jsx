@@ -1,6 +1,5 @@
 //Core
 import React from 'react';
-import { Navigate } from "react-router-dom";
 import { connect } from 'react-redux';
 import { gql } from '@apollo/client'; 
 
@@ -118,9 +117,12 @@ class ProductDescriptionPage extends React.Component {
                 
                 localStorage.setItem('currentOrder', JSON.stringify(finalData));
 
-                this.setState({
-                    redirect: true,
-                });
+                Array.from(document.getElementsByTagName('input')).map((element) => {
+                    if (!element.className.includes('minicart')) {
+                        element.checked = false;
+                    }
+                    return null;
+                })
             }, 0);
         }
     }
@@ -254,8 +256,6 @@ class ProductDescriptionPage extends React.Component {
                         
                         <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.state.data?.description} } />
                     </form>
-                    { this.state.redirect && <Navigate to='/main' replace={ true }/> }
-                    
                 </div>
                 <div className='product__sticky-footer' />
             </div>
