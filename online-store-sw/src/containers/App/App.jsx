@@ -25,6 +25,7 @@ class App extends React.Component {
             catName: 'ALL',
             currency: [ "$", "USD" ],
             cartAmount: 0,
+            products: [],
         };
 
         this.setDark = this.setDark.bind(this);
@@ -35,10 +36,53 @@ class App extends React.Component {
         this.submitOrder = this.submitOrder.bind(this);
     }
 
-    async getData() {
-        await client.query({query: gql`${ getStarted }`})
-            .then((result) => this.setState({ data: result.data }))
-            .catch((error) => this.setState({ error: error }))
+    getData() {
+        client.query({
+            query: gql`
+                query { 
+                    categories { 
+                        name, 
+                    },
+                    currencies {
+                        label,
+                        symbol
+                    }
+                }`
+        })
+        .then((result) => this.setState({ 
+            data: result.data 
+        }))
+
+        let catName = 'all';
+
+        client.query({
+            query: gql`
+                query getCategory($input: CategoryInput!) {
+                    category(input: $input){
+                        name,
+                        products {
+                            id, 
+                            name, 
+                            inStock, 
+                            gallery,
+                            brand,
+                            description, 
+                            prices { 
+                                currency { 
+                                    label,
+                                    symbol, 
+                                }, 
+                                amount, 
+                            },
+                        },
+                    }
+                }`,
+                variables: {  
+                    "input": {
+                        "title": catName,
+                    }
+                },
+        }).then((result) => this.setState({ products: result.data.category }))
     }
 
     setDark(childData) {
@@ -51,6 +95,37 @@ class App extends React.Component {
         this.setState({
             catName: event.target.innerText,
         });
+
+        let catName = event.target.innerText.toLowerCase();
+
+        client.query({
+            query: gql`
+                query getCategory($input: CategoryInput!) {
+                    category(input: $input){
+                        name,
+                        products {
+                            id, 
+                            name, 
+                            inStock, 
+                            gallery,
+                            brand,
+                            description, 
+                            prices { 
+                                currency { 
+                                    label,
+                                    symbol,
+                                }, 
+                                amount,
+                            },
+                        },
+                    }
+                }`,
+                variables: {  
+                    "input": {
+                        "title": catName,
+                    }
+                }
+        }).then((result) => {this.setState({ products: result.data.category })})
     }
 
     changeCurrency(childData) {
@@ -147,6 +222,7 @@ class App extends React.Component {
                             element = { 
                                 <MainSection 
                                     data = { this.state.data } 
+                                    category = { this.state.products }
                                     catName = { this.state.catName } 
                                     newCurrency = { this.state.currency }
                                 />
@@ -181,7 +257,5 @@ class App extends React.Component {
         )
     }
 }
-
-const getStarted = 'query{categories{name,products{id,name,inStock,gallery,brand,description,prices{currency{label,symbol},amount},}},currencies {label,symbol}}'; 
 
 export default connect()(App);

@@ -45,10 +45,38 @@ class ProductDescriptionPage extends React.Component {
         }
 
         await client.query({
-            query: gql`${ productDescriptions }`, 
-            variables: { id: queryID }})
-                .then((result) =>  this.setState({ data: result.data.product }))
-                .catch((error) => this.setState({ error: error }))
+            query: gql`
+                query($id: String!) {
+                    product(id: $id) {
+                        id,
+                        name,
+                        inStock,
+                        gallery,
+                        description,
+                        category,
+                        attributes {
+                            id,
+                            name,
+                            type,
+                            items {
+                                displayValue,
+                                value,
+                                id,
+                            },
+                        },
+                        prices {
+                            currency {
+                                label, 
+                                symbol 
+                            },
+                            amount,
+                        },
+                        brand,
+                    }
+                }`, 
+                variables: { id: queryID }
+            }).then((result) =>  this.setState({ data: result.data.product }))
+            .catch((error) => this.setState({ error: error }))
 
         setTimeout(() => { 
             this.setState({
@@ -262,7 +290,5 @@ class ProductDescriptionPage extends React.Component {
         )
     }
 }
-
-const productDescriptions = 'query($id: String!){product(id: $id){id,name,inStock,gallery,description,category,attributes{id,name,type,items{displayValue,value,id,},},prices{currency{label,symbol},amount,},brand,}}'; 
 
 export default connect()(ProductDescriptionPage);
