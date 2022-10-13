@@ -238,7 +238,7 @@ class ProductDescriptionPage extends React.Component {
                         <p className="info-form__price">
 
                             { this.state.data?.prices?.map((potentialPrice) => {
-                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
+                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${(potentialPrice.amount).toFixed(2)}` : null;
                             })}
 
                         </p>

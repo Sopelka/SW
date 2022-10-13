@@ -40,7 +40,7 @@ export default class ProductCard extends React.Component {
                         <span className="price-value">
 
                             { this.props.cardData.prices.map((potentialPrice) => {
-                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${potentialPrice.amount}` : null;
+                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${(potentialPrice.amount).toFixed(2)}` : null;
                             })}
 
                         </span>

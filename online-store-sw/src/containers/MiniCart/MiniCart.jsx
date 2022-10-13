@@ -112,7 +112,7 @@ class MiniCart extends React.Component {
             });
 
         if (result) {
-            result = Math.floor(result * 100) / 100
+            result = (Math.floor(result * 100) / 100).toFixed(2);
 
             this.setState({
                 totalSum: result

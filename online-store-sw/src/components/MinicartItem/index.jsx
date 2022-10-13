@@ -18,7 +18,7 @@ export default class MinicartItem extends React.Component {
                     <p className="minicart__info__price">
 
                         { this.props.data?.prices?.map((potentialPrice) => {
-                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${ this.props.newCurrency[0] } ${ potentialPrice.amount }` : null;
+                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${ this.props.newCurrency[0] } ${ (potentialPrice.amount).toFixed(2) }` : null;
                         })}
 
                     </p>

@@ -134,7 +134,7 @@ class CartPage extends React.Component {
         }
 
         if (result) {
-            return tax ? `${this.props.newCurrency[0]} ${Math.floor(result * 0.21 * 100) / 100}`: `${this.props.newCurrency[0]} ${Math.floor(result * 100) / 100}`;
+            return tax ? `${this.props.newCurrency[0]} ${(Math.floor(result * 0.21 * 100) / 100).toFixed(2)}`: `${this.props.newCurrency[0]} ${(Math.floor(result * 100) / 100).toFixed(2)}`;
         }
         else {
             return null;
