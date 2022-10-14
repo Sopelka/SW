@@ -31,6 +31,7 @@ class ProductDescriptionPage extends React.Component {
         this.getOrderId = this.getOrderId.bind(this);
         this.checkDuplicates = this.checkDuplicates.bind(this);
         this.checkInputs = this.checkInputs.bind(this);
+        this.sanitizeData = this.sanitizeData.bind(this);
 
         this.mainImageRef = React.createRef();
     }
@@ -233,6 +234,22 @@ class ProductDescriptionPage extends React.Component {
         return requiredInputSet;
     }
 
+    sanitizeData(data) {
+        if (data) {
+            if (data.includes('<script>') || 
+                data.includes('<object>') || 
+                data.includes('<embed>') || 
+                data.includes('<link>') || 
+                data.includes('onClick') || 
+                data.includes('eval')) {
+                return 'Something went wrong with the description. Please, try to reload the page'
+            } 
+            else {
+                return data
+            }
+        }
+    }
+
     componentDidMount() {
         this.getData();
     }
@@ -281,8 +298,8 @@ class ProductDescriptionPage extends React.Component {
                             :
                             <button className="info-form__submit-button__disabled">OUT OF STOCK</button>
                         }
-                        
-                        <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.state.data?.description} } />
+                        {/* <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.state.data?.description} } /> */}
+                        <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.sanitizeData(this.state.data?.description)} } />
                     </form>
                 </div>
                 <div className='product__sticky-footer' />
