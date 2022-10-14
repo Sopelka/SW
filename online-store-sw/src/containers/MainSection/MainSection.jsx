@@ -19,7 +19,8 @@ export default class MainSection extends React.Component {
                                 <ProductCard 
                                     cardData = { product } 
                                     key = { product?.id } 
-                                    newCurrency = { this.props.newCurrency }                                
+                                    newCurrency = { this.props.newCurrency }  
+                                    appCartAmountCallback = { this.props.appCartAmountCallback }                              
                                 />
                             );
                         })

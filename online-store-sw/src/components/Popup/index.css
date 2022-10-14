@@ -1,0 +1,15 @@
+.popup-container {
+    position: relative;
+}
+
+.popup-wrapper {
+
+    position: absolute;
+    right: -332px;
+    z-index: 2;
+    top: 290px;
+    background: white;
+    padding: 20px;
+    border: 1px solid gray;
+    
+}

@@ -225,6 +225,7 @@ class App extends React.Component {
                                     category = { this.state.products }
                                     catName = { this.state.catName } 
                                     newCurrency = { this.state.currency }
+                                    appCartAmountCallback = { this.changeCartProductAmount }
                                 />
                             }  
                         />  
