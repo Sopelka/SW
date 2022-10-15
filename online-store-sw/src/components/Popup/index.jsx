@@ -7,20 +7,21 @@ import SwatchInput from '../Inputs/SwatchInput';
 import './index.css';
 
 export default class Popup extends React.Component {
-    render(){
+    render() {
+        const { data, PCHandleInputCallback, PCAddToCartCallback } = this.props;
         return (
             <div className="popup-wrapper">
-                { this.props.data ?
-                    this.props.data.attributes?.map((attribute) => {
+                { data ?
+                    data.attributes?.map((attribute) => {
                         return attribute.type === 'text' ?
-                            <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.props.PCHandleInputCallback } /> 
+                            <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { PCHandleInputCallback } /> 
                             : 
-                            <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.props.PCHandleInputCallback }  />;
+                            <SwatchInput key={ attribute.id } dataArr={ attribute } pdpCallback = { PCHandleInputCallback }  />;
                     }) 
                     :
                     null
                 }    
-                    <button className="info-form__submit-button" onClick={ this.props.PCAddToCartCallback } type="submit" >ADD TO CART</button>
+                    <button className="info-form__submit-button" onClick={ PCAddToCartCallback } type="submit" >ADD TO CART</button>
                     
             </div>
         )

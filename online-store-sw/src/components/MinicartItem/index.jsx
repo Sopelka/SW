@@ -10,29 +10,31 @@ import CartItemSlider from "../CartItemSlider";
 
 export default class MinicartItem extends React.Component {
     render() {
+        const { data, newCurrency, cartCounterCallback } = this.props;
+        
         return (
             <div className="minicart-item__wrapper">
                 <div className="minicart-item__info-wrapper">
-                    <p className="minicart__info__brand-name">{ this.props.data.brand }</p>
-                    <p className="minicart__info__item-name">{ this.props.data.name }</p>
+                    <p className="minicart__info__brand-name">{ data.brand }</p>
+                    <p className="minicart__info__item-name">{ data.name }</p>
                     <p className="minicart__info__price">
 
-                        { this.props.data?.prices?.map((potentialPrice) => {
-                            return potentialPrice.currency.label === this.props.newCurrency[1] ? `${ this.props.newCurrency[0] } ${ (potentialPrice.amount).toFixed(2) }` : null;
+                        { data?.prices?.map((potentialPrice) => {
+                            return potentialPrice.currency.label === newCurrency[1] ? `${ newCurrency[0] } ${ (potentialPrice.amount).toFixed(2) }` : null;
                         })}
 
                     </p>
 
-                    { this.props.data?.attributes?.length === 0 ?
+                    { data?.attributes?.length === 0 ?
                         null
                         :
-                        this.props.data?.attributes?.map((element, index) => {
+                        data?.attributes?.map((element, index) => {
                             return( element.type === 'text' ? 
                                 <TextInput 
                                     key = { index } 
                                     size = "small" 
                                     active = { false } 
-                                    chosenOptions = { this.props.data.inputsInfo } 
+                                    chosenOptions = { data.inputsInfo } 
                                     dataArr = { element }
                                 />
                                 : 
@@ -40,7 +42,7 @@ export default class MinicartItem extends React.Component {
                                     key = { index } 
                                     size = "small" 
                                     active = { false } 
-                                    chosenOptions = { this.props.data.inputsInfo } 
+                                    chosenOptions = { data.inputsInfo } 
                                     dataArr = { element }
                                 />
                             )
@@ -49,8 +51,8 @@ export default class MinicartItem extends React.Component {
                     }
                 </div>
                 <div className="minicart-item__action-wrapper">
-                    <CartItemCounter size="small" data = { this.props.data } cartCounterCallback = { this.props.cartCounterCallback } />
-                    <CartItemSlider size="small" data = { this.props.data } />
+                    <CartItemCounter size="small" data = { data } cartCounterCallback = { cartCounterCallback } />
+                    <CartItemSlider size="small" data = { data } />
                 </div>
             </div>
         )

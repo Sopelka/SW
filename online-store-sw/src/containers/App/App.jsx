@@ -139,17 +139,21 @@ class App extends React.Component {
     }
 
     changeCurrency(childData) {
+        const { dispatch } = this.props;
+
         this.setState({
             currency: childData,
         });
 
-        this.props.dispatch(setNewCartAmount(childData));
+        dispatch(setNewCartAmount(childData));
 
         localStorage.setItem('currentCurrency', JSON.stringify(childData));
     }
 
     changeCartProductAmount(value) {
         let state = store.getState();
+        const { cartAmount } = this.state;
+        const { dispatch } = this.props;
 
         if (typeof value === 'number') {
             if (state.setNewProductToCart.length > 0 || localStorage.getItem('currentOrder')) {
@@ -157,18 +161,18 @@ class App extends React.Component {
                     cartAmount: value,
                 });
 
-                this.props.dispatch(setNewCartAmount(value));
+                dispatch(setNewCartAmount(value));
             } 
             else {
                 this.setState({
                     cartAmount: 0,
                 });
 
-                this.props.dispatch(setNewCartAmount(0));
+                dispatch(setNewCartAmount(0));
             }        
         }
         else if (typeof value === 'string') {
-            this.props.dispatch(setNewCartAmount(this.state.cartAmount + Number(value)));
+            dispatch(setNewCartAmount(cartAmount + Number(value)));
 
             this.setState(prevValue => ({
                 cartAmount: +prevValue.cartAmount + Number(value),
@@ -177,13 +181,15 @@ class App extends React.Component {
     }
 
     submitOrder() {
+        const { dispatch } = this.props;
         window.alert('Your order was successfully formed. We will contact you in a few minutes');
         localStorage.removeItem('currentOrder');
         this.changeCartProductAmount(0);
-        this.props.dispatch(setNewProductToCart([]));
+        dispatch(setNewProductToCart([]));
     }
 
     componentDidMount() {
+        const { dispatch } = this.props;
         this.getData();
 
         if (localStorage.getItem('currentOrder')) {
@@ -204,24 +210,26 @@ class App extends React.Component {
                 currency: currency,
             });
 
-            this.props.dispatch(setNewCurrency(currency));
+            dispatch(setNewCurrency(currency));
         }
     }
 
     render() {
+        const { dark, cartAmount, currency, data, products, catName } = this.state;
+
         return (
             <>
-                <div className = { this.state.dark ? "dark-screen" : "dark-screen disactivated" }/>
+                <div className = { dark ? "dark-screen" : "dark-screen disactivated" }/>
                 <div className = "inner-root">    
                     <div className = 'main-header-wrapper'>
                         <Header 
-                            data = { this.state.data } 
+                            data = { data } 
                             appDarkCallback = { this.setDark } 
                             appCategoryCallback = { this.changeCategory }
                             appCurrencyCallback = { this.changeCurrency }
                             appCartAmountCallback = { this.changeCartProductAmount }
-                            cartAmount = { this.state.cartAmount }
-                            newCurrency = { this.state.currency }
+                            cartAmount = { cartAmount }
+                            newCurrency = { currency }
                             appSubmitOrderCallback = { this.submitOrder }
                         />
                     </div>
@@ -231,10 +239,10 @@ class App extends React.Component {
                             path = '/main' 
                             element = { 
                                 <MainSection 
-                                    data = { this.state.data } 
-                                    category = { this.state.products }
-                                    catName = { this.state.catName } 
-                                    newCurrency = { this.state.currency }
+                                    data = { data } 
+                                    category = { products }
+                                    catName = { catName } 
+                                    newCurrency = { currency }
                                     appCartAmountCallback = { this.changeCartProductAmount }
                                 />
                             }  
@@ -243,7 +251,7 @@ class App extends React.Component {
                         <Route path = '/product' 
                             element = { 
                                 <ProductDescriptionPage 
-                                    newCurrency = { this.state.currency } 
+                                    newCurrency = { currency } 
                                     appCartAmountCallback = { this.changeCartProductAmount }
                                 /> 
                             }
@@ -253,8 +261,8 @@ class App extends React.Component {
                             path = '/cart' 
                             element = { 
                                 <CartPage
-                                    cartAmount = { this.state.cartAmount }
-                                    newCurrency = { this.state.currency }
+                                    cartAmount = { cartAmount }
+                                    newCurrency = { currency }
                                     appCartAmountCallback = { this.changeCartProductAmount }
                                     appSubmitOrderCallback = { this.submitOrder }
                                 /> 

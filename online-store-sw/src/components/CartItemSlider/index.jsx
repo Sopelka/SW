@@ -14,8 +14,11 @@ export default class CartItemSlider extends React.Component {
     }
 
     changeImage(increase) {
+        const { data } = this.props;
+        const { currentImgIndex } = this.state;
+
         if (increase) {
-            if (this.props.data.img[this.state.currentImgIndex + 1]) {
+            if (data.img[currentImgIndex + 1]) {
                 this.setState((prevValue) => ({
                     currentImgIndex: prevValue.currentImgIndex + 1,
                 }));
@@ -27,14 +30,14 @@ export default class CartItemSlider extends React.Component {
             }
         }
         else if (!increase) {
-            if (this.props.data.img[this.state.currentImgIndex - 1]) {
+            if (data.img[currentImgIndex - 1]) {
                 this.setState((prevValue) => ({
                     currentImgIndex: prevValue.currentImgIndex - 1,
                 }));
             }
             else {
                 this.setState({
-                    currentImgIndex: this.props.data.img.length - 1,
+                    currentImgIndex: data.img.length - 1,
                 });
             }
         }
@@ -42,11 +45,14 @@ export default class CartItemSlider extends React.Component {
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
+        const { size, data } = this.props;
+        const { currentImgIndex } = this.state;
+
         return (
             <div className = { `image-slider${mode}` }>
-                <img className = { `image-slider__image${mode}` } src = { this.props?.data?.img[this.state.currentImgIndex] } alt = "product" />
+                <img className = { `image-slider__image${mode}` } src = { data?.img[currentImgIndex] } alt = "product" />
 
-                { this.props.size === 'normal' && this.props?.data?.img.length > 1 ?
+                { size === 'normal' && data?.img.length > 1 ?
                     <>
                         <div onClick = { ()=>{ this.changeImage(false) }} className={`slider-btn-left slider-btn${mode}` }>
                             <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" >

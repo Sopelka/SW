@@ -13,22 +13,28 @@ export default class CartItemCounter extends React.Component {
     }
 
     increase() {
-        this.props.cartCounterCallback(true, this.props.data.orderID);
+        const { data, cartCounterCallback } = this.props;
+
+        cartCounterCallback(true, data.orderID);
     }
 
     decrease() {
-        this.props.cartCounterCallback(false, this.props.data.orderID);
+        const { data, cartCounterCallback } = this.props;
+        
+        cartCounterCallback(false, data.orderID);
     }
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
+        const { data, size } = this.props;
+
         return (
             <>
                 <div className = { `count-btn-container${mode}` }>
                     <div className = { `count-btn-increase${mode} count-btn${mode}` } onClick = { this.increase }> 
                         <div className = { `count-btn-protector${mode}` }/>
 
-                        { this.props.size === 'normal' ?
+                        { size === 'normal' ?
                             <>
                                 <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
@@ -51,12 +57,12 @@ export default class CartItemCounter extends React.Component {
                         
                     </div>
                     
-                    <p className = { `counter${mode}` }>{ this.props.data.counter }</p>
+                    <p className = { `counter${mode}` }>{ data.counter }</p>
 
                     <div className = { `count-btn-decrease${mode} count-btn${mode}` } onClick = { this.decrease } > 
                         <div className = { `count-btn-protector${mode}` }/>
 
-                        { this.props.size === 'normal' ? 
+                        { size === 'normal' ? 
                             <svg width="17" height="1" viewBox="0 0 17 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 0.5H16" stroke="#1D1F22" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>

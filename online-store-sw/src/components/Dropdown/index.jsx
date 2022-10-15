@@ -58,9 +58,11 @@ export default class Dropdown extends React.Component {
     }
 
     choseCurrency(event) {
+        const { appCurrencyCallback } = this.props;
+
         if (event.target.className === 'dropdown__option') {
             const newCurrencyArray = event.target.textContent.split(' ');
-            this.props.appCurrencyCallback(newCurrencyArray);
+            appCurrencyCallback(newCurrencyArray);
 
             this.setState({
                 dropdownOpen: false,
@@ -74,8 +76,9 @@ export default class Dropdown extends React.Component {
 
     showChosenCurrency(element) {
         let result = null;
+        const { selectedCurrency } = this.state;
 
-        if (element.label === this.state.selectedCurrency.label) {
+        if (element.label === selectedCurrency.label) {
             result = { background: '#EEEEEE' };
         }
 
@@ -84,14 +87,17 @@ export default class Dropdown extends React.Component {
 
 
     render() {
+        const { currencyList } = this.props;
+        const { selectedCurrency, dropdownOpen } = this.state;
+
         return (
             <>
                 <div className="dropdown__wrapper">
                     <div onClick = { this.toggleDropdown } className = "dropdown-btn"></div>
                     <div className = "dropdown__selected">
-                        <p className = "selected-currency-symbol">{ this.state.selectedCurrency.symbol }</p> 
+                        <p className = "selected-currency-symbol">{ selectedCurrency.symbol }</p> 
 
-                        { this.state.dropdownOpen ? 
+                        { dropdownOpen ? 
                             <svg className = "currency-chevron-up-icon" width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 3.5L4 0.5L7 3.5" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
@@ -102,9 +108,9 @@ export default class Dropdown extends React.Component {
                         }
                     </div>
 
-                    <div className={ `${this.state.dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
+                    <div className={ `${dropdownOpen ? 'dropdown__options' : 'hiddenObj' }` }>
 
-                        { this.props.currencyList?.map((element) => {
+                        { currencyList?.map((element) => {
                             return <p 
                                 key = { element.label } 
                                 className = "dropdown__option"

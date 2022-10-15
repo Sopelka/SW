@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 import { gql } from '@apollo/client'; 
 import { connect } from 'react-redux';
 
-
 //Locals
 import './index.css';
 import Popup from '../Popup';
@@ -280,28 +279,31 @@ class ProductCard extends React.Component {
     }
 
     render() {
+        const { newCurrency, cardData } = this.props;
+        const { currentPop, redirect } = this.state;
+
         return (       
             <div className="product-root">  
                 <div 
-                    className = { this.props.cardData.inStock ? "product-card product-wrapper" : "product-card product-outofstock-wrapper" }
+                    className = { cardData.inStock ? "product-card product-wrapper" : "product-card product-outofstock-wrapper" }
                     onClick = { this.showDetails }
                 >
-                    { this.props.cardData.inStock ? null : <p className="wrapper__title">OUT OF STOCK</p> }
+                    { cardData.inStock ? null : <p className="wrapper__title">OUT OF STOCK</p> }
                     
                     <div className="product-container">
-                        <img className="product__image" src = { this.props.cardData.gallery[0] } alt = { this.props.cardData.name } />
-                        <p className="product__name">{ `${this.props.cardData.brand} ${this.props.cardData.name}` }</p>
+                        <img className="product__image" src = { cardData.gallery[0] } alt = { cardData.name } />
+                        <p className="product__name">{ `${ cardData.brand } ${ cardData.name }` }</p>
                         <p className="product__price">
                             <span className="price-value">
 
-                                { this.props.cardData.prices.map((potentialPrice) => {
-                                    return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${(potentialPrice.amount).toFixed(2)}` : null;
+                                { cardData.prices.map((potentialPrice) => {
+                                    return potentialPrice.currency.label === newCurrency[1] ? `${ newCurrency[0] } ${(potentialPrice.amount).toFixed(2)}` : null;
                                 })}
 
                             </span>
                         </p>
 
-                        { this.props.cardData.inStock ? 
+                        { cardData.inStock ? 
                             <>
                                 <button className="product-button">
                                     <svg className="cart-icon" width="24" height="24" viewBox="0 0 23 20" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
@@ -317,15 +319,15 @@ class ProductCard extends React.Component {
 
                     </div>
                 </div>
-                { this.props.cardData.inStock && this.props.cardData.attributes?.length ? 
-                    <aside className={`invisible popup-container popup__${this.props.cardData.id}`}>
-                        <Popup data = {this.state.currentPop} PCAddToCartCallback = { this.addToCart } PCHandleInputCallback = {this.handleInput}/>
+                { cardData.inStock && cardData.attributes?.length ? 
+                    <aside className={`invisible popup-container popup__${ cardData.id }`}>
+                        <Popup data = { currentPop } PCAddToCartCallback = { this.addToCart } PCHandleInputCallback = { this.handleInput }/>
                     </aside>
                     :
                     null
                 }
                     
-                { this.state.redirect && <Navigate to='/product' replace={ true }/> }
+                { redirect && <Navigate to='/product' replace={ true }/> }
             </div>  
         )
     }
@@ -334,6 +336,5 @@ class ProductCard extends React.Component {
 ProductCard.defaultProps = {
     newCurrency: [ "$", "USD" ]
 }
-
 
 export default connect()(ProductCard);

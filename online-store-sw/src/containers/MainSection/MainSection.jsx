@@ -7,20 +7,21 @@ import ProductCard from '../../components/ProductCard';
 
 export default class MainSection extends React.Component {      
     render () {
+        const { catName, category, newCurrency, appCartAmountCallback } = this.props;
         return (
             <section className="main-section">
                 <h2 className="main-section__header" >
-                    { this.props.catName }
+                    { catName }
                 </h2>
                 <div className="main-section__content">      
-                    { this.props.category.products ?
-                        this.props.category.products.map((product) => {
+                    { category.products ?
+                        category.products.map((product) => {
                             return ( 
                                 <ProductCard 
                                     cardData = { product } 
                                     key = { product?.id } 
-                                    newCurrency = { this.props.newCurrency }  
-                                    appCartAmountCallback = { this.props.appCartAmountCallback }                              
+                                    newCurrency = { newCurrency }  
+                                    appCartAmountCallback = { appCartAmountCallback }                              
                                 />
                             );
                         })

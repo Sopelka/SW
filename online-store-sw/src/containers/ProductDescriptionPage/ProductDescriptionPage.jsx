@@ -37,12 +37,21 @@ class ProductDescriptionPage extends React.Component {
     }
 
     async getData() {
+        const { 
+            id, 
+            name, 
+            brand, 
+            gallery, 
+            prices, 
+            attributes, 
+        } = this.state.data;
+
         let queryID = null;
         if (localStorage.getItem('PDP_ID')) {
             queryID = localStorage.getItem('PDP_ID');
         } 
         else {
-            queryID = this.state.data.id;
+            queryID = id;
         }
 
         await client.query({
@@ -82,12 +91,12 @@ class ProductDescriptionPage extends React.Component {
         setTimeout(() => { 
             this.setState({
                 productDetails: {
-                    name: this.state.data.name,
-                    brand: this.state.data.brand,
-                    img: this.state.data?.gallery,
-                    product_id: this.state.data.id,
-                    prices: this.state.data.prices,
-                    attributes: this.state.data.attributes,
+                    name: name,
+                    brand: brand,
+                    img: gallery,
+                    product_id: id,
+                    prices: prices,
+                    attributes: attributes,
                     counter: 1,
 
                     inputsInfo: {},
@@ -103,14 +112,23 @@ class ProductDescriptionPage extends React.Component {
     }
 
     handleInput(event) {
+        const { 
+            id, 
+            name, 
+            brand, 
+            gallery, 
+            prices, 
+            attributes, 
+        } = this.state.data;
+
         this.setState(prevValue => ({
             productDetails: {
-                name: this.state.data.name,
-                brand: this.state.data.brand,
-                img: this.state.data?.gallery,
-                product_id: this.state.data.id,
-                prices: this.state.data.prices,
-                attributes: this.state.data.attributes,
+                name:name,
+                brand: brand,
+                img: gallery,
+                product_id: id,
+                prices: prices,
+                attributes: attributes,
                 counter: 1,
 
                 inputsInfo: {...prevValue.productDetails.inputsInfo, ...{
@@ -123,6 +141,8 @@ class ProductDescriptionPage extends React.Component {
     }
 
     handleOrder(event) {
+        const { name, inputsInfo } = this.state.productDetails;
+
         event.preventDefault();
         let requiredInputSet = this.checkInputs();
 
@@ -131,7 +151,7 @@ class ProductDescriptionPage extends React.Component {
             alert(`Choose product features before continue: ${ missingInputsArr }`)
         } 
         else {
-            this.getOrderId(this.state.productDetails.name, this.state.productDetails.inputsInfo);
+            this.getOrderId(name, inputsInfo);
             setTimeout(() => {
                 let state = store.getState();
                 let finalData = this.checkDuplicates(state.setNewProductToCart, this.state.productDetails);
@@ -198,6 +218,14 @@ class ProductDescriptionPage extends React.Component {
     }
 
     checkInputs() {
+        const { 
+            id, 
+            name, 
+            brand, 
+            gallery, 
+            prices, 
+        } = this.state.data;
+
         let requiredInputSet = new Set(
             Array.from(document.getElementsByClassName('input')).map((el) => { 
                 return el.name;
@@ -207,11 +235,11 @@ class ProductDescriptionPage extends React.Component {
         if (!requiredInputSet) {
             this.setState({
                 productDetails: {
-                    name: this.state.data.name,
-                    brand: this.state.data.brand,
-                    img: this.state.data?.gallery,
-                    product_id: this.state.data.id,
-                    prices: this.state.data.prices,
+                    name: name,
+                    brand: brand,
+                    img: gallery,
+                    product_id: id,
+                    prices: prices,
                     attributes: null,
                     counter: 1,
     
@@ -255,28 +283,31 @@ class ProductDescriptionPage extends React.Component {
     }
 
     render() {
+        const { newCurrency } = this.props;
+        const { gallery, inStock, brand, name, attributes, prices, description } = this.state.data;
+
         return (
             <div className="product__root">
                 <div className="product-wrapper product__individual-wrapper">
                     <div className="product__images">
-                        <div className = { this.state.data.gallery?.length > 4 ? "product__side-images__many" : "product__side-images" }>
+                        <div className = { gallery?.length > 4 ? "product__side-images__many" : "product__side-images" }>
 
-                            { this.state.data.gallery?.map((picture) => {
+                            { gallery?.map((picture) => {
                                 return <img className="image__mini" key={ picture } src={ picture } alt="product description" onClick={ ()=>{ this.changeImage(picture) } }/>
                             }) }
 
                         </div>
-                        <div className = { this.state.data.inStock ? null : "product-image__outofstock-wrapper"}>
-                            { this.state.data.inStock ? null : <p className="product-image__outofstock-title">OUT OF STOCK</p> }
-                            <img ref={ this.mainImageRef } className="product__main-image" src={ this.state.data?.gallery?.[0] } alt="product main description" />
+                        <div className = { inStock ? null : "product-image__outofstock-wrapper"}>
+                            { inStock ? null : <p className="product-image__outofstock-title">OUT OF STOCK</p> }
+                            <img ref={ this.mainImageRef } className="product__main-image" src={ gallery?.[0] } alt="product main description" />
                         </div>
                     </div>
 
                     <form onSubmit = { this.handleOrder } className="product__info-form">
-                        <p className="info-form__brand-name">{ this.state.data?.brand }</p>
-                        <p className="info-form__item-name">{ this.state.data?.name }</p>
+                        <p className="info-form__brand-name">{ brand }</p>
+                        <p className="info-form__item-name">{ name }</p>
 
-                        { this.state.data.attributes?.map((attribute) => {
+                        { attributes?.map((attribute) => {
                             return attribute.type === 'text' ?
                                 <TextInput key={ attribute.id } dataArr={ attribute } pdpCallback = { this.handleInput } /> 
                                 : 
@@ -287,19 +318,18 @@ class ProductDescriptionPage extends React.Component {
                         <p className="info-form__price-title">PRICE:</p>
                         <p className="info-form__price">
 
-                            { this.state.data?.prices?.map((potentialPrice) => {
-                                return potentialPrice.currency.label === this.props.newCurrency[1] ? `${this.props.newCurrency[0]} ${(potentialPrice.amount).toFixed(2)}` : null;
+                            { prices?.map((potentialPrice) => {
+                                return potentialPrice.currency.label === newCurrency[1] ? `${newCurrency[0]} ${(potentialPrice.amount).toFixed(2)}` : null;
                             })}
 
                         </p>
 
-                        { this.state.data.inStock ? 
+                        { inStock ? 
                             <button className="info-form__submit-button" type="submit" onClick={ this.handleOrder } >ADD TO CART</button>
                             :
                             <button className="info-form__submit-button__disabled">OUT OF STOCK</button>
                         }
-                        {/* <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.state.data?.description} } /> */}
-                        <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.sanitizeData(this.state.data?.description)} } />
+                        <div className="info-form__description" dangerouslySetInnerHTML={ {__html: this.sanitizeData(description)} } />
                     </form>
                 </div>
                 <div className='product__sticky-footer' />

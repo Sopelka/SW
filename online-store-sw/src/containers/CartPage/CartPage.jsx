@@ -28,10 +28,13 @@ class CartPage extends React.Component {
         let index = null;
         let state = store.getState();
 
+        const { appCartAmountCallback, dispatch } = this.props;
+        const { allItems } = this.state;
+
         let newData = state.setNewProductToCart.map((product, itemIndex) => {
             if (product.orderID === orderID) {
                 if (increase) {
-                    this.props.appCartAmountCallback('+1');
+                    appCartAmountCallback('+1');
 
                     return ({
                         ...product,
@@ -40,14 +43,14 @@ class CartPage extends React.Component {
                 }
                 else {
                     if ((+product.counter - 1) === 0) {
-                        this.props.appCartAmountCallback('-1');
+                        appCartAmountCallback('-1');
 
                         let deleteItem = window.confirm(`Do you want to delete ${product.name} ${product.brand}?`, 'Do you want to delete this item?');
                         index = deleteItem ? itemIndex : null;
                         return { ...product, counter: 1 };
                     } 
                     else {
-                        this.props.appCartAmountCallback('-1');
+                        appCartAmountCallback('-1');
 
                         return ({
                             ...product,
@@ -73,15 +76,15 @@ class CartPage extends React.Component {
                 allItems: newData,
             });
 
-            this.props.dispatch(setNewProductToCart(newData));
+            dispatch(setNewProductToCart(newData));
 
             this.getTotal();
             this.getTotal(true);
 
             
             setTimeout(() => {
-                if (this.state.allItems) {
-                    localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems));
+                if (allItems) {
+                    localStorage.setItem('currentOrder', JSON.stringify(allItems));
                 }
             }, 100);
         }
@@ -91,7 +94,7 @@ class CartPage extends React.Component {
                 cartEmpty: true,
             });
 
-            this.props.dispatch(setNewProductToCart([]));
+            dispatch(setNewProductToCart([]));
 
             localStorage.removeItem('currentOrder');
 
@@ -119,11 +122,13 @@ class CartPage extends React.Component {
     getTotal(tax) {
         let state = store.getState();
         let result = null;
+        const { newCurrency } = this.props;
+
 
         if (state.setNewProductToCart.length > 0) {
             result = state.setNewProductToCart.map((product) => {
                 let currPrice = product.prices.map((probablePrice) => {
-                    return probablePrice.currency.label === this.props.newCurrency[1] ? probablePrice.amount : 0 ;
+                    return probablePrice.currency.label === newCurrency[1] ? probablePrice.amount : 0 ;
                 });
                 currPrice = currPrice.filter(el => el > 0 );
                 return (currPrice * product.counter);
@@ -134,7 +139,7 @@ class CartPage extends React.Component {
         }
 
         if (result) {
-            return tax ? `${this.props.newCurrency[0]} ${(Math.floor(result * 0.21 * 100) / 100).toFixed(2)}`: `${this.props.newCurrency[0]} ${(Math.floor(result * 100) / 100).toFixed(2)}`;
+            return tax ? `${newCurrency[0]} ${(Math.floor(result * 0.21 * 100) / 100).toFixed(2)}`: `${newCurrency[0]} ${(Math.floor(result * 100) / 100).toFixed(2)}`;
         }
         else {
             return null;
@@ -153,7 +158,9 @@ class CartPage extends React.Component {
     }
 
     confirmOrder() {
-        this.props.appSubmitOrderCallback();
+        const { appSubmitOrderCallback } = this.props;
+
+        appSubmitOrderCallback();
 
         this.setState({
             redirect: true,
@@ -163,6 +170,9 @@ class CartPage extends React.Component {
 
     render() {
         let state = store.getState();
+        const { newCurrency, cartAmount} = this.props;
+        const { allItems, redirect } = this.state;
+
         return (
             <>
                 <h1 className="cart__main-header">CART</h1>
@@ -172,7 +182,7 @@ class CartPage extends React.Component {
                         return <CartItem 
                             key = { element.orderID } 
                             data = { element } 
-                            newCurrency = { this.props.newCurrency } 
+                            newCurrency = { newCurrency } 
                             cartCounterCallback = { this.changeCounter }
                         />
                     })
@@ -187,13 +197,13 @@ class CartPage extends React.Component {
                         <p className="summary__total">Total:</p>
                     </div>
                     <div className="summary__data-wrapper">
-                        <p className="summary__data-tax summary__data">{ this.state.allItems ? this.getTotal(true) : null }</p>
-                        <p className="summary__data-quantity summary__data">{ this.props.cartAmount }</p>
-                        <p className="summary__data-total summary__data">{this.state.allItems ? this.getTotal(false) : null }</p>
+                        <p className="summary__data-tax summary__data">{ allItems ? this.getTotal(true) : null }</p>
+                        <p className="summary__data-quantity summary__data">{ cartAmount }</p>
+                        <p className="summary__data-total summary__data">{ allItems ? this.getTotal(false) : null }</p>
                     </div>
                 </div>
                 <button onClick = { this.confirmOrder } className="cart__order-button">ORDER</button>
-                { this.state.redirect && <Navigate to='/main' replace={ true }/> }
+                { redirect && <Navigate to='/main' replace={ true }/> }
             </>
         )
     }

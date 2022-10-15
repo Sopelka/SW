@@ -13,14 +13,17 @@ export default class SwatchInput extends React.Component {
     }
 
     handleInput(event) {
-        this.props.pdpCallback(event.target);
+        const { pdpCallback } = this.props;
+
+        pdpCallback(event.target);
     }
 
     showChosenInputs(element) {
         let result = null;
+        const { dataArr, chosenOptions } = this.props;
 
-        for (let key in this.props.chosenOptions) {
-            if (key.includes(this.props.dataArr.name) && this.props.chosenOptions[key] === element.id) {
+        for (let key in chosenOptions) {
+            if (key.includes(dataArr.name) && chosenOptions[key] === element.id) {
                 result = 'checked';
             }
         }
@@ -30,14 +33,16 @@ export default class SwatchInput extends React.Component {
 
     render() {
         const mode = this.props.size === 'small' ? '__minicart' : '' ;
+        const { dataArr, active, chosenOptions } = this.props;
+
         return (
             <>
-                <h1 className = { `input-header${mode}` }>{ this.props.dataArr?.name }:</h1>
+                <h1 className = { `input-header${mode}` }>{ dataArr?.name }:</h1>
                 <div className = { `swatch-input__wrapper${mode}` }>
 
-                { this.props.active ? null : <div className={`input__protector${mode}`}/> }
+                { active ? null : <div className={`input__protector${mode}`}/> }
 
-                    { this.props.dataArr?.items?.map((element) =>  
+                    { dataArr?.items?.map((element) =>  
                         <div className = {`swatch-input__inner-wrapper${mode}`} key = { element.id }>
                             <input 
                                 required
@@ -45,7 +50,7 @@ export default class SwatchInput extends React.Component {
                                 className = {`swatch-input${mode} input${mode}`}
                                 type = "radio" 
                                 id = { element.id } 
-                                name = { this.props.active ? this.props.dataArr?.name : `${mode} ${JSON.stringify(this.props.chosenOptions)} ${this.props.dataArr.name}`}  
+                                name = { active ? dataArr?.name : `${mode} ${JSON.stringify(chosenOptions)} ${dataArr.name}`}  
                                 value = { element.displayValue } 
                                 data-swatch = { element.value } 
                                 defaultChecked = { this.showChosenInputs(element) }

@@ -36,6 +36,7 @@ class MiniCart extends React.Component {
         document.addEventListener('click', this.closeCart, false);
 
         let state = store.getState();
+        const { dispatch } = this.props;
 
         if (state.setNewProductToCart.length <= 0 && !localStorage.getItem('currentOrder')) {
             this.setState({
@@ -43,18 +44,21 @@ class MiniCart extends React.Component {
             });
         }
         else if (state.setNewProductToCart.length <= 0 && localStorage.getItem('currentOrder')) {
-            this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))))
+            dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))))
         }
 
         this.showOrderData();
     }
 
     toggleCart() {
+        const { cartOpen } = this.state;
+        const { appDarkCallback, dispatch } = this.props;
+
         this.setState(prevValue => ({
             cartOpen: !prevValue.cartOpen
         }));
 
-        this.props.appDarkCallback(!this.state.cartOpen);
+        appDarkCallback(!cartOpen);
 
         let state = store.getState();
 
@@ -64,7 +68,7 @@ class MiniCart extends React.Component {
             });
         }
         else if (state.setNewProductToCart.length <= 0 && localStorage.getItem('currentOrder')) {
-            this.props.dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))));
+            dispatch(setNewProductToCart(JSON.parse(localStorage.getItem('currentOrder'))));
         }
 
         let data = this.showOrderData();
@@ -72,12 +76,15 @@ class MiniCart extends React.Component {
     }
 
     closeCart(event) {
-        if (this.state.cartOpen && !event.target.className.includes('minicart')) {
+        const { cartOpen } = this.state;
+        const { appDarkCallback } = this.props;
+
+        if (cartOpen && !event.target.className.includes('minicart')) {
             this.setState({
                 cartOpen: false
             });
 
-            this.props.appDarkCallback(false);
+            appDarkCallback(false);
         }
     }
 
@@ -97,12 +104,14 @@ class MiniCart extends React.Component {
     }
 
     getTotalSum(arr) {
+        const { newCurrency } = this.props;
+
         let result = !localStorage.getItem('currentOrder') || !arr ? 
             null
             : 
             arr.map((el) => {
                 let currPrice = el.prices.map((pair) => {
-                    return pair.currency.label === this.props.newCurrency[1] ? pair.amount : 0 ;
+                    return pair.currency.label === newCurrency[1] ? pair.amount : 0 ;
                 })
                 currPrice = currPrice.filter(el => el > 0 )
                 return (currPrice * el.counter);
@@ -123,11 +132,13 @@ class MiniCart extends React.Component {
     changeCounter(increase, orderID) {
         let index = null;
         let state = store.getState();
+        const { allItems } = this.state;
+        const { appCartAmountCallback, dispatch } = this.props;
 
         let newData = state.setNewProductToCart.map((product, itemIndex) => {
             if (product.orderID === orderID) {
                 if (increase) {
-                    this.props.appCartAmountCallback('+1');
+                    appCartAmountCallback('+1');
 
                     return ({
                         ...product,
@@ -140,13 +151,13 @@ class MiniCart extends React.Component {
 
                         if (deleteItem) {
                             index = itemIndex;
-                            this.props.appCartAmountCallback('-1');
+                            appCartAmountCallback('-1');
                         }
                         
                         return { ...product, counter: 1 };
                     } 
                     else {
-                        this.props.appCartAmountCallback('-1');
+                        appCartAmountCallback('-1');
 
                         return ({
                             ...product,
@@ -172,13 +183,13 @@ class MiniCart extends React.Component {
                 allItems: newData
             });
 
-            this.props.dispatch(setNewProductToCart(newData));
+            dispatch(setNewProductToCart(newData));
 
             this.getTotalSum(newData);
 
             setTimeout(() => {
-                if (this.state.allItems) {
-                    localStorage.setItem('currentOrder', JSON.stringify(this.state.allItems))
+                if (allItems) {
+                    localStorage.setItem('currentOrder', JSON.stringify(allItems))
                 }
             }, 100);
         }
@@ -188,15 +199,17 @@ class MiniCart extends React.Component {
                 cartEmpty: true,
             });
 
-            this.props.dispatch(setNewProductToCart([]));
+            dispatch(setNewProductToCart([]));
 
             localStorage.removeItem('currentOrder');
         }
     }
 
     confirmOrder() {
-        this.props.appSubmitOrderCallback();
-        this.props.appDarkCallback(false);
+        const { appSubmitOrderCallback, appDarkCallback } = this.props;
+
+        appSubmitOrderCallback();
+        appDarkCallback(false);
 
         this.setState({
             allItems : null,
@@ -208,6 +221,8 @@ class MiniCart extends React.Component {
 
     render() {
         let state = store.getState();
+        const { newCurrency } = this.props;
+        const { cartOpen, cartEmpty, totalSum  } = this.state;
         return (
             <div className="minicart__extra-conteiner">
                 <svg className="minicart-icon" width="20" height="19" viewBox="0 0 20 19" fill="#43464E" xmlns="http://www.w3.org/2000/svg">
@@ -217,8 +232,8 @@ class MiniCart extends React.Component {
                 </svg>
                 <div className="minicart-wrapper">
                     <div onClick = { this.toggleCart } className="minicart__open-btn"></div>
-                    <div className = { this.state.cartOpen ? "minicart__droplist-wrapper" : "hiddenObj" }>
-                        { this.state.cartEmpty ?
+                    <div className = { cartOpen ? "minicart__droplist-wrapper" : "hiddenObj" }>
+                        { cartEmpty ?
                             <p className="minicart initial-title">Your cart is empty</p>
                             :
                             <>
@@ -230,14 +245,14 @@ class MiniCart extends React.Component {
                                         return <MinicartItem 
                                             key = { `${index} ${item.orderID}`} 
                                             data = { item } 
-                                            newCurrency = { this.props.newCurrency } 
+                                            newCurrency = { newCurrency } 
                                             cartCounterCallback = { this.changeCounter }
                                         />
                                     })}
                                 </div>
                                 <div className="minicart__total-wrapper">
                                     <p className="minicart__total-title">Total</p>
-                                    <p className="minicart__total-result">{`${this.props.newCurrency[0]}${this.state.totalSum}`}</p>
+                                    <p className="minicart__total-result">{`${newCurrency[0]}${totalSum}`}</p>
                                 </div>
                                 <div className="minicart__buttons-wrapper">
                                     <Link to = '/cart'>

@@ -9,14 +9,25 @@ import MiniCart from '../../containers/MiniCart/MiniCart';
 
 export default class Header extends React.Component {
     render() {
+        const { 
+            data, 
+            appCategoryCallback, 
+            appCurrencyCallback, 
+            appSubmitOrderCallback, 
+            cartAmount, 
+            appDarkCallback, 
+            newCurrency, 
+            appCartAmountCallback  
+        } = this.props;
+        
         return (
             <header>
                 <nav>
                     <div className="header-categories">                            
-                        { this.props.data.categories?.map((category) => {
+                        { data.categories?.map((category) => {
                             return (
                                 <Link to = '/main' key = {category?.name}>
-                                    <p className="header-category" onClick = { this.props.appCategoryCallback }>
+                                    <p className="header-category" onClick = { appCategoryCallback }>
                                         { category.name.toUpperCase() }
                                     </p>
                                 </Link>
@@ -43,18 +54,17 @@ export default class Header extends React.Component {
                     <div className="header-details">
                         <div className="header-details__currency">
                             <Dropdown 
-                                currencyList = { this.props.data.currencies }
-                                appCurrencyCallback = { this.props.appCurrencyCallback }
+                                currencyList = { data.currencies }
+                                appCurrencyCallback = { appCurrencyCallback }
                             />
                         </div>
                         <div className = "header-details__cart">
-                        <p className = { this.props.cartAmount > 0 ? "header-details__cart__label minicart" : "minicart disabled" }>{ this.props.cartAmount }</p>
+                        <p className = { cartAmount > 0 ? "header-details__cart__label minicart" : "minicart disabled" }>{ cartAmount }</p>
                             <MiniCart 
-                                appDarkCallback = { this.props.appDarkCallback } 
-                                appCartAmountCallback = { this.props.appCartAmountCallback }
-                                newCurrency = { this.props.newCurrency }
-                                appSubmitOrderCallback = { this.props.appSubmitOrderCallback }
-                                
+                                appDarkCallback = { appDarkCallback } 
+                                appCartAmountCallback = { appCartAmountCallback }
+                                newCurrency = { newCurrency }
+                                appSubmitOrderCallback = { appSubmitOrderCallback }
                             />
                         </div>
                     </div>
