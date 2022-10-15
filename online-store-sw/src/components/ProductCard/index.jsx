@@ -281,7 +281,7 @@ class ProductCard extends React.Component {
 
     render() {
         return (       
-            <>  
+            <div className="product-root">  
                 <div 
                     className = { this.props.cardData.inStock ? "product-card product-wrapper" : "product-card product-outofstock-wrapper" }
                     onClick = { this.showDetails }
@@ -316,17 +316,17 @@ class ProductCard extends React.Component {
                         }
 
                     </div>
-                    { this.props.cardData.inStock && this.props.cardData.attributes?.length ? 
-                        <aside className={`invisible popup-container popup__${this.props.cardData.id}`}>
-                            <Popup data = {this.state.currentPop} PCAddToCartCallback = { this.addToCart } PCHandleInputCallback = {this.handleInput}/>
-                        </aside>
-                        :
-                        null
-                    }
-                    
                 </div>
+                { this.props.cardData.inStock && this.props.cardData.attributes?.length ? 
+                    <aside className={`invisible popup-container popup__${this.props.cardData.id}`}>
+                        <Popup data = {this.state.currentPop} PCAddToCartCallback = { this.addToCart } PCHandleInputCallback = {this.handleInput}/>
+                    </aside>
+                    :
+                    null
+                }
+                    
                 { this.state.redirect && <Navigate to='/product' replace={ true }/> }
-            </>  
+            </div>  
         )
     }
 }

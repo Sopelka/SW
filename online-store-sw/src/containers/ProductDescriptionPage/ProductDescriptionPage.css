@@ -141,14 +141,6 @@
     max-width: 292px;
 }
 
-.product-wrapper, .product-outofstock-wrapper {
-    margin-right: 40px;
-}
-
-.product-card:nth-of-type(3n+3){
-    margin-right: 0px;
-}
-
 .product__individual-wrapper {
     width: 1240px;
     margin: 80px auto;

@@ -87,6 +87,10 @@
     display: block;
 }
 
+.product-root {
+    margin-right: 40px;
+}
 
-
-
+.product-root:nth-of-type(3n+3){
+    margin-right: 0px;
+}
