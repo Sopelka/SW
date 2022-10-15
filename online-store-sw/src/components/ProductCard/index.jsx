@@ -56,18 +56,27 @@ class ProductCard extends React.Component {
         localStorage.setItem('PDP_ID', this.props.cardData.id);
 
         if (e.target.nodeName === 'svg' || e.target.nodeName === 'BUTTON'|| e.target.nodeName ==='path') {
-            let allPopups = Array.from(document.getElementsByClassName('popup-container'));
+            if (!this.props.cardData.attributes.length) {
+                this.showPopup();
 
-            allPopups.map((element) => {
-                if (element.classList.contains(`popup__${this.props.cardData.id}`)) {
-                    element.classList.toggle('invisible');
-                    this.showPopup();
-                } 
-                else {
-                    element.classList.add('invisible');
-                }
-                return null;
-            });
+                setTimeout(()=>{this.addToCart();}, 500)
+            }
+            else {
+
+
+                let allPopups = Array.from(document.getElementsByClassName('popup-container'));
+
+                allPopups.map((element) => {
+                    if (element.classList.contains(`popup__${this.props.cardData.id}`)) {
+                        element.classList.toggle('invisible');
+                        this.showPopup();
+                    } 
+                    else {
+                        element.classList.add('invisible');
+                    }
+                    return null;
+                });
+            }    
 
         } 
         else {
@@ -151,11 +160,11 @@ class ProductCard extends React.Component {
     checkInputs() {
         let requiredInputSet = null;
 
-        requiredInputSet = new Set(
-            Array.from(document.getElementsByClassName('input')).map((el) => { 
-                return el.name;
-            })
-        );
+        let attrArray = this.state.currentPop.attributes.map((element)=> {
+            return element.id;
+        })
+
+        requiredInputSet = new Set(attrArray);
 
         if (!requiredInputSet) {
             this.setState({
@@ -199,7 +208,6 @@ class ProductCard extends React.Component {
             setTimeout(() => {
                 let state = store.getState();
                 let finalData = this.checkDuplicates(state.setNewProductToCart, this.state.productDetails);
-                console.log(1212121212, finalData)
                 let totalNumber = finalData.reduce((acc, obj) => { return acc + obj.counter; }, 0);
                 this.props.appCartAmountCallback(totalNumber);
                 this.props.dispatch(setNewProductToCart(finalData));
@@ -218,18 +226,17 @@ class ProductCard extends React.Component {
                     return null;
                 })
             }, 500);
+
+            let allPopups = Array.from(document.getElementsByClassName('popup-container'));
+
+            allPopups.map((element) => {
+                if(!element.classList.contains('invisible')){
+                    element.classList.add('invisible')
+                }
+                return null;
+            })
+
         }
-
-        let allPopups = Array.from(document.getElementsByClassName('popup-container'));
-
-        allPopups.map((element) => {
-            if(!element.classList.contains('invisible')){
-                element.classList.add('invisible')
-            }
-            return null;
-        })
-
-        requiredInputSet = null;
     }
 
     checkDuplicates(arr, newEl) {
@@ -276,7 +283,7 @@ class ProductCard extends React.Component {
         return (       
             <>  
                 <div 
-                    className = { this.props.cardData.inStock ? "product-wrapper" : "product-outofstock-wrapper" }
+                    className = { this.props.cardData.inStock ? "product-card product-wrapper" : "product-card product-outofstock-wrapper" }
                     onClick = { this.showDetails }
                 >
                     { this.props.cardData.inStock ? null : <p className="wrapper__title">OUT OF STOCK</p> }
@@ -309,11 +316,14 @@ class ProductCard extends React.Component {
                         }
 
                     </div>
+                    { this.props.cardData.inStock && this.props.cardData.attributes?.length ? 
+                        <aside className={`invisible popup-container popup__${this.props.cardData.id}`}>
+                            <Popup data = {this.state.currentPop} PCAddToCartCallback = { this.addToCart } PCHandleInputCallback = {this.handleInput}/>
+                        </aside>
+                        :
+                        null
+                    }
                     
-                    
-                </div>
-                <div className={`invisible popup-container popup__${this.props.cardData.id}`}>
-                    <Popup data = {this.state.currentPop} PCAddToCartCallback = { this.addToCart } PCHandleInputCallback = {this.handleInput}/>
                 </div>
                 { this.state.redirect && <Navigate to='/product' replace={ true }/> }
             </>  

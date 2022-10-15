@@ -67,6 +67,11 @@ class App extends React.Component {
                             gallery,
                             brand,
                             description, 
+                            attributes {
+                                items {
+                                    id,
+                                },
+                            },
                             prices { 
                                 currency { 
                                     label,
@@ -110,6 +115,11 @@ class App extends React.Component {
                             gallery,
                             brand,
                             description, 
+                            attributes {
+                                items {
+                                    id,
+                                },
+                            },
                             prices { 
                                 currency { 
                                     label,

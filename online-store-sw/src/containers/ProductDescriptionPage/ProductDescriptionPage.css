@@ -145,7 +145,7 @@
     margin-right: 40px;
 }
 
-.main-section__content > div:nth-of-type(3n) {
+.product-card:nth-of-type(3n+3){
     margin-right: 0px;
 }
 

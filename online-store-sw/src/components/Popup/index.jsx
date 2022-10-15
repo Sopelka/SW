@@ -7,19 +7,7 @@ import SwatchInput from '../Inputs/SwatchInput';
 import './index.css';
 
 export default class Popup extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            
-        };
-
-        //this.handleInput = this.handleInput.bind(this);
-        
-    }
-
     render(){
-        console.log('POPUPPROPS', this.props)
         return (
             <div className="popup-wrapper">
                 { this.props.data ?
@@ -32,8 +20,6 @@ export default class Popup extends React.Component {
                     :
                     null
                 }    
-
-                    {/* <button className="info-form__submit-button" type="submit" onClick={ this.handleOrder } >ADD TO CART</button> */}
                     <button className="info-form__submit-button" onClick={ this.props.PCAddToCartCallback } type="submit" >ADD TO CART</button>
                     
             </div>
