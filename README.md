@@ -1,4 +1,4 @@
-## SPA online store (made with React class components using GraphQL)
+## SPA online store (React class components/GraphQL)
 
 Hello, stranger.
 
