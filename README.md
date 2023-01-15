@@ -1,4 +1,6 @@
-<h1 align="center">Hello, stranger.</h1> 
+## SPA online store (made with React class components using GraphQL)
+
+Hello, stranger.
 
 **What's this?**
 
