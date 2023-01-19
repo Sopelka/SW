@@ -1,14 +1,30 @@
-## SPA online store (React class components/GraphQL)
+## SPA online store (class React/GraphQL)
 
 Hello, stranger.
 
 **What's this?**
 
-This project is an implementation of a test assignment for Scandiweb. 
+This project is an implementation of an assignment for Scandiweb. 
 
 **How to make it work?**
 
-To see the project in all its glory, you need to download and install it on your computer and run the data source in parallel. You can find information about how to run the data source at 
+1.  Clone the repo:
+
+        git clone https://github.com/sdobnaya/spa_onlineStore.git
+
+2.  Install dependencies using:
+
+       ```
+        npm install
+       ```
+
+3.  Run:
+
+       ```
+        start
+       ```
+       
+To see the project in all its glory, you need to download and install it on your computer and run the data source in parallel. You can find information about how to run the data source at:
 https://github.com/scandiweb/junior-react-endpoint
 
 **Why?**
